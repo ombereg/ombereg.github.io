@@ -221,11 +221,11 @@ main::-webkit-scrollbar{display:none}
 .wordmark{
   display:inline-flex;
   align-items:center;
-  gap:.04em;
+  gap:.05em;
   white-space:nowrap;
   font-family:var(--display-font);
   font-size:12px;
-  line-height:1;
+  line-height:.92;
   font-weight:200;
   letter-spacing:.12em;
   color:#f6ead6
@@ -236,35 +236,25 @@ main::-webkit-scrollbar{display:none}
   align-items:center;
   gap:.02em
 }
-.mini-o{
-  display:inline-block;
-  flex:0 0 auto;
-  width:.82em;
-  height:.82em;
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 30% 22%,rgba(255,255,255,.32),transparent 18%),
-    linear-gradient(145deg,#6675d2 0%,#95c9ff 52%,#6de5df 100%);
-  box-shadow:0 0 14px rgba(104,198,231,.14),inset 0 0 9px rgba(255,255,255,.14)
-}
+.mini-o,
 .hero-title .o-mark{
   position:relative;
   display:grid;
   place-items:center;
   flex:0 0 auto;
-  width:.92em;
-  height:.92em;
+  width:.76em;
+  height:.76em;
   border-radius:50%;
   background:transparent;
-  border:2px solid rgba(140,202,255,.72);
-  box-shadow:0 0 22px rgba(104,198,231,.15)
+  box-shadow:0 0 16px rgba(104,198,231,.12)
 }
+.mini-o::before,
 .hero-title .o-mark::before{
   content:"";
   position:absolute;
-  inset:-2px;
+  inset:0;
   border-radius:50%;
-  padding:2px;
+  padding:.045em;
   background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -273,13 +263,17 @@ main::-webkit-scrollbar{display:none}
   mask-composite:exclude;
   pointer-events:none
 }
+
 .hero-title .om-glyph{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
   display:block;
   color:#fff;
   font-family:"Devanagari Sangam MN","Kohinoor Devanagari","Noto Sans Devanagari",serif;
-  font-size:.56em;
+  font-size:.53em;
   line-height:1;
-  transform:none;
   text-align:center
 }
 .wordmark .m-letter,
@@ -291,7 +285,7 @@ main::-webkit-scrollbar{display:none}
   color:#f6ead6
 }
 .wordmark .m-letter,
-.wordmark .bereg{letter-spacing:.12em}
+.wordmark .bereg,
 .hero-title .m-letter,
 .hero-title .bereg{letter-spacing:.12em}
 .screen-index{
@@ -873,8 +867,8 @@ h1,h2,h3{
       <div class="section-kicker" data-lang="ru">ЕСТЬ ИДЕЯ?</div>
       <div class="section-kicker" data-lang="en">HAVE AN IDEA?</div>
 
-      <h2 class="section-title" data-lang="ru">Создадим что-то стоящее</h2>
-      <h2 class="section-title" data-lang="en">Create something worth making</h2>
+      <h2 class="section-title" data-lang="ru">Хочешь что-то стоящее?</h2>
+      <h2 class="section-title" data-lang="en">Want to make something worthwhile?</h2>
 
       <div class="contact-copy" data-lang="ru">
         <span class="text-line">Если вам близка моя эстетика</span>
