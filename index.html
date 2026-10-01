@@ -36,161 +36,166 @@ button{font:inherit}
 /* ===== OMBEREG OCEAN / COSMOS BACKGROUND ===== */
 .cosmic-bg{
   position:fixed;
-  inset:-2%;
+  inset:0;
   z-index:0;
   pointer-events:none;
+  overflow:hidden;
   background:
-    linear-gradient(rgba(2,6,18,.10),rgba(2,6,18,.20)),
-    url("assets/ombereg-bg.webp") center center / cover no-repeat;
-  transform:scale(1.10);
-  animation:bgDrift 12s ease-in-out infinite alternate;
-  will-change:transform
+    radial-gradient(82% 58% at 108% 6%,rgba(92,88,177,.13),transparent 64%),
+    radial-gradient(72% 66% at -8% 66%,rgba(26,133,151,.11),transparent 67%),
+    radial-gradient(58% 42% at 82% 82%,rgba(47,78,143,.08),transparent 70%),
+    linear-gradient(180deg,#020515 0%,#041025 43%,#03091b 72%,#020513 100%)
 }
 .cosmic-bg::before{
   content:"";
   position:absolute;
-  inset:0;
+  inset:-18%;
   background:
-    radial-gradient(48% 34% at 7% 72%,rgba(91,232,218,.08),transparent 70%),
-    radial-gradient(40% 32% at 94% 28%,rgba(154,203,255,.07),transparent 72%);
-  mix-blend-mode:screen;
-  opacity:.58;
-  animation:lightBreath 11s ease-in-out infinite alternate
+    conic-gradient(
+      from 214deg at 22% 48%,
+      transparent 0 22%,
+      rgba(86,225,214,.02) 27%,
+      rgba(92,222,217,.13) 32%,
+      rgba(141,194,255,.12) 35%,
+      rgba(188,174,255,.08) 38%,
+      transparent 44% 100%
+    );
+  filter:blur(20px);
+  opacity:.82;
+  transform:rotate(-7deg) scale(1.08);
+  animation:vectorWaveA 22s ease-in-out infinite alternate;
+  will-change:transform,opacity
 }
 .cosmic-bg::after{
   content:"";
   position:absolute;
-  inset:0;
+  inset:-22%;
   background:
-    linear-gradient(90deg,rgba(2,5,16,.16),transparent 15%,transparent 85%,rgba(2,5,16,.15)),
-    linear-gradient(180deg,rgba(2,5,16,.12),transparent 22%,transparent 76%,rgba(2,5,16,.18));
-  pointer-events:none
+    conic-gradient(
+      from 32deg at 78% 58%,
+      transparent 0 26%,
+      rgba(194,176,255,.03) 30%,
+      rgba(157,181,255,.10) 34%,
+      rgba(89,225,218,.11) 38%,
+      transparent 44% 100%
+    );
+  filter:blur(24px);
+  opacity:.65;
+  transform:rotate(10deg) scale(1.04);
+  animation:vectorWaveB 28s ease-in-out infinite alternate;
+  will-change:transform,opacity
 }
 .fluid-ribbon,
 .fluid-ribbon-2{
   position:fixed;
   z-index:1;
   pointer-events:none;
-  opacity:.16;
-  filter:blur(18px);
-  border-radius:50%
+  overflow:hidden;
+  border-radius:50%;
+  mix-blend-mode:screen;
+  will-change:transform,opacity
 }
 .fluid-ribbon{
-  width:46vw;
-  height:44vh;
-  left:-24vw;
-  top:28vh;
-  background:radial-gradient(circle,rgba(109,229,220,.32),transparent 68%);
+  left:-34vw;
+  top:14vh;
+  width:74vw;
+  height:64vh;
+  opacity:.24;
+  background:
+    radial-gradient(ellipse at 72% 42%,rgba(103,231,220,.16),transparent 26%),
+    radial-gradient(ellipse at 60% 54%,rgba(128,197,255,.11),transparent 42%),
+    conic-gradient(from 194deg at 66% 50%,transparent 0 38%,rgba(101,230,219,.13) 43%,rgba(156,192,255,.10) 47%,transparent 54%);
+  filter:blur(10px);
+  transform:rotate(-13deg);
   animation:ambientFloatA 24s ease-in-out infinite alternate
 }
-.fluid-ribbon-2{
-  width:48vw;
-  height:44vh;
-  right:-26vw;
-  bottom:18vh;
-  background:radial-gradient(circle,rgba(145,166,255,.28),transparent 68%);
-  animation:ambientFloatB 28s ease-in-out infinite alternate
-}
-.water-caustics{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  overflow:hidden;
-  mix-blend-mode:screen
-}
-.water-caustics::before,
-.water-caustics::after{
+.fluid-ribbon::before{
   content:"";
   position:absolute;
-  pointer-events:none;
-  background-image:url("assets/caustics-edge.webp");
-  background-repeat:no-repeat;
-  background-size:cover;
-  will-change:transform,opacity,filter;
-  filter:saturate(.88) brightness(.92) contrast(1.06);
-  mix-blend-mode:screen
+  inset:8%;
+  border-radius:inherit;
+  border:1px solid rgba(147,226,240,.08);
+  transform:rotate(8deg) scale(1.04)
 }
-.water-caustics::before{
-  left:-9vw;
-  top:8vh;
-  width:48vw;
-  height:31vh;
-  opacity:.20;
-  background-position:18% 16%;
-  -webkit-mask-image:radial-gradient(ellipse at 28% 32%,#000 0 30%,rgba(0,0,0,.75) 49%,transparent 78%);
-  mask-image:radial-gradient(ellipse at 28% 32%,#000 0 30%,rgba(0,0,0,.75) 49%,transparent 78%);
-  animation:realCausticsLeft 22s ease-in-out infinite alternate
-}
-.water-caustics::after{
-  right:-10vw;
+.fluid-ribbon-2{
+  right:-36vw;
   bottom:5vh;
-  width:46vw;
-  height:33vh;
-  opacity:.16;
-  background-position:84% 82%;
-  transform:scaleX(-1);
-  -webkit-mask-image:radial-gradient(ellipse at 68% 70%,#000 0 28%,rgba(0,0,0,.7) 50%,transparent 80%);
-  mask-image:radial-gradient(ellipse at 68% 70%,#000 0 28%,rgba(0,0,0,.7) 50%,transparent 80%);
-  animation:realCausticsRight 27s ease-in-out infinite alternate
+  width:78vw;
+  height:66vh;
+  opacity:.22;
+  background:
+    radial-gradient(ellipse at 34% 58%,rgba(170,173,255,.13),transparent 28%),
+    radial-gradient(ellipse at 44% 48%,rgba(80,220,214,.10),transparent 44%),
+    conic-gradient(from 18deg at 36% 50%,transparent 0 38%,rgba(178,169,255,.12) 43%,rgba(91,223,217,.10) 48%,transparent 55%);
+  filter:blur(11px);
+  transform:rotate(12deg);
+  animation:ambientFloatB 29s ease-in-out infinite alternate
 }
-
+.fluid-ribbon-2::before{
+  content:"";
+  position:absolute;
+  inset:9%;
+  border-radius:inherit;
+  border:1px solid rgba(190,180,255,.07);
+  transform:rotate(-7deg) scale(1.05)
+}
 .motion-light{
   position:fixed;
   z-index:1;
   pointer-events:none;
   mix-blend-mode:screen;
-  will-change:transform,opacity;
+  will-change:transform,opacity
 }
 .motion-light-a{
   left:-18vw;
-  top:8vh;
-  width:74vw;
-  height:72vh;
-  opacity:.12;
-  background:
-    radial-gradient(ellipse at 30% 50%,rgba(111,232,222,.26),transparent 52%),
-    repeating-radial-gradient(ellipse at 42% 50%,rgba(160,247,237,.13) 0 1px,transparent 3px 20px);
-  filter:blur(8px);
-  animation:edgeWaveA 13s ease-in-out infinite alternate
+  top:9vh;
+  width:60vw;
+  height:48vh;
+  opacity:.09;
+  background:radial-gradient(ellipse at 48% 50%,rgba(100,228,219,.24),transparent 65%);
+  filter:blur(28px);
+  animation:edgeWaveA 18s ease-in-out infinite alternate
 }
 .motion-light-b{
-  right:-22vw;
-  bottom:6vh;
-  width:76vw;
-  height:70vh;
-  opacity:.10;
-  background:
-    radial-gradient(ellipse at 64% 45%,rgba(143,177,255,.22),transparent 50%),
-    repeating-radial-gradient(ellipse at 54% 44%,rgba(196,184,255,.11) 0 1px,transparent 3px 22px);
-  filter:blur(10px);
-  animation:edgeWaveB 16s ease-in-out infinite alternate
+  right:-20vw;
+  bottom:8vh;
+  width:62vw;
+  height:50vh;
+  opacity:.08;
+  background:radial-gradient(ellipse at 52% 50%,rgba(154,174,255,.22),transparent 66%);
+  filter:blur(30px);
+  animation:edgeWaveB 22s ease-in-out infinite alternate
 }
 .stars{
   position:fixed;
   inset:0;
   z-index:1;
   pointer-events:none;
-  opacity:.12;
+  opacity:.11;
   background:
-    radial-gradient(circle at 18% 20%,rgba(255,255,255,.8) 0 1px,transparent 1.5px),
-    radial-gradient(circle at 82% 36%,rgba(190,225,255,.8) 0 1px,transparent 1.5px),
-    radial-gradient(circle at 68% 72%,rgba(255,255,255,.65) 0 1px,transparent 1.5px),
-    radial-gradient(circle at 28% 84%,rgba(177,220,255,.7) 0 1px,transparent 1.5px);
-  animation:starsBreath 12s ease-in-out infinite alternate
+    radial-gradient(circle at 86% 13%,rgba(255,255,255,.72) 0 .7px,transparent 1.4px),
+    radial-gradient(circle at 79% 26%,rgba(188,220,255,.62) 0 .7px,transparent 1.4px),
+    radial-gradient(circle at 91% 74%,rgba(255,255,255,.56) 0 .6px,transparent 1.3px),
+    radial-gradient(circle at 14% 67%,rgba(181,225,255,.48) 0 .6px,transparent 1.3px),
+    radial-gradient(circle at 24% 88%,rgba(255,255,255,.46) 0 .6px,transparent 1.3px);
+  animation:starsBreath 13s ease-in-out infinite alternate
 }
 .noise{
   position:fixed;
   inset:0;
   z-index:1;
   pointer-events:none;
-  opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+  opacity:.018;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
 }
 
-@keyframes bgDrift{
-  from{transform:scale(1.10) translate3d(1.2%,-.8%,0)}
-  to{transform:scale(1.10) translate3d(-1.8%,1.1%,0)}
+@keyframes vectorWaveA{
+  from{transform:rotate(-9deg) scale(1.05) translate3d(-1%,0,0);opacity:.66}
+  to{transform:rotate(-4deg) scale(1.12) translate3d(3%,2%,0);opacity:.88}
+}
+@keyframes vectorWaveB{
+  from{transform:rotate(12deg) scale(1.02) translate3d(1%,1%,0);opacity:.50}
+  to{transform:rotate(7deg) scale(1.09) translate3d(-3%,-2%,0);opacity:.72}
 }
 @keyframes heroBreath{
   from{transform:translate3d(0,0,0) scale(1);filter:drop-shadow(0 0 8px rgba(108,205,229,.10))}
@@ -204,63 +209,25 @@ button{font:inherit}
   from{background-position:0% 50%;filter:drop-shadow(0 0 4px rgba(112,204,229,.08))}
   to{background-position:100% 50%;filter:drop-shadow(0 0 10px rgba(112,204,229,.20))}
 }
-@keyframes lightBreath{
-  from{opacity:.34}
-  to{opacity:.78}
-}
 @keyframes ambientFloatA{
-  from{transform:translate3d(0,-6px,0) scale(.96)}
-  to{transform:translate3d(16px,14px,0) scale(1.04)}
+  from{transform:translate3d(-3px,-6px,0) rotate(-13deg) scale(.98)}
+  to{transform:translate3d(15px,12px,0) rotate(-9deg) scale(1.05)}
 }
 @keyframes ambientFloatB{
-  from{transform:translate3d(0,8px,0) scale(1)}
-  to{transform:translate3d(-14px,-12px,0) scale(1.06)}
+  from{transform:translate3d(4px,7px,0) rotate(12deg) scale(1)}
+  to{transform:translate3d(-14px,-11px,0) rotate(8deg) scale(1.06)}
 }
 @keyframes starsBreath{
-  from{opacity:.08}
-  to{opacity:.16}
-}
-@keyframes realCausticsLeft{
-  from{
-    transform:translate3d(-3px,-2px,0) scale(1.01) rotate(-2deg);
-    opacity:.15;
-    filter:saturate(.86) brightness(.88) contrast(1.04)
-  }
-  50%{
-    transform:translate3d(7px,5px,0) scale(1.025) rotate(-.5deg);
-    opacity:.22;
-    filter:saturate(.9) brightness(1.02) contrast(1.08)
-  }
-  to{
-    transform:translate3d(12px,8px,0) scale(1.045) rotate(1deg);
-    opacity:.18;
-    filter:saturate(.88) brightness(.94) contrast(1.06)
-  }
-}
-@keyframes realCausticsRight{
-  from{
-    transform:scaleX(-1) translate3d(2px,3px,0) scale(1.01) rotate(2deg);
-    opacity:.11;
-    filter:saturate(.84) brightness(.86) contrast(1.03)
-  }
-  50%{
-    transform:scaleX(-1) translate3d(-6px,-4px,0) scale(1.03) rotate(.5deg);
-    opacity:.18;
-    filter:saturate(.9) brightness(1.01) contrast(1.08)
-  }
-  to{
-    transform:scaleX(-1) translate3d(-11px,-7px,0) scale(1.05) rotate(-1deg);
-    opacity:.14;
-    filter:saturate(.86) brightness(.92) contrast(1.05)
-  }
+  from{opacity:.07}
+  to{opacity:.13}
 }
 @keyframes edgeWaveA{
-  from{transform:translate3d(-2%,-2%,0) rotate(-7deg) scale(1)}
-  to{transform:translate3d(8%,6%,0) rotate(-1deg) scale(1.08)}
+  from{transform:translate3d(-2%,-2%,0) scale(1)}
+  to{transform:translate3d(8%,6%,0) scale(1.08)}
 }
 @keyframes edgeWaveB{
-  from{transform:translate3d(3%,4%,0) rotate(8deg) scale(1)}
-  to{transform:translate3d(-8%,-5%,0) rotate(2deg) scale(1.10)}
+  from{transform:translate3d(3%,4%,0) scale(1)}
+  to{transform:translate3d(-8%,-5%,0) scale(1.10)}
 }
 
 main{
@@ -844,7 +811,7 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  .cosmic-bg,.water-caustics,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.hero-title,.skill-icon,.cta{
+  .cosmic-bg,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.hero-title,.skill-icon,.cta{
     animation:none!important
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
@@ -853,7 +820,6 @@ h1,h2,h3{
 </head>
 <body>
 <div class="cosmic-bg"></div>
-<div class="water-caustics"></div>
 <div class="fluid-ribbon"></div>
 <div class="fluid-ribbon-2"></div>
 <div class="motion-light motion-light-a"></div>
