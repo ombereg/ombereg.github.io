@@ -716,6 +716,59 @@ h1,h2,h3{
   text-transform:uppercase;
   letter-spacing:.085em
 }
+.creative-quote{
+  position:relative;
+  width:100%;
+  max-width:36rem;
+  color:rgba(225,218,255,.78);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(17px,4.7vw,24px);
+  line-height:1.5;
+  font-style:italic;
+  font-weight:400;
+  letter-spacing:.003em;
+  text-wrap:balance;
+  text-shadow:0 0 18px rgba(167,139,255,.09)
+}
+.quote-wrap{
+  width:100%;
+  max-width:var(--maxw);
+  margin-inline:auto
+}
+.quote-wrap--about{
+  margin-top:5vh;
+  margin-bottom:2vh
+}
+.creative-quote--portfolio{
+  margin-top:52px;
+  margin-bottom:8px
+}
+.quote-mark{
+  display:inline-block;
+  vertical-align:-.15em;
+  margin-right:.10em;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1.9em;
+  line-height:.5;
+  font-style:normal;
+  font-weight:400;
+  background:linear-gradient(110deg,#cdbdff 0%,#9fd4ff 52%,#65e5da 100%);
+  background-size:180% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  filter:drop-shadow(0 0 7px rgba(162,145,255,.16));
+  animation:quoteMarkGlow 8s ease-in-out infinite alternate
+}
+.quote-mark--end{
+  margin-left:.08em;
+  margin-right:0
+}
+@keyframes quoteMarkGlow{
+  from{background-position:0% 50%;filter:drop-shadow(0 0 5px rgba(162,145,255,.12))}
+  to{background-position:100% 50%;filter:drop-shadow(0 0 10px rgba(106,221,218,.18))}
+}
+
 .copy{
   margin-top:28px;
   max-width:41rem;
@@ -960,7 +1013,7 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  .cosmic-bg,.edge-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.skill-icon,.screen-index,.cta{
+  .cosmic-bg,.edge-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.skill-icon,.screen-index,.quote-mark,.cta{
     animation:none!important
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
@@ -1065,6 +1118,15 @@ h1,h2,h3{
 
       <div class="about-visual" aria-hidden="true"></div>
     </div>
+
+    <div class="inner quote-wrap quote-wrap--about">
+      <div class="creative-quote" data-lang="ru">
+        <span class="quote-mark">“</span>Новые миры появляются там, где воображение человека встречается с возможностями технологий.<span class="quote-mark quote-mark--end">”</span>
+      </div>
+      <div class="creative-quote" data-lang="en">
+        <span class="quote-mark">“</span>New worlds emerge where human imagination meets the possibilities of technology.<span class="quote-mark quote-mark--end">”</span>
+      </div>
+    </div>
     <div></div>
   </section>
 
@@ -1104,6 +1166,13 @@ h1,h2,h3{
           <span class="skill-label"><span data-lang="ru">эксперименты</span><span data-lang="en">experiments</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
       </ul>
+
+      <div class="creative-quote creative-quote--portfolio" data-lang="ru">
+        <span class="quote-mark">“</span>Будущее творчества — не человек или технология, а пространство, которое они создают вместе.<span class="quote-mark quote-mark--end">”</span>
+      </div>
+      <div class="creative-quote creative-quote--portfolio" data-lang="en">
+        <span class="quote-mark">“</span>The future of creativity is not human or technology, but the space they create together.<span class="quote-mark quote-mark--end">”</span>
+      </div>
 
       <div id="portfolio-anchor" aria-hidden="true"></div>
     </div>
