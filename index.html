@@ -19,6 +19,7 @@
   --aqua:#5be8da;
   --pad:clamp(22px,6vw,52px);
   --maxw:1120px;
+  --display-font:ui-rounded,"SF Pro Rounded","Avenir Next","Segoe UI","Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{
@@ -217,44 +218,52 @@ main::-webkit-scrollbar{display:none}
 }
 
 /* ===== OM BEREG WORDMARK ===== */
-.wordmark{
-  display:inline-flex;
-  align-items:center;
-  gap:.28em;
-  white-space:nowrap;
-  font-size:12px;
-  line-height:1;
-  text-transform:none
+.mini-mark{
+  width:18px;
+  height:18px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background:linear-gradient(145deg,#d9c8ff 0%,#9fd8ff 54%,#66e8dc 100%);
+  box-shadow:0 0 16px rgba(126,203,255,.18),inset 0 0 10px rgba(255,255,255,.20)
 }
-.wordmark .om,
 .hero-title .om{
   display:inline-flex;
   align-items:center;
   gap:.08em
 }
-.o-mark{
-  display:inline-grid;
+.hero-title .o-mark{
+  position:relative;
+  display:grid;
   place-items:center;
   flex:0 0 auto;
-  width:1.08em;
-  height:1.08em;
-  filter:drop-shadow(0 0 10px rgba(128,205,255,.12))
+  width:1.02em;
+  height:1.02em;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 24%,rgba(255,255,255,.42),transparent 20%),
+    linear-gradient(145deg,#d9c8ff 0%,#9fd8ff 54%,#66e8dc 100%);
+  box-shadow:
+    0 0 24px rgba(126,203,255,.18),
+    inset 0 0 14px rgba(255,255,255,.24)
 }
-.o-mark svg{
-  width:100%;
-  height:100%;
-  overflow:visible
+.hero-title .om-glyph{
+  position:relative;
+  z-index:1;
+  display:block;
+  color:#fff;
+  font-family:"Devanagari Sangam MN","Kohinoor Devanagari","Noto Sans Devanagari",serif;
+  font-size:.66em;
+  line-height:1;
+  transform:translateY(.02em)
 }
-.wordmark .m-letter,
 .hero-title .m-letter,
-.wordmark .bereg,
 .hero-title .bereg{
-  font-family:"Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
+  font-family:var(--display-font);
   font-weight:300;
   color:#f6ead6
 }
-.wordmark .m-letter{letter-spacing:-.06em}
-.wordmark .bereg{letter-spacing:.05em;font-size:1.07em}
+.hero-title .m-letter{letter-spacing:-.06em}
+.hero-title .bereg{letter-spacing:.035em}
 .lang-switch{
   display:flex;
   align-items:center;
@@ -296,7 +305,7 @@ main::-webkit-scrollbar{display:none}
 .section-kicker{margin-bottom:20px}
 h1,h2,h3,p{margin:0}
 h1,h2,h3{
-  font-family:"Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
+  font-family:var(--display-font);
   font-weight:300
 }
 
@@ -305,13 +314,13 @@ h1,h2,h3{
   align-items:center;
   gap:.16em;
   white-space:nowrap;
-  font-size:clamp(50px,12.3vw,116px);
+  font-family:var(--display-font);
+  font-size:clamp(52px,12.8vw,120px);
   line-height:.94;
-  font-family:"Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
   font-weight:300
 }
-.hero-title .m-letter{font-size:.96em;letter-spacing:-.055em}
-.hero-title .bereg{font-size:1em;letter-spacing:.025em}
+.hero-title .m-letter{font-size:.96em}
+.hero-title .bereg{font-size:1em}
 
 .hero-copy{
   margin-top:30px;
@@ -371,10 +380,10 @@ h1,h2,h3{
 }
 
 .section-title{
-  font-family:"Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
+  font-family:var(--display-font);
   font-size:clamp(36px,9.1vw,66px);
   line-height:1.04;
-  letter-spacing:.075em;
+  letter-spacing:.055em;
   font-weight:300;
   text-transform:uppercase
 }
@@ -434,45 +443,48 @@ h1,h2,h3{
   gap:44px 34px
 }
 .skills li{
-  position:relative;
   min-width:0;
   display:flex;
   flex-direction:column;
   align-items:flex-start;
-  gap:12px;
-  padding:0 0 6px
+  gap:9px;
+  padding:0
 }
 .skill-icon{
-  width:54px;
-  height:54px;
-  color:#8fcfff;
-  filter:drop-shadow(0 0 16px rgba(91,232,218,.16));
+  width:58px;
+  height:58px;
+  filter:drop-shadow(0 0 14px rgba(92,228,221,.16));
   animation:skillFloat 8s ease-in-out infinite alternate
 }
 .skill-icon svg{
   width:100%;
   height:100%;
-  stroke:currentColor;
-  stroke-width:1.3;
   fill:none;
+  stroke-width:1.35;
   stroke-linecap:round;
   stroke-linejoin:round
 }
 .skill-label{
+  position:relative;
+  display:inline-block;
+  margin-left:16px;
+  padding-right:12px;
   color:#fff;
-  font-family:"Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
+  font-family:var(--display-font);
   font-size:clamp(18px,5.1vw,29px);
-  line-height:1.1;
-  letter-spacing:.01em;
+  line-height:1.08;
+  letter-spacing:.005em;
   font-weight:300
 }
 .skill-dot{
+  position:absolute;
+  right:0;
+  top:-3px;
   width:5px;
   height:5px;
-  margin-top:2px;
   border-radius:50%;
-  background:#83e9df;
-  box-shadow:0 0 10px rgba(131,233,223,.75)
+  background:#8de7de;
+  box-shadow:0 0 10px rgba(141,231,222,.80)
 }
 @keyframes skillFloat{
   from{transform:translate3d(0,0,0)}
@@ -480,7 +492,7 @@ h1,h2,h3{
 }
 @media(hover:hover){
   .skill-icon,.skill-label{transition:transform .24s ease,filter .24s ease}
-  .skills li:hover .skill-icon{transform:translateY(-4px) scale(1.04);filter:drop-shadow(0 0 20px rgba(91,232,218,.28))}
+  .skills li:hover .skill-icon{transform:translateY(-4px) scale(1.04);filter:drop-shadow(0 0 20px rgba(92,228,221,.28))}
   .skills li:hover .skill-label{transform:translateX(4px)}
 }
 .lines-grid{
@@ -618,7 +630,7 @@ h1,h2,h3{
 <main>
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><defs><linearGradient id="og" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9c7ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#6de8df"/></linearGradient></defs><circle cx="32" cy="32" r="27" fill="none" stroke="url(#og)" stroke-width="4"/><path d="M21 31c3-7 8-10 11-10 4 0 6 2 7 5 1-3 3-5 7-5 5 0 9 4 9 10 0 8-8 14-16 19-8-5-18-11-18-19Z" fill="none" stroke="url(#og)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 19c3 4 7 6 12 6 5 0 9-2 12-6" fill="none" stroke="url(#og)" stroke-width="3" stroke-linecap="round"/><path d="M32 12l1.6 4.4L38 18l-4.4 1.6L32 24l-1.6-4.4L26 18l4.4-1.6L32 12Z" fill="url(#og)"/></svg></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="mini-mark" aria-hidden="true"></div>
       <div class="lang-switch" aria-label="Language switcher">
         <button type="button" class="lang-btn active" data-set-lang="ru">RU</button>
         <button type="button" class="lang-btn" data-set-lang="en">EN</button>
@@ -628,7 +640,7 @@ h1,h2,h3{
     <div class="inner hero-grid">
       <div>
         <div class="kicker">ART / AI / FASHION / MOTION</div>
-        <h1 class="hero-title" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><defs><linearGradient id="og" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9c7ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#6de8df"/></linearGradient></defs><circle cx="32" cy="32" r="27" fill="none" stroke="url(#og)" stroke-width="4"/><path d="M21 31c3-7 8-10 11-10 4 0 6 2 7 5 1-3 3-5 7-5 5 0 9 4 9 10 0 8-8 14-16 19-8-5-18-11-18-19Z" fill="none" stroke="url(#og)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 19c3 4 7 6 12 6 5 0 9-2 12-6" fill="none" stroke="url(#og)" stroke-width="3" stroke-linecap="round"/><path d="M32 12l1.6 4.4L38 18l-4.4 1.6L32 24l-1.6-4.4L26 18l4.4-1.6L32 12Z" fill="url(#og)"/></svg></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></h1>
+        <h1 class="hero-title" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><span class="om-glyph">ॐ</span></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></h1>
 
         <div class="hero-copy" data-lang="ru">
           <span class="text-line">Визуальный художник</span>
@@ -664,7 +676,7 @@ h1,h2,h3{
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><defs><linearGradient id="og" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9c7ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#6de8df"/></linearGradient></defs><circle cx="32" cy="32" r="27" fill="none" stroke="url(#og)" stroke-width="4"/><path d="M21 31c3-7 8-10 11-10 4 0 6 2 7 5 1-3 3-5 7-5 5 0 9 4 9 10 0 8-8 14-16 19-8-5-18-11-18-19Z" fill="none" stroke="url(#og)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 19c3 4 7 6 12 6 5 0 9-2 12-6" fill="none" stroke="url(#og)" stroke-width="3" stroke-linecap="round"/><path d="M32 12l1.6 4.4L38 18l-4.4 1.6L32 24l-1.6-4.4L26 18l4.4-1.6L32 12Z" fill="url(#og)"/></svg></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="mini-mark" aria-hidden="true"></div>
       <span data-lang="ru">ОБО МНЕ</span>
       <span data-lang="en">ABOUT</span>
     </div>
@@ -712,7 +724,7 @@ h1,h2,h3{
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><defs><linearGradient id="og" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9c7ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#6de8df"/></linearGradient></defs><circle cx="32" cy="32" r="27" fill="none" stroke="url(#og)" stroke-width="4"/><path d="M21 31c3-7 8-10 11-10 4 0 6 2 7 5 1-3 3-5 7-5 5 0 9 4 9 10 0 8-8 14-16 19-8-5-18-11-18-19Z" fill="none" stroke="url(#og)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 19c3 4 7 6 12 6 5 0 9-2 12-6" fill="none" stroke="url(#og)" stroke-width="3" stroke-linecap="round"/><path d="M32 12l1.6 4.4L38 18l-4.4 1.6L32 24l-1.6-4.4L26 18l4.4-1.6L32 12Z" fill="url(#og)"/></svg></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="mini-mark" aria-hidden="true"></div>
       <span data-lang="ru">НАПРАВЛЕНИЯ</span>
       <span data-lang="en">PRACTICE</span>
     </div>
@@ -726,28 +738,28 @@ h1,h2,h3{
 
       <ul class="skills">
         <li>
-          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 5l2.6 8.4L31 16l-8.4 2.6L20 27l-2.6-8.4L9 16l8.4-2.6L20 5Z"/><path d="M31 7l.8 2.3 2.3.8-2.3.8-.8 2.3-.8-2.3-2.3-.8 2.3-.8L31 7Z"/></svg></span>
-          <span class="skill-label" data-lang="ru">ai-визуалы</span><span class="skill-label" data-lang="en">ai visuals</span><span class="skill-dot" aria-hidden="true"></span>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g1" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="url(#g1)" d="M20 5l2.6 8.4L31 16l-8.4 2.6L20 27l-2.6-8.4L9 16l8.4-2.6L20 5Z"/><path stroke="url(#g1)" d="M31 7l.8 2.3 2.3.8-2.3.8-.8 2.3-.8-2.3-2.3-.8 2.3-.8L31 7Z"/></svg></span>
+          <span class="skill-label"><span data-lang="ru">ai-визуалы</span><span data-lang="en">ai visuals</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
         <li>
-          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M13 9l7-3 7 3 4 8-5 2.5V34H14V19.5L9 17l4-8Z"/><path d="M15 9c1 2.2 2.6 3.3 5 3.3S24 11.2 25 9"/></svg></span>
-          <span class="skill-label" data-lang="ru">fashion</span><span class="skill-label" data-lang="en">fashion</span><span class="skill-dot" aria-hidden="true"></span>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g2" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="url(#g2)" d="M13 9l7-3 7 3 4 8-5 2.5V34H14V19.5L9 17l4-8Z"/><path stroke="url(#g2)" d="M15 9c1 2.2 2.6 3.3 5 3.3S24 11.2 25 9"/></svg></span>
+          <span class="skill-label"><span data-lang="ru">fashion</span><span data-lang="en">fashion</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
         <li>
-          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="7" y="10" width="21" height="20" rx="4"/><path d="M28 16l6-3v14l-6-3z"/><path d="M11 26l5-5 4 4 4-5 4 6"/></svg></span>
-          <span class="skill-label" data-lang="ru">видео</span><span class="skill-label" data-lang="en">video</span><span class="skill-dot" aria-hidden="true"></span>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g3" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><rect stroke="url(#g3)" x="7" y="10" width="21" height="20" rx="4"/><path stroke="url(#g3)" d="M28 16l6-3v14l-6-3zM11 26l5-5 4 4 4-5 4 6"/></svg></span>
+          <span class="skill-label"><span data-lang="ru">видео</span><span data-lang="en">video</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
         <li>
-          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 30c6-13 10-19 17-19 5 0 8 3 8 7 0 9-13 15-25 12Z"/><path d="M13 29c1-6 5-10 11-11"/><circle cx="28" cy="17" r="1.7"/></svg></span>
-          <span class="skill-label" data-lang="ru">искусство</span><span class="skill-label" data-lang="en">art</span><span class="skill-dot" aria-hidden="true"></span>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g4" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="url(#g4)" d="M8 30c6-13 10-19 17-19 5 0 8 3 8 7 0 9-13 15-25 12ZM13 29c1-6 5-10 11-11"/><circle stroke="url(#g4)" cx="28" cy="17" r="1.7"/></svg></span>
+          <span class="skill-label"><span data-lang="ru">искусство</span><span data-lang="en">art</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
         <li>
-          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M8 9h24v22H8z"/><path d="M13 14h14v12H13z"/><path d="M20 9v22M8 20h24"/><path d="M11 12l18 16"/></svg></span>
-          <span class="skill-label" data-lang="ru">айдентика</span><span class="skill-label" data-lang="en">identity</span><span class="skill-dot" aria-hidden="true"></span>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g5" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="url(#g5)" d="M8 9h24v22H8zM13 14h14v12H13zM20 9v22M8 20h24M11 12l18 16"/></svg></span>
+          <span class="skill-label"><span data-lang="ru">айдентика</span><span data-lang="en">identity</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
         <li>
-          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 31l6-16h8l6 16"/><path d="M13 24h14"/><path d="M16 10l4-4 4 4"/><circle cx="31" cy="12" r="2.2"/><path d="M8 15l2-2 2 2"/></svg></span>
-          <span class="skill-label" data-lang="ru">эксперименты</span><span class="skill-label" data-lang="en">experiments</span><span class="skill-dot" aria-hidden="true"></span>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g6" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="url(#g6)" d="M10 31l6-16h8l6 16M13 24h14M16 10l4-4 4 4M8 15l2-2 2 2"/><circle stroke="url(#g6)" cx="31" cy="12" r="2.2"/></svg></span>
+          <span class="skill-label"><span data-lang="ru">эксперименты</span><span data-lang="en">experiments</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
       </ul>
     </div>
@@ -756,7 +768,7 @@ h1,h2,h3{
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><defs><linearGradient id="og" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9c7ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#6de8df"/></linearGradient></defs><circle cx="32" cy="32" r="27" fill="none" stroke="url(#og)" stroke-width="4"/><path d="M21 31c3-7 8-10 11-10 4 0 6 2 7 5 1-3 3-5 7-5 5 0 9 4 9 10 0 8-8 14-16 19-8-5-18-11-18-19Z" fill="none" stroke="url(#og)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 19c3 4 7 6 12 6 5 0 9-2 12-6" fill="none" stroke="url(#og)" stroke-width="3" stroke-linecap="round"/><path d="M32 12l1.6 4.4L38 18l-4.4 1.6L32 24l-1.6-4.4L26 18l4.4-1.6L32 12Z" fill="url(#og)"/></svg></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="mini-mark" aria-hidden="true"></div>
       <span data-lang="ru">МОИ ЛИНИИ</span>
       <span data-lang="en">MY LINES</span>
     </div>
@@ -820,7 +832,7 @@ h1,h2,h3{
 
   <section class="screen contact">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><svg viewBox="0 0 64 64" role="img"><defs><linearGradient id="og" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d9c7ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#6de8df"/></linearGradient></defs><circle cx="32" cy="32" r="27" fill="none" stroke="url(#og)" stroke-width="4"/><path d="M21 31c3-7 8-10 11-10 4 0 6 2 7 5 1-3 3-5 7-5 5 0 9 4 9 10 0 8-8 14-16 19-8-5-18-11-18-19Z" fill="none" stroke="url(#og)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 19c3 4 7 6 12 6 5 0 9-2 12-6" fill="none" stroke="url(#og)" stroke-width="3" stroke-linecap="round"/><path d="M32 12l1.6 4.4L38 18l-4.4 1.6L32 24l-1.6-4.4L26 18l4.4-1.6L32 12Z" fill="url(#og)"/></svg></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="mini-mark" aria-hidden="true"></div>
       <span data-lang="ru">КОНТАКТ</span>
       <span data-lang="en">CONTACT</span>
     </div>
