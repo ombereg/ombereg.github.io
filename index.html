@@ -104,50 +104,35 @@ button{font:inherit}
   content:"";
   position:absolute;
   pointer-events:none;
-  opacity:.18;
-  background:
-    repeating-radial-gradient(
-      ellipse at 44% 48%,
-      rgba(205,253,255,.30) 0 1px,
-      rgba(131,231,239,.12) 1.5px 2.2px,
-      transparent 3.5px 18px
-    ),
-    repeating-radial-gradient(
-      ellipse at 58% 42%,
-      rgba(155,239,247,.19) 0 .9px,
-      transparent 2.8px 15px
-    ),
-    repeating-radial-gradient(
-      ellipse at 36% 61%,
-      rgba(116,220,235,.12) 0 .8px,
-      transparent 3px 22px
-    );
-  background-size:230px 170px,185px 145px,275px 205px;
-  filter:blur(.55px) contrast(1.08);
-  will-change:transform,opacity,background-position
+  background-image:url("assets/caustics-edge.webp");
+  background-repeat:no-repeat;
+  background-size:cover;
+  will-change:transform,opacity,filter;
+  filter:saturate(.88) brightness(.92) contrast(1.06);
+  mix-blend-mode:screen
 }
 .water-caustics::before{
-  left:-17vw;
-  top:16vh;
-  width:58vw;
-  height:33vh;
-  border-radius:42% 58% 62% 38% / 54% 42% 58% 46%;
-  -webkit-mask-image:radial-gradient(ellipse at 24% 48%,#000 0 30%,rgba(0,0,0,.72) 48%,transparent 76%);
-  mask-image:radial-gradient(ellipse at 24% 48%,#000 0 30%,rgba(0,0,0,.72) 48%,transparent 76%);
-  transform:rotate(-10deg) skewX(-5deg);
-  animation:waterEdgeLeft 16s ease-in-out infinite alternate
+  left:-9vw;
+  top:8vh;
+  width:48vw;
+  height:31vh;
+  opacity:.20;
+  background-position:18% 16%;
+  -webkit-mask-image:radial-gradient(ellipse at 28% 32%,#000 0 30%,rgba(0,0,0,.75) 49%,transparent 78%);
+  mask-image:radial-gradient(ellipse at 28% 32%,#000 0 30%,rgba(0,0,0,.75) 49%,transparent 78%);
+  animation:realCausticsLeft 22s ease-in-out infinite alternate
 }
 .water-caustics::after{
-  right:-18vw;
-  bottom:11vh;
-  width:54vw;
-  height:29vh;
-  border-radius:58% 42% 39% 61% / 47% 55% 45% 53%;
-  opacity:.14;
-  -webkit-mask-image:radial-gradient(ellipse at 72% 54%,#000 0 27%,rgba(0,0,0,.66) 48%,transparent 76%);
-  mask-image:radial-gradient(ellipse at 72% 54%,#000 0 27%,rgba(0,0,0,.66) 48%,transparent 76%);
-  transform:rotate(12deg) skewX(4deg);
-  animation:waterEdgeRight 19s ease-in-out infinite alternate
+  right:-10vw;
+  bottom:5vh;
+  width:46vw;
+  height:33vh;
+  opacity:.16;
+  background-position:84% 82%;
+  transform:scaleX(-1);
+  -webkit-mask-image:radial-gradient(ellipse at 68% 70%,#000 0 28%,rgba(0,0,0,.7) 50%,transparent 80%);
+  mask-image:radial-gradient(ellipse at 68% 70%,#000 0 28%,rgba(0,0,0,.7) 50%,transparent 80%);
+  animation:realCausticsRight 27s ease-in-out infinite alternate
 }
 
 .motion-light{
@@ -235,28 +220,38 @@ button{font:inherit}
   from{opacity:.08}
   to{opacity:.16}
 }
-@keyframes waterEdgeLeft{
+@keyframes realCausticsLeft{
   from{
-    transform:translate3d(-4px,-3px,0) rotate(-10deg) skewX(-5deg) scale(1.01);
-    background-position:0 0,8px -3px,-6px 4px;
-    opacity:.13
+    transform:translate3d(-3px,-2px,0) scale(1.01) rotate(-2deg);
+    opacity:.15;
+    filter:saturate(.86) brightness(.88) contrast(1.04)
+  }
+  50%{
+    transform:translate3d(7px,5px,0) scale(1.025) rotate(-.5deg);
+    opacity:.22;
+    filter:saturate(.9) brightness(1.02) contrast(1.08)
   }
   to{
-    transform:translate3d(12px,7px,0) rotate(-7deg) skewX(-3deg) scale(1.055);
-    background-position:20px -13px,-17px 11px,14px -8px;
-    opacity:.21
+    transform:translate3d(12px,8px,0) scale(1.045) rotate(1deg);
+    opacity:.18;
+    filter:saturate(.88) brightness(.94) contrast(1.06)
   }
 }
-@keyframes waterEdgeRight{
+@keyframes realCausticsRight{
   from{
-    transform:translate3d(5px,4px,0) rotate(12deg) skewX(4deg) scale(1);
-    background-position:0 0,-5px 7px,7px -4px;
-    opacity:.10
+    transform:scaleX(-1) translate3d(2px,3px,0) scale(1.01) rotate(2deg);
+    opacity:.11;
+    filter:saturate(.84) brightness(.86) contrast(1.03)
+  }
+  50%{
+    transform:scaleX(-1) translate3d(-6px,-4px,0) scale(1.03) rotate(.5deg);
+    opacity:.18;
+    filter:saturate(.9) brightness(1.01) contrast(1.08)
   }
   to{
-    transform:translate3d(-10px,-7px,0) rotate(9deg) skewX(2deg) scale(1.05);
-    background-position:-22px 15px,18px -12px,-14px 9px;
-    opacity:.17
+    transform:scaleX(-1) translate3d(-11px,-7px,0) scale(1.05) rotate(-1deg);
+    opacity:.14;
+    filter:saturate(.86) brightness(.92) contrast(1.05)
   }
 }
 @keyframes edgeWaveA{
