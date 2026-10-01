@@ -91,6 +91,72 @@ button{font:inherit}
   background:radial-gradient(circle,rgba(145,166,255,.28),transparent 68%);
   animation:ambientFloatB 28s ease-in-out infinite alternate
 }
+.water-caustics{
+  position:fixed;
+  inset:-4%;
+  z-index:1;
+  pointer-events:none;
+  opacity:.20;
+  mix-blend-mode:screen;
+  overflow:hidden;
+  will-change:transform,opacity,background-position;
+  background:
+    repeating-radial-gradient(
+      ellipse at 18% 24%,
+      rgba(174,247,255,.16) 0 1px,
+      rgba(130,230,244,.08) 2px,
+      transparent 4px 19px
+    ),
+    repeating-radial-gradient(
+      ellipse at 82% 68%,
+      rgba(150,235,255,.13) 0 1px,
+      rgba(116,218,241,.07) 2px,
+      transparent 5px 23px
+    );
+  background-size:540px 420px,680px 520px;
+  filter:blur(.35px);
+  -webkit-mask-image:
+    radial-gradient(ellipse at 5% 30%,#000 0 26%,transparent 54%),
+    radial-gradient(ellipse at 96% 68%,#000 0 28%,transparent 56%);
+  -webkit-mask-composite:source-over;
+  mask-image:
+    radial-gradient(ellipse at 5% 30%,#000 0 26%,transparent 54%),
+    radial-gradient(ellipse at 96% 68%,#000 0 28%,transparent 56%);
+  animation:waterCausticsMove 12s ease-in-out infinite alternate
+}
+.water-caustics::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.42;
+  mix-blend-mode:screen;
+  background:
+    repeating-radial-gradient(
+      ellipse at 22% 34%,
+      rgba(202,252,255,.20) 0 1px,
+      transparent 3px 17px
+    ),
+    repeating-radial-gradient(
+      ellipse at 76% 58%,
+      rgba(155,235,255,.13) 0 1px,
+      transparent 4px 21px
+    );
+  background-size:620px 470px,760px 590px;
+  filter:blur(.8px);
+  animation:waterCausticsMove2 17s ease-in-out infinite alternate
+}
+.water-caustics::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.22;
+  background:
+    radial-gradient(ellipse at 8% 36%,rgba(91,231,222,.22),transparent 38%),
+    radial-gradient(ellipse at 94% 64%,rgba(142,182,255,.18),transparent 40%);
+  filter:blur(22px);
+  animation:waterCausticsGlow 9s ease-in-out infinite alternate
+}
+
 .motion-light{
   position:fixed;
   z-index:1;
@@ -175,6 +241,32 @@ button{font:inherit}
 @keyframes starsBreath{
   from{opacity:.08}
   to{opacity:.16}
+}
+@keyframes waterCausticsMove{
+  from{
+    transform:translate3d(-1%,0,0) scale(1.02);
+    background-position:0 0,0 0;
+    opacity:.15
+  }
+  to{
+    transform:translate3d(1.8%,1.2%,0) scale(1.055);
+    background-position:28px -20px,-24px 18px;
+    opacity:.24
+  }
+}
+@keyframes waterCausticsMove2{
+  from{
+    transform:translate3d(0,0,0) rotate(-1deg);
+    background-position:0 0,0 0
+  }
+  to{
+    transform:translate3d(-1.5%,1.4%,0) rotate(1deg);
+    background-position:-34px 22px,30px -18px
+  }
+}
+@keyframes waterCausticsGlow{
+  from{opacity:.12;transform:translate3d(0,0,0)}
+  to{opacity:.26;transform:translate3d(0,-10px,0)}
 }
 @keyframes edgeWaveA{
   from{transform:translate3d(-2%,-2%,0) rotate(-7deg) scale(1)}
@@ -766,7 +858,7 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  .cosmic-bg,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.hero-title,.skill-icon,.cta{
+  .cosmic-bg,.water-caustics,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.hero-title,.skill-icon,.cta{
     animation:none!important
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
@@ -775,6 +867,7 @@ h1,h2,h3{
 </head>
 <body>
 <div class="cosmic-bg"></div>
+<div class="water-caustics"></div>
 <div class="fluid-ribbon"></div>
 <div class="fluid-ribbon-2"></div>
 <div class="motion-light motion-light-a"></div>
