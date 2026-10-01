@@ -217,26 +217,88 @@ main::-webkit-scrollbar{display:none}
   gap:18px
 }
 
-/* ===== OM BEREG WORDMARK ===== */
+/* ===== OMBEREG WORDMARK ===== */
 .wordmark{
   display:inline-flex;
   align-items:center;
-  gap:.05em;
+  gap:.055em;
   white-space:nowrap;
   font-family:var(--display-font);
   font-size:12px;
   line-height:.92;
   font-weight:200;
   letter-spacing:.12em;
-  color:#f6ead6
+  color:#fff
 }
-.wordmark .om,
-.hero-title .om{
+.wordmark .om{
   display:inline-flex;
   align-items:center;
-  gap:.02em
+  gap:.15em
 }
-.mini-o,
+.mini-o{
+  position:relative;
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 auto;
+  width:.76em;
+  height:.76em;
+  border-radius:50%;
+  background:transparent
+}
+.mini-o::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  padding:.045em;
+  background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude
+}
+.mini-o::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:.15em;
+  height:.15em;
+  border-radius:50%;
+  background:#fff;
+  transform:translate(-50%,-50%)
+}
+.wordmark .m-letter,
+.wordmark .bereg{
+  font-family:var(--display-font);
+  font-weight:200;
+  color:#fff;
+  letter-spacing:.12em
+}
+.screen-index{
+  color:rgba(228,237,255,.44);
+  font-size:10px;
+  letter-spacing:.18em
+}
+
+/* large hero mark */
+.hero-title{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  white-space:nowrap;
+  font-family:var(--display-font);
+  font-size:clamp(54px,13.4vw,124px);
+  line-height:.86;
+  font-weight:200;
+  color:#fff
+}
+.hero-top{
+  display:flex;
+  align-items:center;
+  gap:.15em
+}
 .hero-title .o-mark{
   position:relative;
   display:grid;
@@ -245,10 +307,8 @@ main::-webkit-scrollbar{display:none}
   width:.76em;
   height:.76em;
   border-radius:50%;
-  background:transparent;
-  box-shadow:0 0 16px rgba(104,198,231,.12)
+  background:transparent
 }
-.mini-o::before,
 .hero-title .o-mark::before{
   content:"";
   position:absolute;
@@ -260,10 +320,8 @@ main::-webkit-scrollbar{display:none}
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  pointer-events:none
+  mask-composite:exclude
 }
-
 .hero-title .om-glyph{
   position:absolute;
   left:50%;
@@ -272,26 +330,20 @@ main::-webkit-scrollbar{display:none}
   display:block;
   color:#fff;
   font-family:"Devanagari Sangam MN","Kohinoor Devanagari","Noto Sans Devanagari",serif;
-  font-size:.53em;
+  font-size:.52em;
   line-height:1;
   text-align:center
 }
-.wordmark .m-letter,
-.wordmark .bereg,
 .hero-title .m-letter,
 .hero-title .bereg{
   font-family:var(--display-font);
   font-weight:200;
-  color:#f6ead6
+  color:#fff;
+  letter-spacing:.12em
 }
-.wordmark .m-letter,
-.wordmark .bereg,
-.hero-title .m-letter,
-.hero-title .bereg{letter-spacing:.12em}
-.screen-index{
-  color:rgba(228,237,255,.44);
-  font-size:10px;
-  letter-spacing:.18em
+.hero-title .bereg{
+  display:block;
+  margin-left:.91em
 }
 .lang-switch{
   display:flex;
@@ -338,22 +390,6 @@ h1,h2,h3{
   font-weight:200
 }
 
-.hero-title{
-  display:flex;
-  align-items:center;
-  gap:.05em;
-  white-space:nowrap;
-  font-family:var(--display-font);
-  font-size:clamp(54px,13.4vw,124px);
-  line-height:.92;
-  font-weight:200;
-  letter-spacing:.12em
-}
-.hero-title .m-letter,
-.hero-title .bereg{
-  font-size:1em;
-  letter-spacing:.075em
-}
 
 .hero-copy{
   margin-top:30px;
@@ -676,13 +712,9 @@ h1,h2,h3{
     <div class="inner hero-grid">
       <div>
         <div class="kicker">ART / AI / FASHION / MOTION</div>
-        <h1 class="hero-title" aria-label="OMBEREG"><span class="om"><span class="o-mark" aria-hidden="true"><span class="om-glyph">ॐ</span></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></h1>
+        <h1 class="hero-title" aria-label="OMBEREG"><span class="hero-top"><span class="o-mark" aria-hidden="true"><span class="om-glyph">ॐ</span></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></h1>
 
         <div class="hero-copy" data-lang="ru">
-          <span class="text-line">Визуальный художник</span>
-          <span class="text-line">на&nbsp;пересечении искусства,</span>
-          <span class="text-line">моды и&nbsp;AI.</span>
-          <div class="text-gap"></div>
           <span class="text-line">Создаю визуальные концепции,</span>
           <span class="text-line">видео и&nbsp;художественные проекты,</span>
           <span class="text-line">Соединяю эстетику, задачу,</span>
@@ -690,10 +722,6 @@ h1,h2,h3{
         </div>
 
         <div class="hero-copy" data-lang="en">
-          <span class="text-line">Visual artist working</span>
-          <span class="text-line">at the intersection of art,</span>
-          <span class="text-line">fashion and AI.</span>
-          <div class="text-gap"></div>
           <span class="text-line">I create visual concepts,</span>
           <span class="text-line">moving image and artistic projects</span>
           <span class="text-line">I bring together aesthetics, purpose,</span>
@@ -730,8 +758,7 @@ h1,h2,h3{
           <span class="text-line">от&nbsp;художественных экспериментов</span>
           <span class="text-line">до&nbsp;визуальных концепций.</span>
           <div class="text-gap"></div>
-          <span class="text-line">Для меня технологии —</span>
-          <span class="text-line">это инструмент.</span>
+          <span class="text-line">Технологии — инструмент.</span>
           <div class="text-gap"></div>
           <span class="text-line">В&nbsp;центре проекта всегда остаются</span>
           <span class="text-line">идея, образ, чувства</span>
@@ -744,7 +771,7 @@ h1,h2,h3{
           <span class="text-line">from artistic experiments</span>
           <span class="text-line">to visual concepts.</span>
           <div class="text-gap"></div>
-          <span class="text-line">For me, technology is a tool.</span>
+          <span class="text-line">Technology is a tool.</span>
           <div class="text-gap"></div>
           <span class="text-line">The idea, the image, feelings</span>
           <span class="text-line">and the emotional experience</span>
@@ -826,14 +853,14 @@ h1,h2,h3{
         <article class="line-card">
           <div class="line-label">02</div>
           <h3 class="line-title">Sea Versum</h3>
-          <div class="line-type">fashion / clothing</div>
+          <div class="line-type">fashion design / clothing</div>
           <div class="line-copy" data-lang="ru">
-            <span class="text-line">Линия одежды и&nbsp;fashion-направление</span>
+            <span class="text-line">Линия одежды и&nbsp;fashion design</span>
             <span class="text-line">с&nbsp;собственной эстетикой</span>
             <span class="text-line">и&nbsp;визуальным языком.</span>
           </div>
           <div class="line-copy" data-lang="en">
-            <span class="text-line">A clothing and fashion line</span>
+            <span class="text-line">Clothing and fashion design</span>
             <span class="text-line">with its own aesthetic</span>
             <span class="text-line">and visual language.</span>
           </div>
