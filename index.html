@@ -42,8 +42,8 @@ button{font:inherit}
   background:
     linear-gradient(rgba(2,6,18,.10),rgba(2,6,18,.20)),
     url("assets/ombereg-bg.webp") center center / cover no-repeat;
-  transform:scale(1.035);
-  animation:bgDrift 18s ease-in-out infinite alternate;
+  transform:scale(1.10);
+  animation:bgDrift 12s ease-in-out infinite alternate;
   will-change:transform
 }
 .cosmic-bg::before{
@@ -91,6 +91,37 @@ button{font:inherit}
   background:radial-gradient(circle,rgba(145,166,255,.28),transparent 68%);
   animation:ambientFloatB 28s ease-in-out infinite alternate
 }
+.motion-light{
+  position:fixed;
+  z-index:1;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  will-change:transform,opacity;
+}
+.motion-light-a{
+  left:-18vw;
+  top:8vh;
+  width:74vw;
+  height:72vh;
+  opacity:.20;
+  background:
+    radial-gradient(ellipse at 30% 50%,rgba(111,232,222,.26),transparent 52%),
+    repeating-radial-gradient(ellipse at 42% 50%,rgba(160,247,237,.13) 0 1px,transparent 3px 20px);
+  filter:blur(8px);
+  animation:edgeWaveA 13s ease-in-out infinite alternate
+}
+.motion-light-b{
+  right:-22vw;
+  bottom:6vh;
+  width:76vw;
+  height:70vh;
+  opacity:.17;
+  background:
+    radial-gradient(ellipse at 64% 45%,rgba(143,177,255,.22),transparent 50%),
+    repeating-radial-gradient(ellipse at 54% 44%,rgba(196,184,255,.11) 0 1px,transparent 3px 22px);
+  filter:blur(10px);
+  animation:edgeWaveB 16s ease-in-out infinite alternate
+}
 .stars{
   position:fixed;
   inset:0;
@@ -114,12 +145,12 @@ button{font:inherit}
 }
 
 @keyframes bgDrift{
-  from{transform:scale(1.035) translate3d(0,0,0)}
-  to{transform:scale(1.065) translate3d(-1.2%,.8%,0)}
+  from{transform:scale(1.10) translate3d(1.2%,-.8%,0)}
+  to{transform:scale(1.10) translate3d(-1.8%,1.1%,0)}
 }
 @keyframes heroBreath{
   from{transform:translate3d(0,0,0) scale(1);filter:drop-shadow(0 0 8px rgba(108,205,229,.10))}
-  to{transform:translate3d(0,-2px,0) scale(1.006);filter:drop-shadow(0 0 16px rgba(108,205,229,.18))}
+  to{transform:translate3d(0,-4px,0) scale(1.012);filter:drop-shadow(0 0 20px rgba(108,205,229,.22))}
 }
 @keyframes titleGradient{
   from{background-position:0% 50%}
@@ -144,6 +175,14 @@ button{font:inherit}
 @keyframes starsBreath{
   from{opacity:.08}
   to{opacity:.16}
+}
+@keyframes edgeWaveA{
+  from{transform:translate3d(-2%,-2%,0) rotate(-7deg) scale(1)}
+  to{transform:translate3d(8%,6%,0) rotate(-1deg) scale(1.08)}
+}
+@keyframes edgeWaveB{
+  from{transform:translate3d(3%,4%,0) rotate(8deg) scale(1)}
+  to{transform:translate3d(-8%,-5%,0) rotate(2deg) scale(1.10)}
 }
 
 main{
@@ -336,7 +375,7 @@ main::-webkit-scrollbar{display:none}
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  animation:titleGradient 8s ease-in-out infinite alternate
+  animation:titleGradient 5.5s ease-in-out infinite alternate
 }
 .hero-title .b-letter{
   grid-column:2;
@@ -350,7 +389,7 @@ main::-webkit-scrollbar{display:none}
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  animation:titleGradient 8s ease-in-out infinite alternate
+  animation:titleGradient 5.5s ease-in-out infinite alternate
 }
 .hero-title .ereg{
   grid-column:3;
@@ -365,7 +404,7 @@ main::-webkit-scrollbar{display:none}
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  animation:titleGradient 8s ease-in-out infinite alternate
+  animation:titleGradient 5.5s ease-in-out infinite alternate
 }
 .lang-switch{
   display:flex;
@@ -727,7 +766,9 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  *,*:before,*:after{animation:none!important;scroll-behavior:auto!important}
+  .cosmic-bg,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.hero-title,.skill-icon,.cta{
+    animation:none!important
+  }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
 }
 </style>
@@ -736,6 +777,8 @@ h1,h2,h3{
 <div class="cosmic-bg"></div>
 <div class="fluid-ribbon"></div>
 <div class="fluid-ribbon-2"></div>
+<div class="motion-light motion-light-a"></div>
+<div class="motion-light motion-light-b"></div>
 <div class="stars"></div>
 <div class="noise"></div>
 
