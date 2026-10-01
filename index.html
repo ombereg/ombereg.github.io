@@ -19,7 +19,7 @@
   --aqua:#5be8da;
   --pad:clamp(22px,6vw,52px);
   --maxw:1120px;
-  --display-font:"Trebuchet MS",Verdana,Arial,sans-serif;
+  --display-font:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{
@@ -221,19 +221,20 @@ main::-webkit-scrollbar{display:none}
 .wordmark{
   display:inline-flex;
   align-items:center;
-  gap:.16em;
+  gap:.02em;
   white-space:nowrap;
   font-family:var(--display-font);
   font-size:12px;
   line-height:1;
-  font-weight:300;
+  font-weight:200;
+  letter-spacing:.08em;
   color:#f6ead6
 }
 .wordmark .om,
 .hero-title .om{
   display:inline-flex;
   align-items:center;
-  gap:.08em
+  gap:.02em
 }
 .mini-o{
   display:inline-block;
@@ -242,43 +243,43 @@ main::-webkit-scrollbar{display:none}
   height:.82em;
   border-radius:50%;
   background:
-    radial-gradient(circle at 28% 22%,rgba(255,255,255,.42),transparent 20%),
-    linear-gradient(145deg,#1a3f8f 0%,#5378c7 44%,#7d70c8 72%,#58b8c6 100%);
-  box-shadow:0 0 14px rgba(93,188,222,.14),inset 0 0 9px rgba(255,255,255,.14)
+    radial-gradient(circle at 30% 22%,rgba(255,255,255,.32),transparent 18%),
+    linear-gradient(145deg,#6675d2 0%,#95c9ff 52%,#6de5df 100%);
+  box-shadow:0 0 14px rgba(104,198,231,.14),inset 0 0 9px rgba(255,255,255,.14)
 }
 .hero-title .o-mark{
   position:relative;
   display:grid;
   place-items:center;
   flex:0 0 auto;
-  width:.90em;
-  height:.90em;
+  width:.92em;
+  height:.92em;
   border-radius:50%;
   background:
-    radial-gradient(circle at 28% 22%,rgba(255,255,255,.28),transparent 20%),
-    linear-gradient(145deg,#15377f 0%,#466eb9 44%,#756bc0 72%,#45aebd 100%);
+    radial-gradient(circle at 30% 22%,rgba(255,255,255,.32),transparent 18%),
+    linear-gradient(145deg,#6675d2 0%,#95c9ff 52%,#6de5df 100%);
   box-shadow:
-    0 0 24px rgba(92,190,221,.18),
-    inset 0 0 12px rgba(255,255,255,.17)
+    0 0 26px rgba(104,198,231,.18),
+    inset 0 0 12px rgba(255,255,255,.18)
 }
 .hero-title .om-glyph{
   display:block;
   color:#fff;
   font-family:"Devanagari Sangam MN","Kohinoor Devanagari","Noto Sans Devanagari",serif;
-  font-size:.62em;
+  font-size:.58em;
   line-height:1;
-  transform:translateY(.015em)
+  transform:translateY(.01em)
 }
 .wordmark .m-letter,
 .wordmark .bereg,
 .hero-title .m-letter,
 .hero-title .bereg{
   font-family:var(--display-font);
-  font-weight:300;
+  font-weight:200;
   color:#f6ead6
 }
-.wordmark .m-letter{letter-spacing:-.04em}
-.wordmark .bereg{letter-spacing:.018em}
+.wordmark .m-letter,
+.wordmark .bereg{letter-spacing:.08em}
 .hero-title .m-letter{letter-spacing:-.04em}
 .hero-title .bereg{letter-spacing:.018em}
 .screen-index{
@@ -328,21 +329,25 @@ main::-webkit-scrollbar{display:none}
 h1,h2,h3,p{margin:0}
 h1,h2,h3{
   font-family:var(--display-font);
-  font-weight:300
+  font-weight:200
 }
 
 .hero-title{
   display:flex;
   align-items:center;
-  gap:.13em;
+  gap:.035em;
   white-space:nowrap;
   font-family:var(--display-font);
-  font-size:clamp(52px,12.8vw,120px);
-  line-height:.94;
-  font-weight:300
+  font-size:clamp(54px,13.4vw,124px);
+  line-height:.92;
+  font-weight:200;
+  letter-spacing:.075em
 }
-.hero-title .m-letter{font-size:.96em}
-.hero-title .bereg{font-size:1em}
+.hero-title .m-letter,
+.hero-title .bereg{
+  font-size:1em;
+  letter-spacing:.075em
+}
 
 .hero-copy{
   margin-top:30px;
@@ -406,13 +411,13 @@ h1,h2,h3{
   font-size:clamp(36px,9.1vw,66px);
   line-height:1.02;
   letter-spacing:.035em;
-  font-weight:300;
+  font-weight:200;
   text-transform:uppercase
 }
 .skills-title{
-  font-size:clamp(42px,10.4vw,76px);
+  font-size:clamp(44px,10.8vw,78px);
   text-transform:uppercase;
-  letter-spacing:.055em
+  letter-spacing:.085em
 }
 .copy{
   margin-top:28px;
@@ -498,7 +503,7 @@ h1,h2,h3{
   font-size:clamp(18px,5.1vw,29px);
   line-height:1.08;
   letter-spacing:.005em;
-  font-weight:300
+  font-weight:200
 }
 .skill-dot{
   position:absolute;
@@ -541,9 +546,9 @@ h1,h2,h3{
   margin-top:12px;
   font-family:var(--display-font);
   font-size:clamp(26px,7vw,43px);
-  letter-spacing:.025em;
+  letter-spacing:.035em;
   line-height:1.03;
-  font-weight:440
+  font-weight:200
 }
 .line-type{
   margin-top:11px;
@@ -655,7 +660,7 @@ h1,h2,h3{
 <main>
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <div class="lang-switch" aria-label="Language switcher">
         <button type="button" class="lang-btn active" data-set-lang="ru">RU</button>
         <button type="button" class="lang-btn" data-set-lang="en">EN</button>
@@ -665,7 +670,7 @@ h1,h2,h3{
     <div class="inner hero-grid">
       <div>
         <div class="kicker">ART / AI / FASHION / MOTION</div>
-        <h1 class="hero-title" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"><span class="om-glyph">ॐ</span></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></h1>
+        <h1 class="hero-title" aria-label="OMBEREG"><span class="om"><span class="o-mark" aria-hidden="true"><span class="om-glyph">ॐ</span></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></h1>
 
         <div class="hero-copy" data-lang="ru">
           <span class="text-line">Визуальный художник</span>
@@ -701,7 +706,7 @@ h1,h2,h3{
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span class="screen-index">02</span>
     </div>
 
@@ -748,7 +753,7 @@ h1,h2,h3{
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span class="screen-index">03</span>
     </div>
 
@@ -791,7 +796,7 @@ h1,h2,h3{
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span class="screen-index">04</span>
     </div>
 
@@ -854,7 +859,7 @@ h1,h2,h3{
 
   <section class="screen contact">
     <div class="top">
-      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span class="screen-index">05</span>
     </div>
 
@@ -889,7 +894,7 @@ h1,h2,h3{
 
       <p class="note">Telegram · @Nadopen</p>
       <div class="foot">
-        <span>OM BEREG</span>
+        <span>OMBEREG</span>
         <span>visual portfolio / 2026</span>
       </div>
     </div>
