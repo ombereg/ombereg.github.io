@@ -359,10 +359,11 @@ h1,h2,h3,p{margin:0}
 }
 
 .section-title{
-  font-size:clamp(38px,9.6vw,70px);
-  line-height:1.02;
-  letter-spacing:.035em;
-  font-weight:440
+  font-size:clamp(36px,9.1vw,66px);
+  line-height:1.04;
+  letter-spacing:.085em;
+  font-weight:440;
+  text-transform:uppercase
 }
 .copy{
   margin-top:28px;
@@ -409,27 +410,75 @@ h1,h2,h3,p{margin:0}
 .skills{
   list-style:none;
   padding:0;
-  margin:30px 0 0;
-  border-top:1px solid var(--line)
+  margin:32px 0 0;
+  display:grid;
+  gap:10px
 }
 .skills li{
+  position:relative;
+  min-height:68px;
   display:flex;
   justify-content:space-between;
   gap:20px;
-  align-items:baseline;
-  padding:17px 0 16px;
-  border-bottom:1px solid var(--line)
+  align-items:center;
+  padding:18px 18px 17px 22px;
+  overflow:hidden;
+  background:
+    linear-gradient(102deg,rgba(199,184,255,.085),rgba(147,207,255,.055) 46%,rgba(91,232,218,.045)),
+    rgba(3,8,25,.34);
+  border:1px solid rgba(204,220,255,.11);
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
+  backdrop-filter:blur(10px)
+}
+.skills li:nth-child(even){margin-left:18px}
+.skills li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:linear-gradient(180deg,#c8b9ff 0%,#93cfff 48%,#5be8da 100%);
+  box-shadow:0 0 14px rgba(125,214,255,.38)
+}
+.skills li::after{
+  content:"";
+  position:absolute;
+  right:46px;
+  top:50%;
+  width:34px;
+  height:1px;
+  opacity:.5;
+  background:linear-gradient(90deg,transparent,#84e7df);
+  transform:translateY(-50%)
 }
 .skills b{
-  font-weight:430;
-  font-size:clamp(25px,7.2vw,43px);
+  position:relative;
+  z-index:1;
+  font-weight:460;
+  font-size:clamp(24px,6.9vw,41px);
   line-height:1;
-  letter-spacing:.075em
+  letter-spacing:.105em;
+  text-transform:uppercase;
+  text-shadow:0 0 18px rgba(139,207,255,.08)
 }
 .skills small{
+  position:relative;
+  z-index:1;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
   font-size:9px;
-  letter-spacing:.17em;
-  color:rgba(228,236,255,.38)
+  letter-spacing:.18em;
+  color:rgba(150,235,229,.64)
+}
+@media(hover:hover){
+  .skills li{transition:transform .22s ease,border-color .22s ease,background .22s ease}
+  .skills li:hover{
+    transform:translateX(6px);
+    border-color:rgba(137,218,244,.24);
+    background:
+      linear-gradient(102deg,rgba(199,184,255,.12),rgba(147,207,255,.075) 46%,rgba(91,232,218,.065)),
+      rgba(3,8,25,.42)
+  }
 }
 
 .lines-grid{
@@ -636,7 +685,7 @@ h1,h2,h3,p{margin:0}
           <span class="text-line">это инструмент.</span>
           <div class="text-gap"></div>
           <span class="text-line">В&nbsp;центре проекта всегда остаются</span>
-          <span class="text-line">идея, образ</span>
+          <span class="text-line">идея, образ, чувства</span>
           <span class="text-line">и&nbsp;эмоциональное впечатление.</span>
         </div>
 
@@ -648,7 +697,7 @@ h1,h2,h3,p{margin:0}
           <div class="text-gap"></div>
           <span class="text-line">For me, technology is a tool.</span>
           <div class="text-gap"></div>
-          <span class="text-line">The idea, the image</span>
+          <span class="text-line">The idea, the image, feelings</span>
           <span class="text-line">and the emotional experience</span>
           <span class="text-line">always remain at the heart of the work.</span>
         </div>
@@ -702,7 +751,7 @@ h1,h2,h3,p{margin:0}
       <div class="lines-grid">
         <article class="line-card">
           <div class="line-label">01</div>
-          <h3 class="line-title">NadOpen Arts</h3>
+          <h3 class="line-title">Nadopen Arts</h3>
           <div class="line-type">art / visual / ai / video</div>
           <div class="line-copy" data-lang="ru">
             <span class="text-line">Художественные работы,</span>
@@ -734,15 +783,13 @@ h1,h2,h3,p{margin:0}
         <article class="line-card">
           <div class="line-label">03</div>
           <h3 class="line-title">Ombereg Museum</h3>
-          <div class="line-type">future project / concept</div>
+          <div class="line-type">art space / objects / concept</div>
           <div class="line-copy" data-lang="ru">
-            <span class="text-line">Отдельный будущий проект</span>
-            <span class="text-line">и&nbsp;пространство для арт-идей,</span>
+            <span class="text-line">Пространство для арт-идей,</span>
             <span class="text-line">объектов и&nbsp;кураторских концепций.</span>
           </div>
           <div class="line-copy" data-lang="en">
-            <span class="text-line">A future standalone project</span>
-            <span class="text-line">and space for art ideas, objects</span>
+            <span class="text-line">A space for art ideas, objects</span>
             <span class="text-line">and curatorial concepts.</span>
           </div>
         </article>
