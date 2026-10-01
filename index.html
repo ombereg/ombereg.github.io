@@ -238,6 +238,53 @@ button{font:inherit}
     radial-gradient(circle at 24% 88%,rgba(255,255,255,.46) 0 .6px,transparent 1.3px);
   animation:starsBreath 13s ease-in-out infinite alternate
 }
+.shooting-stars{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  overflow:hidden
+}
+.shooting-star{
+  position:absolute;
+  width:30px;
+  height:1px;
+  border-radius:999px;
+  opacity:0;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(220,235,255,.22) 42%,rgba(224,213,255,.86) 100%);
+  filter:drop-shadow(0 0 3px rgba(190,171,255,.55));
+  transform:rotate(-34deg);
+  transform-origin:right center;
+  will-change:transform,opacity
+}
+.shooting-star::after{
+  content:"";
+  position:absolute;
+  right:-1px;
+  top:50%;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:#eadfff;
+  box-shadow:0 0 5px rgba(206,184,255,.85);
+  transform:translateY(-50%)
+}
+.shooting-star:nth-child(1){
+  top:17%;
+  right:10%;
+  animation:shootingStarA 29s linear infinite 5s
+}
+.shooting-star:nth-child(2){
+  top:63%;
+  left:8%;
+  animation:shootingStarB 37s linear infinite 14s
+}
+.shooting-star:nth-child(3){
+  top:82%;
+  right:16%;
+  animation:shootingStarC 43s linear infinite 23s
+}
+
 .noise{
   position:fixed;
   inset:0;
@@ -247,9 +294,27 @@ button{font:inherit}
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
 }
 
+@keyframes shootingStarA{
+  0%,7%,100%{opacity:0;transform:rotate(-34deg) translate3d(0,0,0)}
+  7.5%{opacity:.78}
+  9.2%{opacity:.52;transform:rotate(-34deg) translate3d(-58px,42px,0)}
+  10%{opacity:0;transform:rotate(-34deg) translate3d(-82px,58px,0)}
+}
+@keyframes shootingStarB{
+  0%,31%,100%{opacity:0;transform:rotate(-31deg) translate3d(0,0,0)}
+  31.5%{opacity:.62}
+  33%{opacity:.40;transform:rotate(-31deg) translate3d(-50px,34px,0)}
+  33.8%{opacity:0;transform:rotate(-31deg) translate3d(-72px,50px,0)}
+}
+@keyframes shootingStarC{
+  0%,61%,100%{opacity:0;transform:rotate(-36deg) translate3d(0,0,0)}
+  61.4%{opacity:.58}
+  62.8%{opacity:.34;transform:rotate(-36deg) translate3d(-44px,34px,0)}
+  63.5%{opacity:0;transform:rotate(-36deg) translate3d(-67px,49px,0)}
+}
 @keyframes indexGlow{
-  from{opacity:.62;box-shadow:0 0 5px rgba(142,223,255,.65),0 0 11px rgba(112,205,255,.24)}
-  to{opacity:1;box-shadow:0 0 8px rgba(142,223,255,.96),0 0 18px rgba(112,205,255,.44)}
+  from{opacity:.58;box-shadow:0 0 5px rgba(195,166,255,.68),0 0 11px rgba(147,109,255,.24)}
+  to{opacity:1;box-shadow:0 0 8px rgba(205,184,255,.98),0 0 18px rgba(153,118,255,.46)}
 }
 @keyframes edgeStarsA{
   0%,100%{opacity:.08;transform:translate3d(0,0,0)}
@@ -332,12 +397,7 @@ main::-webkit-scrollbar{display:none}
   border-bottom:0
 }
 .screen::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background:linear-gradient(180deg,rgba(1,5,16,.02),rgba(1,5,16,.18))
+  content:none
 }
 .screen > *{
   position:relative;
@@ -435,10 +495,10 @@ main::-webkit-scrollbar{display:none}
   border-radius:50%;
   font-size:0;
   line-height:0;
-  background:#8edfff;
+  background:#c3a6ff;
   box-shadow:
-    0 0 7px rgba(142,223,255,.88),
-    0 0 15px rgba(112,205,255,.36);
+    0 0 7px rgba(195,166,255,.90),
+    0 0 16px rgba(147,109,255,.38);
   animation:indexGlow 4.8s ease-in-out infinite alternate
 }
 
@@ -900,7 +960,7 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  .cosmic-bg,.edge-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.hero-title,.skill-icon,.screen-index,.cta{
+  .cosmic-bg,.edge-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.skill-icon,.screen-index,.cta{
     animation:none!important
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
@@ -917,6 +977,11 @@ h1,h2,h3{
 <div class="motion-light motion-light-a"></div>
 <div class="motion-light motion-light-b"></div>
 <div class="stars"></div>
+<div class="shooting-stars" aria-hidden="true">
+  <span class="shooting-star"></span>
+  <span class="shooting-star"></span>
+  <span class="shooting-star"></span>
+</div>
 <div class="noise"></div>
 
 <main>
@@ -954,7 +1019,6 @@ h1,h2,h3{
     <div class="scroll">
       <span data-lang="ru">ЛИСТАЙТЕ ↓</span>
       <span data-lang="en">SCROLL TO EXPLORE ↓</span>
-      <span class="screen-index" aria-hidden="true"></span>
     </div>
   </section>
 
