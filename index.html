@@ -43,7 +43,7 @@ button{font:inherit}
     linear-gradient(rgba(2,6,18,.10),rgba(2,6,18,.20)),
     url("assets/ombereg-bg.webp") center center / cover no-repeat;
   transform:scale(1.035);
-  animation:bgDrift 30s ease-in-out infinite alternate;
+  animation:bgDrift 18s ease-in-out infinite alternate;
   will-change:transform
 }
 .cosmic-bg::before{
@@ -55,7 +55,7 @@ button{font:inherit}
     radial-gradient(40% 32% at 94% 28%,rgba(154,203,255,.07),transparent 72%);
   mix-blend-mode:screen;
   opacity:.58;
-  animation:lightBreath 18s ease-in-out infinite alternate
+  animation:lightBreath 11s ease-in-out infinite alternate
 }
 .cosmic-bg::after{
   content:"";
@@ -71,7 +71,7 @@ button{font:inherit}
   position:fixed;
   z-index:1;
   pointer-events:none;
-  opacity:.10;
+  opacity:.16;
   filter:blur(18px);
   border-radius:50%
 }
@@ -115,11 +115,23 @@ button{font:inherit}
 
 @keyframes bgDrift{
   from{transform:scale(1.035) translate3d(0,0,0)}
-  to{transform:scale(1.055) translate3d(-.45%,.35%,0)}
+  to{transform:scale(1.065) translate3d(-1.2%,.8%,0)}
+}
+@keyframes heroBreath{
+  from{transform:translate3d(0,0,0) scale(1);filter:drop-shadow(0 0 8px rgba(108,205,229,.10))}
+  to{transform:translate3d(0,-2px,0) scale(1.006);filter:drop-shadow(0 0 16px rgba(108,205,229,.18))}
+}
+@keyframes titleGradient{
+  from{background-position:0% 50%}
+  to{background-position:100% 50%}
+}
+@keyframes omGlow{
+  from{background-position:0% 50%;filter:drop-shadow(0 0 4px rgba(112,204,229,.08))}
+  to{background-position:100% 50%;filter:drop-shadow(0 0 10px rgba(112,204,229,.20))}
 }
 @keyframes lightBreath{
-  from{opacity:.38}
-  to{opacity:.66}
+  from{opacity:.34}
+  to{opacity:.78}
 }
 @keyframes ambientFloatA{
   from{transform:translate3d(0,-6px,0) scale(.96)}
@@ -269,7 +281,9 @@ main::-webkit-scrollbar{display:none}
   font-size:clamp(54px,13.4vw,124px);
   line-height:.86;
   font-weight:200;
-  color:#fff
+  color:#fff;
+  filter:drop-shadow(0 0 10px rgba(108,205,229,.12));
+  animation:heroBreath 7s ease-in-out infinite alternate
 }
 .hero-title .o-mark{
   grid-column:1;
@@ -305,9 +319,11 @@ main::-webkit-scrollbar{display:none}
   line-height:1;
   text-align:center;
   background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
+  background-size:180% 180%;
   -webkit-background-clip:text;
   background-clip:text;
-  color:transparent
+  color:transparent;
+  animation:omGlow 6s ease-in-out infinite alternate
 }
 .hero-title .m-letter{
   grid-column:2;
@@ -315,10 +331,12 @@ main::-webkit-scrollbar{display:none}
   font-family:var(--display-font);
   font-weight:200;
   letter-spacing:0;
-  background:linear-gradient(110deg,#d7c6ff 0%,#9fd5ff 52%,#67e6dc 100%);
+  background:linear-gradient(110deg,#d7c6ff 0%,#9fd5ff 32%,#67e6dc 58%,#d7c6ff 100%);
+  background-size:220% 100%;
   -webkit-background-clip:text;
   background-clip:text;
-  color:transparent
+  color:transparent;
+  animation:titleGradient 8s ease-in-out infinite alternate
 }
 .hero-title .b-letter{
   grid-column:2;
@@ -327,10 +345,12 @@ main::-webkit-scrollbar{display:none}
   font-family:var(--display-font);
   font-weight:200;
   letter-spacing:.06em;
-  background:linear-gradient(110deg,#d7c6ff 0%,#9fd5ff 52%,#67e6dc 100%);
+  background:linear-gradient(110deg,#d7c6ff 0%,#9fd5ff 32%,#67e6dc 58%,#d7c6ff 100%);
+  background-size:220% 100%;
   -webkit-background-clip:text;
   background-clip:text;
-  color:transparent
+  color:transparent;
+  animation:titleGradient 8s ease-in-out infinite alternate
 }
 .hero-title .ereg{
   grid-column:3;
@@ -340,10 +360,12 @@ main::-webkit-scrollbar{display:none}
   font-weight:200;
   letter-spacing:.06em;
   transform:translateX(-.17em);
-  background:linear-gradient(110deg,#d7c6ff 0%,#9fd5ff 52%,#67e6dc 100%);
+  background:linear-gradient(110deg,#d7c6ff 0%,#9fd5ff 32%,#67e6dc 58%,#d7c6ff 100%);
+  background-size:220% 100%;
   -webkit-background-clip:text;
   background-clip:text;
-  color:transparent
+  color:transparent;
+  animation:titleGradient 8s ease-in-out infinite alternate
 }
 .lang-switch{
   display:flex;
