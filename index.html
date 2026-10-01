@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#03121e">
+<meta name="description" content="NADOPEN — visual art, AI, fashion, motion and creative direction.">
+<title>NADOPEN — Visual Portfolio</title>
+<style>
+:root{
+  --bg:#03121e;
+  --ink:#f3fbff;
+  --muted:rgba(234,249,255,.66);
+  --line:rgba(220,250,255,.13);
+  --aqua:#60f4e4;
+  --blue:#77cfff;
+  --pad:clamp(22px,6vw,46px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif}
+body{overflow-x:hidden}
+a{-webkit-tap-highlight-color:transparent}
+.ocean{
+  position:fixed;inset:0;z-index:-5;overflow:hidden;
+  background:
+    radial-gradient(80% 50% at 80% 4%,rgba(73,236,218,.25),transparent 60%),
+    radial-gradient(90% 75% at 12% 42%,rgba(21,117,158,.26),transparent 66%),
+    radial-gradient(75% 65% at 92% 88%,rgba(12,91,120,.24),transparent 70%),
+    linear-gradient(180deg,#020e18 0%,#063147 49%,#020d17 100%);
+}
+.ocean:before{
+  content:"";position:absolute;inset:-30%;
+  opacity:.24;mix-blend-mode:screen;filter:blur(1.6px);
+  background:
+    repeating-radial-gradient(ellipse at 50% 40%,
+      rgba(170,255,244,.36) 0 1px,
+      rgba(170,255,244,0) 3px 18px);
+  transform:perspective(800px) rotateX(55deg) rotateZ(-8deg) scale(1.2);
+  transform-origin:center top;
+  animation:water 18s ease-in-out infinite alternate;
+}
+.ocean:after{
+  content:"";position:absolute;inset:-20%;
+  opacity:.13;mix-blend-mode:screen;filter:blur(7px);
+  background:
+    repeating-radial-gradient(ellipse at 60% 55%,
+      rgba(97,245,226,.55) 0 2px,
+      transparent 4px 26px);
+  transform:rotate(11deg);
+  animation:water2 24s ease-in-out infinite alternate;
+}
+@keyframes water{
+  from{transform:perspective(800px) rotateX(55deg) rotateZ(-8deg) scale(1.2) translate3d(-2%,-1%,0)}
+  to{transform:perspective(800px) rotateX(55deg) rotateZ(-3deg) scale(1.3) translate3d(4%,5%,0)}
+}
+@keyframes water2{
+  from{transform:rotate(11deg) scale(1) translate3d(-3%,2%,0)}
+  to{transform:rotate(17deg) scale(1.08) translate3d(5%,-4%,0)}
+}
+.noise{
+  position:fixed;inset:0;z-index:-4;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+main{height:100svh;overflow-y:auto;scroll-snap-type:y proximity;scrollbar-width:none}
+main::-webkit-scrollbar{display:none}
+.screen{
+  min-height:100svh;scroll-snap-align:start;position:relative;
+  padding:max(28px,env(safe-area-inset-top)) var(--pad) max(30px,env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.045);
+}
+.screen:after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,8,16,.02),rgba(0,8,16,.20));
+}
+.top{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:rgba(238,251,255,.55)
+}
+.brand{font-weight:750;color:rgba(255,255,255,.94);letter-spacing:.19em}
+.hero-wrap{padding:10vh 0 4vh}
+.kicker{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:17px}
+h1,h2,h3,p{margin:0}
+h1{
+  font-size:clamp(59px,18vw,122px);line-height:.82;letter-spacing:-.078em;font-weight:560
+}
+.sub{
+  margin-top:27px;max-width:29rem;color:var(--muted);
+  font-size:clamp(15px,4.25vw,19px);line-height:1.55
+}
+.art-orb{
+  width:min(72vw,390px);aspect-ratio:.8;margin:7vh 0 0 auto;position:relative;overflow:hidden;
+  border-radius:53% 47% 48% 52%/43% 55% 45% 57%;
+  border:1px solid rgba(200,255,248,.20);
+  background:
+    radial-gradient(circle at 67% 23%,rgba(194,255,247,.72),transparent 8%),
+    radial-gradient(circle at 48% 38%,rgba(90,245,225,.26),transparent 30%),
+    linear-gradient(150deg,rgba(64,210,202,.31),rgba(8,48,66,.22) 48%,rgba(2,13,25,.72));
+  box-shadow:inset 0 0 70px rgba(93,251,230,.10),0 35px 90px rgba(0,7,15,.32);
+}
+.art-orb:before,.art-orb:after{
+  content:"";position:absolute;border:1px solid rgba(204,255,249,.20);border-radius:50%
+}
+.art-orb:before{width:80%;height:118%;left:7%;top:-11%;transform:rotate(26deg)}
+.art-orb:after{width:120%;height:65%;left:-12%;top:24%;transform:rotate(-18deg)}
+.orb-label{
+  position:absolute;left:22px;bottom:20px;font-size:9px;letter-spacing:.19em;text-transform:uppercase;
+  color:rgba(240,255,255,.47)
+}
+.scroll{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:rgba(238,251,255,.47)
+}
+.inner{width:100%}
+.section-kicker{margin-bottom:18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.section-title{
+  font-size:clamp(47px,13vw,85px);line-height:.93;letter-spacing:-.058em;font-weight:550
+}
+.copy{
+  margin-top:25px;max-width:38rem;font-size:clamp(16px,4.45vw,20px);line-height:1.62;color:rgba(237,249,255,.72)
+}
+.picture{
+  margin-top:37px;height:min(43vh,440px);border-radius:28px;overflow:hidden;position:relative;
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at 67% 25%,rgba(129,255,238,.34),transparent 17%),
+    radial-gradient(circle at 28% 72%,rgba(49,141,176,.26),transparent 36%),
+    linear-gradient(145deg,rgba(14,77,101,.42),rgba(1,15,27,.58));
+}
+.picture:before{
+  content:"";position:absolute;width:58%;aspect-ratio:.72;left:22%;bottom:-5%;
+  border-radius:50% 50% 42% 44%/38% 38% 62% 62%;
+  background:linear-gradient(170deg,rgba(157,255,244,.24),rgba(0,11,23,.5));
+  filter:blur(.3px)
+}
+.picture span{
+  position:absolute;left:20px;bottom:18px;font-size:9px;letter-spacing:.18em;color:rgba(239,254,255,.47)
+}
+.skills{list-style:none;padding:0;margin:29px 0 0;border-top:1px solid var(--line)}
+.skills li{
+  padding:18px 0 17px;border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:20px;align-items:baseline
+}
+.skills b{font-weight:520;font-size:clamp(29px,8.8vw,52px);line-height:1;letter-spacing:-.045em}
+.skills small{font-size:9px;letter-spacing:.16em;color:rgba(232,249,255,.43)}
+.card{
+  margin-top:26px;border:1px solid var(--line);border-radius:29px;overflow:hidden;
+  background:rgba(3,22,36,.36);box-shadow:0 28px 90px rgba(0,7,15,.25)
+}
+.media{height:45vh;min-height:310px;position:relative;overflow:hidden}
+.media:before,.media:after{content:"";position:absolute;border-radius:50%;filter:blur(1px)}
+.m1{
+  background:
+    radial-gradient(circle at 72% 20%,rgba(126,255,237,.44),transparent 18%),
+    linear-gradient(140deg,rgba(9,64,88,.9),rgba(30,152,143,.30) 51%,rgba(2,15,26,.96))
+}
+.m1:before{width:72%;height:84%;left:-13%;top:12%;border:1px solid rgba(176,255,247,.16);transform:rotate(19deg)}
+.m1:after{width:95%;height:33%;right:-22%;bottom:12%;border:1px solid rgba(176,255,247,.22);transform:rotate(-24deg)}
+.m2{
+  background:
+    radial-gradient(circle at 27% 27%,rgba(174,246,255,.33),transparent 13%),
+    radial-gradient(circle at 72% 64%,rgba(64,238,210,.19),transparent 34%),
+    linear-gradient(125deg,rgba(4,37,57,.96),rgba(28,109,123,.43),rgba(2,15,26,.96))
+}
+.m2:before{inset:11% 15%;border:1px solid rgba(188,255,247,.17);border-radius:48% 52% 59% 41%;transform:rotate(-17deg)}
+.m3{
+  background:
+    repeating-linear-gradient(135deg,rgba(133,255,238,.055) 0 2px,transparent 2px 23px),
+    radial-gradient(circle at 52% 43%,rgba(95,244,222,.28),transparent 27%),
+    linear-gradient(150deg,rgba(5,49,69,.94),rgba(2,14,24,.98))
+}
+.meta{padding:18px 20px 22px}
+.num{font-size:9px;letter-spacing:.18em;color:rgba(233,249,255,.42);margin-bottom:10px}
+.work-title{font-size:clamp(31px,9vw,54px);letter-spacing:-.05em;line-height:1;font-weight:530}
+.type{margin-top:11px;font-size:12px;letter-spacing:.07em;color:rgba(237,250,255,.58)}
+.contact{justify-content:center}
+.contact .section-title{max-width:12ch}
+.cta{
+  margin-top:39px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:18px 20px 18px 24px;border-radius:999px;text-decoration:none;color:#01191a;
+  font-size:15px;font-weight:760;letter-spacing:-.01em;
+  background:linear-gradient(100deg,#5ef7e6 0%,#82e8ff 54%,#4ef0d8 100%);
+  box-shadow:0 18px 50px rgba(74,238,219,.18);transition:transform .18s ease
+}
+.cta:active{transform:scale(.985)}
+.arrow{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:rgba(0,20,22,.11);font-size:19px}
+.note{margin-top:17px;font-size:12px;line-height:1.5;color:rgba(236,250,255,.48)}
+.foot{
+  margin-top:13vh;display:flex;justify-content:space-between;gap:20px;
+  font-size:9px;letter-spacing:.17em;text-transform:uppercase;color:rgba(236,250,255,.38)
+}
+@media(min-width:760px){
+  :root{--pad:clamp(42px,6vw,84px)}
+  .hero-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:7vw;align-items:center;padding-top:6vh}
+  .art-orb{width:min(31vw,440px);margin:0;justify-self:end}
+  .inner{max-width:1080px;margin-inline:auto}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:end}
+  .picture{margin-top:0;height:57vh}
+  .skills{max-width:980px}
+  .card{max-width:920px}
+  .media{height:55vh}
+  .contact .section-title{font-size:clamp(68px,8vw,124px)}
+  .cta{max-width:620px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<div class="ocean"></div>
+<div class="noise"></div>
+<main>
+  <section class="screen">
+    <div class="top"><span class="brand">NADOPEN</span><span>visual portfolio</span></div>
+    <div class="hero-wrap inner">
+      <div>
+        <div class="kicker">art / ai / fashion / motion</div>
+        <h1>NAD<br>OPEN</h1>
+        <p class="sub">Visual artist & creative explorer. I build images, moving worlds and ideas between art, fashion and artificial intelligence.</p>
+      </div>
+      <div class="art-orb"><div class="orb-label">your visual / portrait</div></div>
+    </div>
+    <div class="scroll"><span>scroll to dive</span><span>↓</span></div>
+  </section>
+
+  <section class="screen">
+    <div class="top"><span class="brand">NADOPEN</span><span>about</span></div>
+    <div class="inner about-grid">
+      <div>
+        <div class="section-kicker">About</div>
+        <h2 class="section-title">I create<br>worlds.</h2>
+        <p class="copy">Здесь будет твой собственный текст — короткий, живой и не похожий на резюме. О том, как ты соединяешь искусство, моду, технологии, нейросети и визуальные эксперименты.</p>
+      </div>
+      <div class="picture"><span>YOUR IMAGE / ARTWORK</span></div>
+    </div>
+    <div></div>
+  </section>
+
+  <section class="screen">
+    <div class="top"><span class="brand">NADOPEN</span><span>practice</span></div>
+    <div class="inner">
+      <div class="section-kicker">What I do</div>
+      <h2 class="section-title">Creative<br>practice.</h2>
+      <ul class="skills">
+        <li><b>AI VISUALS</b><small>01</small></li>
+        <li><b>FASHION</b><small>02</small></li>
+        <li><b>VIDEO</b><small>03</small></li>
+        <li><b>ART</b><small>04</small></li>
+        <li><b>IDENTITY</b><small>05</small></li>
+        <li><b>EXPERIMENTS</b><small>06</small></li>
+      </ul>
+    </div>
+    <div></div>
+  </section>
+
+  <section class="screen">
+    <div class="top"><span class="brand">NADOPEN</span><span>01 / selected work</span></div>
+    <div class="inner">
+      <div class="section-kicker">Selected work</div>
+      <h2 class="section-title">Moving<br>worlds.</h2>
+      <article class="card">
+        <div class="media m1"></div>
+        <div class="meta">
+          <div class="num">PROJECT 01</div>
+          <h3 class="work-title">AI Fashion Film</h3>
+          <div class="type">motion / generative video / fashion</div>
+        </div>
+      </article>
+    </div>
+    <div></div>
+  </section>
+
+  <section class="screen">
+    <div class="top"><span class="brand">NADOPEN</span><span>02 / selected work</span></div>
+    <div class="inner">
+      <div class="section-kicker">Project</div>
+      <article class="card">
+        <div class="media m2"></div>
+        <div class="meta">
+          <div class="num">PROJECT 02</div>
+          <h3 class="work-title">Visual Worlds</h3>
+          <div class="type">AI / photography / image making</div>
+        </div>
+      </article>
+    </div>
+    <div></div>
+  </section>
+
+  <section class="screen">
+    <div class="top"><span class="brand">NADOPEN</span><span>03 / selected work</span></div>
+    <div class="inner">
+      <div class="section-kicker">Project</div>
+      <article class="card">
+        <div class="media m3"></div>
+        <div class="meta">
+          <div class="num">PROJECT 03</div>
+          <h3 class="work-title">Art & Objects</h3>
+          <div class="type">painting / illustration / experiments</div>
+        </div>
+      </article>
+    </div>
+    <div></div>
+  </section>
+
+  <section class="screen contact">
+    <div class="top"><span class="brand">NADOPEN</span><span>contact</span></div>
+    <div class="inner">
+      <div class="section-kicker">Have an idea?</div>
+      <h2 class="section-title">Let's make<br>it real.</h2>
+      <a class="cta" href="https://t.me/Nadopen?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%21%20%D0%AF%20%D0%BF%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D0%BB%28%D0%B0%29%20%D1%82%D0%B2%D0%BE%D1%91%20%D0%BF%D0%BE%D1%80%D1%82%D1%84%D0%BE%D0%BB%D0%B8%D0%BE%20%D0%B8%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82." target="_blank" rel="noopener">
+        <span>START A PROJECT</span><span class="arrow">↗</span>
+      </a>
+      <p class="note">@Nadopen · Telegram откроется с готовым сообщением.</p>
+      <div class="foot"><span>NADOPEN</span><span>visual portfolio / 2026</span></div>
+    </div>
+    <div></div>
+  </section>
+</main>
+</body>
+</html>
