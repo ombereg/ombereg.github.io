@@ -216,27 +216,58 @@ main::-webkit-scrollbar{display:none}
   gap:18px
 }
 
-/* ===== BRAND WORDMARK ===== */
+/* ===== FUTURE WORDMARK ===== */
 .wordmark{
   display:inline-flex;
-  align-items:baseline;
-  gap:.34em;
+  align-items:center;
+  gap:.40em;
   white-space:nowrap;
   color:#f5eddf;
   font-weight:430;
   font-size:11px;
-  letter-spacing:.27em;
   line-height:1;
   text-transform:uppercase
 }
-.wordmark .om{
-  letter-spacing:.19em;
+.wordmark .om,
+.hero-title .om{
+  display:inline-flex;
+  align-items:center;
+  gap:.10em;
+}
+.wordmark .o-mark,
+.hero-title .o-mark{
+  position:relative;
+  display:inline-block;
+  flex:0 0 auto;
+  width:.82em;
+  height:.82em;
+  border-radius:50%;
+  background:linear-gradient(135deg,#d9c7ff 0%,#9ed6ff 52%,#66eadf 100%);
+  box-shadow:
+    0 0 18px rgba(132,205,255,.18),
+    inset 0 0 10px rgba(255,255,255,.20);
+}
+.wordmark .o-mark::after,
+.hero-title .o-mark::after{
+  content:"";
+  position:absolute;
+  inset:18%;
+  border-radius:50%;
+  background:#050717;
+  box-shadow:inset 0 0 8px rgba(110,215,231,.10);
+}
+.wordmark .m-letter{
+  letter-spacing:.10em;
   background:linear-gradient(100deg,#d7c7ff 0%,#a7d7ff 58%,#73eee1 100%);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent
 }
-.wordmark .bereg{letter-spacing:.29em}
+.wordmark .bereg{
+  letter-spacing:.31em;
+  font-family:"Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  font-stretch:condensed
+}
 
 .lang-switch{
   display:flex;
@@ -281,16 +312,16 @@ h1,h2,h3,p{margin:0}
 
 .hero-title{
   display:flex;
-  align-items:baseline;
-  gap:.20em;
+  align-items:center;
+  gap:.21em;
   white-space:nowrap;
   color:#f7f6ff;
-  font-size:clamp(41px,10.6vw,102px);
+  font-size:clamp(39px,10vw,98px);
   line-height:.96;
-  letter-spacing:.10em;
-  font-weight:440
+  font-weight:420
 }
-.hero-title .om{
+.hero-title .m-letter{
+  letter-spacing:.05em;
   background:linear-gradient(100deg,#d7c5ff 0%,#a6d7ff 58%,#73eee1 100%);
   -webkit-background-clip:text;
   background-clip:text;
@@ -298,7 +329,9 @@ h1,h2,h3,p{margin:0}
 }
 .hero-title .bereg{
   color:#f8f1e5;
-  letter-spacing:.14em
+  letter-spacing:.16em;
+  font-family:"Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  font-stretch:condensed
 }
 
 .hero-copy{
@@ -365,6 +398,10 @@ h1,h2,h3,p{margin:0}
   font-weight:440;
   text-transform:uppercase
 }
+.skills-title{
+  text-transform:none;
+  letter-spacing:.045em
+}
 .copy{
   margin-top:28px;
   max-width:41rem;
@@ -412,75 +449,112 @@ h1,h2,h3,p{margin:0}
   padding:0;
   margin:32px 0 0;
   display:grid;
-  gap:10px
+  gap:12px
 }
 .skills li{
   position:relative;
-  min-height:68px;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
+  min-height:88px;
+  display:grid;
+  grid-template-columns:54px 1fr auto;
   align-items:center;
-  padding:18px 18px 17px 22px;
+  gap:16px;
+  padding:16px 17px 16px 15px;
   overflow:hidden;
   background:
-    linear-gradient(102deg,rgba(199,184,255,.085),rgba(147,207,255,.055) 46%,rgba(91,232,218,.045)),
-    rgba(3,8,25,.34);
-  border:1px solid rgba(204,220,255,.11);
-  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
-  backdrop-filter:blur(10px)
+    linear-gradient(112deg,rgba(248,250,255,.96),rgba(229,240,255,.94) 56%,rgba(223,251,247,.93));
+  border:1px solid rgba(218,234,255,.78);
+  border-radius:24px 24px 24px 7px;
+  box-shadow:
+    0 18px 48px rgba(0,5,24,.20),
+    inset 0 1px 0 rgba(255,255,255,.92);
+  color:#071a43;
+  transform:translateZ(0);
+  animation:skillBreath 7.5s ease-in-out infinite alternate
 }
-.skills li:nth-child(even){margin-left:18px}
+.skills li:nth-child(2n){
+  margin-left:17px;
+  border-radius:24px 7px 24px 24px;
+  animation-delay:-1.5s
+}
+.skills li:nth-child(3n){animation-delay:-3s}
 .skills li::before{
   content:"";
   position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:3px;
-  background:linear-gradient(180deg,#c8b9ff 0%,#93cfff 48%,#5be8da 100%);
-  box-shadow:0 0 14px rgba(125,214,255,.38)
+  width:118px;
+  height:118px;
+  right:-44px;
+  top:-54px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(114,213,235,.22),transparent 68%);
+  animation:skillGlow 8s ease-in-out infinite alternate
 }
-.skills li::after{
-  content:"";
-  position:absolute;
-  right:46px;
-  top:50%;
-  width:34px;
-  height:1px;
-  opacity:.5;
-  background:linear-gradient(90deg,transparent,#84e7df);
-  transform:translateY(-50%)
+.skill-icon{
+  position:relative;
+  z-index:1;
+  width:52px;
+  height:52px;
+  display:grid;
+  place-items:center;
+  border-radius:17px;
+  color:#0b3772;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.82),rgba(172,222,255,.50) 48%,rgba(160,238,226,.48));
+  border:1px solid rgba(79,146,201,.16);
+  box-shadow:
+    inset 0 0 22px rgba(255,255,255,.52),
+    0 8px 20px rgba(56,118,175,.10)
+}
+.skill-icon svg{
+  width:29px;
+  height:29px;
+  stroke:currentColor;
+  stroke-width:1.45;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round
 }
 .skills b{
   position:relative;
   z-index:1;
-  font-weight:460;
-  font-size:clamp(24px,6.9vw,41px);
-  line-height:1;
-  letter-spacing:.105em;
-  text-transform:uppercase;
-  text-shadow:0 0 18px rgba(139,207,255,.08)
+  color:#071c47;
+  font-weight:520;
+  font-size:clamp(21px,5.9vw,34px);
+  line-height:1.06;
+  letter-spacing:.015em;
+  text-transform:none
 }
 .skills small{
   position:relative;
   z-index:1;
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
   font-size:9px;
-  letter-spacing:.18em;
-  color:rgba(150,235,229,.64)
+  letter-spacing:.15em;
+  color:#3f6f9f
+}
+@keyframes skillBreath{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(0,-2px,0)}
+}
+@keyframes skillGlow{
+  from{transform:translate3d(-3px,2px,0) scale(.95);opacity:.55}
+  to{transform:translate3d(7px,-5px,0) scale(1.08);opacity:.9}
 }
 @media(hover:hover){
-  .skills li{transition:transform .22s ease,border-color .22s ease,background .22s ease}
-  .skills li:hover{
-    transform:translateX(6px);
-    border-color:rgba(137,218,244,.24);
-    background:
-      linear-gradient(102deg,rgba(199,184,255,.12),rgba(147,207,255,.075) 46%,rgba(91,232,218,.065)),
-      rgba(3,8,25,.42)
+  .skills li{
+    transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease
   }
+  .skills li:hover{
+    transform:translate3d(5px,-3px,0);
+    border-color:rgba(118,185,225,.56);
+    box-shadow:
+      0 24px 62px rgba(0,5,24,.24),
+      inset 0 1px 0 rgba(255,255,255,.95)
+  }
+  .skills li:hover .skill-icon{
+    transform:rotate(-4deg) scale(1.04)
+  }
+  .skill-icon{transition:transform .24s ease}
 }
-
 .lines-grid{
   display:grid;
   gap:16px;
@@ -616,7 +690,7 @@ h1,h2,h3,p{margin:0}
 <main>
   <section class="screen">
     <div class="top">
-      <div class="wordmark"><span class="om">OM</span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <div class="lang-switch" aria-label="Language switcher">
         <button type="button" class="lang-btn active" data-set-lang="ru">RU</button>
         <button type="button" class="lang-btn" data-set-lang="en">EN</button>
@@ -626,7 +700,7 @@ h1,h2,h3,p{margin:0}
     <div class="inner hero-grid">
       <div>
         <div class="kicker">ART / AI / FASHION / MOTION</div>
-        <h1 class="hero-title"><span class="om">OM</span><span class="bereg">BEREG</span></h1>
+        <h1 class="hero-title" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></h1>
 
         <div class="hero-copy" data-lang="ru">
           <span class="text-line">Визуальный художник</span>
@@ -662,7 +736,7 @@ h1,h2,h3,p{margin:0}
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark"><span class="om">OM</span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span data-lang="ru">ОБО МНЕ</span>
       <span data-lang="en">ABOUT</span>
     </div>
@@ -710,7 +784,7 @@ h1,h2,h3,p{margin:0}
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark"><span class="om">OM</span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span data-lang="ru">НАПРАВЛЕНИЯ</span>
       <span data-lang="en">PRACTICE</span>
     </div>
@@ -719,16 +793,34 @@ h1,h2,h3,p{margin:0}
       <div class="section-kicker" data-lang="ru">НАПРАВЛЕНИЯ</div>
       <div class="section-kicker" data-lang="en">PRACTICE</div>
 
-      <h2 class="section-title" data-lang="ru">Что я создаю</h2>
-      <h2 class="section-title" data-lang="en">What I create</h2>
+      <h2 class="section-title skills-title" data-lang="ru">Что я создаю</h2>
+      <h2 class="section-title skills-title" data-lang="en">What I create</h2>
 
       <ul class="skills">
-        <li><b data-lang="ru">AI-ВИЗУАЛЫ</b><b data-lang="en">AI VISUALS</b><small>01</small></li>
-        <li><b data-lang="ru">FASHION</b><b data-lang="en">FASHION</b><small>02</small></li>
-        <li><b data-lang="ru">ВИДЕО</b><b data-lang="en">VIDEO</b><small>03</small></li>
-        <li><b data-lang="ru">ИСКУССТВО</b><b data-lang="en">ART</b><small>04</small></li>
-        <li><b data-lang="ru">АЙДЕНТИКА</b><b data-lang="en">IDENTITY</b><small>05</small></li>
-        <li><b data-lang="ru">ЭКСПЕРИМЕНТЫ</b><b data-lang="en">EXPERIMENTS</b><small>06</small></li>
+        <li>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4l2.4 7.6L26 14l-7.6 2.4L16 24l-2.4-7.6L6 14l7.6-2.4L16 4Z"/><path d="M25 5l.8 2.2L28 8l-2.2.8L25 11l-.8-2.2L22 8l2.2-.8L25 5Z"/></svg></span>
+          <b data-lang="ru">AI-визуалы</b><b data-lang="en">AI visuals</b><small>01</small>
+        </li>
+        <li>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M10 7l6-3 6 3 3 7-4 2v11H11V16l-4-2 3-7Z"/><path d="M13 7c.8 1.6 1.8 2.4 3 2.4S18.2 8.6 19 7"/></svg></span>
+          <b data-lang="ru">Fashion</b><b data-lang="en">Fashion</b><small>02</small>
+        </li>
+        <li>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="5" y="8" width="16" height="16" rx="3"/><path d="M21 13l6-3v12l-6-3z"/><path d="M9 12h6"/></svg></span>
+          <b data-lang="ru">Видео</b><b data-lang="en">Video</b><small>03</small>
+        </li>
+        <li>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 23c6-8 7-14 12-16 4-1 8 2 8 6 0 7-10 13-20 10Z"/><path d="M11 22c0-4 3-7 7-7"/><circle cx="22" cy="12" r="1"/></svg></span>
+          <b data-lang="ru">Искусство</b><b data-lang="en">Art</b><small>04</small>
+        </li>
+        <li>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 8h18v16H7z"/><path d="M11 12h10v8H11z"/><path d="M16 8v16M7 16h18"/></svg></span>
+          <b data-lang="ru">Айдентика</b><b data-lang="en">Identity</b><small>05</small>
+        </li>
+        <li>
+          <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 24l5-13h6l5 13"/><path d="M11 18h10"/><path d="M13 7l3-3 3 3"/><circle cx="24" cy="8" r="2"/></svg></span>
+          <b data-lang="ru">Эксперименты</b><b data-lang="en">Experiments</b><small>06</small>
+        </li>
       </ul>
     </div>
     <div></div>
@@ -736,7 +828,7 @@ h1,h2,h3,p{margin:0}
 
   <section class="screen">
     <div class="top">
-      <div class="wordmark"><span class="om">OM</span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span data-lang="ru">ТВОРЧЕСКИЕ ЛИНИИ</span>
       <span data-lang="en">CREATIVE LINES</span>
     </div>
@@ -800,7 +892,7 @@ h1,h2,h3,p{margin:0}
 
   <section class="screen contact">
     <div class="top">
-      <div class="wordmark"><span class="om">OM</span><span class="bereg">BEREG</span></div>
+      <div class="wordmark" aria-label="OM BEREG"><span class="om"><span class="o-mark" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span data-lang="ru">КОНТАКТ</span>
       <span data-lang="en">CONTACT</span>
     </div>
@@ -809,8 +901,8 @@ h1,h2,h3,p{margin:0}
       <div class="section-kicker" data-lang="ru">ЕСТЬ ИДЕЯ?</div>
       <div class="section-kicker" data-lang="en">HAVE AN IDEA?</div>
 
-      <h2 class="section-title" data-lang="ru">Давайте создадим что-то настоящее</h2>
-      <h2 class="section-title" data-lang="en">Let’s create something real</h2>
+      <h2 class="section-title" data-lang="ru">Давайте создадим что-то стоящее</h2>
+      <h2 class="section-title" data-lang="en">Let’s create something worth making</h2>
 
       <div class="contact-copy" data-lang="ru">
         <span class="text-line">Если вам близка моя эстетика</span>
