@@ -322,7 +322,7 @@ main::-webkit-scrollbar{display:none}
 .hero-title .om-glyph{
   position:absolute;
   left:50%;
-  top:56%;
+  top:58%;
   transform:translate(-50%,-50%);
   display:block;
   font-family:"Devanagari Sangam MN","Kohinoor Devanagari","Noto Sans Devanagari",serif;
@@ -340,7 +340,7 @@ main::-webkit-scrollbar{display:none}
   font-family:var(--display-font);
   font-weight:200;
   color:#fff;
-  letter-spacing:.12em
+  letter-spacing:0
 }
 .hero-title .b-letter{
   grid-column:2;
@@ -358,7 +358,8 @@ main::-webkit-scrollbar{display:none}
   font-family:var(--display-font);
   font-weight:200;
   color:#fff;
-  letter-spacing:.12em
+  letter-spacing:.12em;
+  transform:translateX(-.035em)
 }
 .lang-switch{
   display:flex;
@@ -835,6 +836,8 @@ h1,h2,h3{
           <span class="skill-label"><span data-lang="ru">эксперименты</span><span data-lang="en">experiments</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
       </ul>
+
+      <div id="portfolio-anchor" aria-hidden="true"></div>
     </div>
     <div></div>
   </section>
