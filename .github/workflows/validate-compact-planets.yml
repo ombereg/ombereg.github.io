@@ -1,0 +1,80 @@
+name: Validate compact planets
+on:
+  push:
+    branches: [site/compact-planets-20261002]
+    paths: [.github/workflows/validate-compact-planets.yml]
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      PYTHONUNBUFFERED: '1'
+      WEBKIT_DISABLE_COMPOSITING_MODE: '1'
+      WEBKIT_DISABLE_DMABUF_RENDERER: '1'
+      LIBGL_ALWAYS_SOFTWARE: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Install pinned test tools
+        run: |
+          python -m pip install --disable-pip-version-check Pillow==11.3.0 playwright==1.55.0 PyYAML==6.0.2 > /tmp/planet-install.log 2>&1 || { tail -80 /tmp/planet-install.log; exit 1; }
+          python -m playwright install --with-deps chromium webkit >> /tmp/planet-install.log 2>&1 || { tail -80 /tmp/planet-install.log; exit 1; }
+          echo 'Image tools, Chromium and WebKit installed.'
+      - name: Prepare exact reviewed patch and improve Safari focus return
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml, subprocess
+          workflow = yaml.safe_load(Path('.github/workflows/prepare-compact-planets.yml').read_text())
+          steps = workflow['jobs']['prepare']['steps']
+          prepare = next(s['run'] for s in steps if s.get('name') == 'Prepare PNG assets and scoped layout')
+          subprocess.run(['bash', '-e', '-c', prepare], check=True)
+          path = Path('assets/projects/planets-v4.js')
+          js = path.read_text()
+          marker = '  let previousInert = false;'
+          assert marker in js
+          js = js.replace(marker, marker + "\n  universe.addEventListener('click', event => {\n    const button = event.target.closest('.project-planet');\n    if (button && universe.contains(button)) returnFocus = button;\n  }, true);")
+          js = js.replace('      returnFocus = document.activeElement;', "      if (!returnFocus?.isConnected) returnFocus = document.activeElement;")
+          path.write_text(js)
+          subprocess.run(['node', '--check', str(path)], check=True)
+          Path('.review').mkdir(exist_ok=True)
+          tests = next(s['run'] for s in steps if s.get('name') == 'Test layout, motion and project dialogs')
+          tests = tests.replace('import threading, json', 'import threading, json\nfrom pathlib import Path')
+          tests = tests.replace('device_scale_factor=2', 'device_scale_factor=1')
+          marker = "            assert abs(data[2]['cx'] - (data[0]['cx'] + data[1]['cx']) / 2) < 1"
+          assert marker in tests
+          tests = tests.replace(marker, marker + "\n            if width == 414:\n                page.locator('.project-universe').screenshot(path='.review/planets-' + engine.name + '-414.png', animations='disabled')\n                page.screenshot(path='.review/context-' + engine.name + '-414.png', animations='disabled')")
+          Path('/tmp/planet-tests.sh').write_text(tests)
+          PY
+      - name: Browser regression tests
+        run: |
+          set -o pipefail
+          bash -e /tmp/planet-tests.sh 2>&1 | tee .review/test-log.txt
+      - name: Push clean validated website commit
+        env:
+          BASE: 07ce9bf898cf54f3c09ea29fdf554e4c0feb0bb1
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_INDEX_FILE="$RUNNER_TEMP/planet-output-index"
+          rm -f "$GIT_INDEX_FILE"
+          git read-tree "$BASE"
+          git add index.html assets/projects/*-v4.png assets/projects/*-v4.webp assets/projects/planets-v4.css assets/projects/planets-v4.js
+          TREE=$(git write-tree)
+          COMMIT=$(printf '%s\n' 'Refine project planets: compact transparent PNGs, gentle motion and separate labels' | git commit-tree "$TREE" -p "$BASE")
+          git diff-tree --no-commit-id --name-only -r "$COMMIT"
+          git push origin "$COMMIT:refs/heads/site/compact-planets-ready-20261002"
+          echo "VALIDATED_COMMIT=$COMMIT" | tee .review/commit.txt
+          echo "Browser-tested site commit: $COMMIT" >> "$GITHUB_STEP_SUMMARY"
+      - name: Save visual review artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: compact-planets-review
+          path: .review/
+          include-hidden-files: true
+          retention-days: 3
