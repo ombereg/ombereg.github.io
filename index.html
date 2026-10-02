@@ -479,6 +479,10 @@ button{font:inherit}
   from{transform:rotate(12deg) scale(1.02) translate3d(1%,1%,0);opacity:.50}
   to{transform:rotate(7deg) scale(1.09) translate3d(-3%,-2%,0);opacity:.72}
 }
+@keyframes brandOrbBreath{
+  from{opacity:.54;transform:scale(.96)}
+  to{opacity:.78;transform:scale(1.05)}
+}
 @keyframes heroBreath{
   from{transform:translate3d(0,0,0) scale(1);filter:drop-shadow(0 0 8px rgba(108,205,229,.10))}
   to{transform:translate3d(0,-4px,0) scale(1.012);filter:drop-shadow(0 0 20px rgba(108,205,229,.22))}
@@ -641,6 +645,9 @@ main::-webkit-scrollbar{display:none}
 
 /* large hero mark — exact geometric alignment */
 .hero-title{
+  position:relative;
+  isolation:isolate;
+  z-index:0;
   display:grid;
   grid-template-columns:max-content max-content max-content;
   grid-template-rows:max-content max-content;
@@ -654,6 +661,32 @@ main::-webkit-scrollbar{display:none}
   color:#fff;
   filter:drop-shadow(0 0 10px rgba(108,205,229,.12));
   animation:heroBreath 7s ease-in-out infinite alternate
+}
+.hero-title::before{
+  content:"";
+  position:absolute;
+  left:-.18em;
+  top:.20em;
+  width:1.55em;
+  height:1.55em;
+  border-radius:50%;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 46% 46%,
+      rgba(76,200,225,.30) 0%,
+      rgba(73,174,211,.22) 36%,
+      rgba(113,112,210,.13) 58%,
+      rgba(113,112,210,.05) 72%,
+      transparent 82%);
+  filter:blur(11px);
+  opacity:.72;
+  transform:scale(1);
+  animation:brandOrbBreath 9s ease-in-out infinite alternate
+}
+.hero-title > *{
+  position:relative;
+  z-index:1
 }
 .hero-title .o-mark{
   grid-column:1;
@@ -1269,7 +1302,7 @@ h1,h2,h3{
           <span class="text-line">atmosphere and technology.</span>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-muse-final.webp" alt="" loading="eager" fetchpriority="high"></div>
+      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-muse-user.png" alt="" loading="eager" fetchpriority="high"></div>
     </div>
 
     <div class="scroll">
