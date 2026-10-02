@@ -2,7 +2,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "ocean-cosmos",
     poster: "assets/portfolio/posters/ocean-cosmos.webp",
-    video: "",
+    video: "assets/portfolio/videos/ocean-cosmos.mp4",
     titleRu: "Море / космос",
     titleEn: "Sea / Cosmos",
     layout: "tall",
@@ -11,7 +11,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "cyber-transform",
     poster: "assets/portfolio/posters/cyber-transform.webp",
-    video: "",
+    video: "assets/portfolio/videos/cyber-transform.mp4",
     titleRu: "Cyber transformation",
     titleEn: "Cyber transformation",
     layout: "square",
@@ -20,7 +20,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "sunset-dance",
     poster: "assets/portfolio/posters/sunset-dance.webp",
-    video: "",
+    video: "assets/portfolio/videos/sunset-dance.mp4",
     titleRu: "Движение / закат",
     titleEn: "Motion / Sunset",
     layout: "square",
@@ -29,7 +29,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "night-ocean",
     poster: "assets/portfolio/posters/night-ocean.webp",
-    video: "",
+    video: "assets/portfolio/videos/night-ocean.mp4",
     titleRu: "Ночное море",
     titleEn: "Night Ocean",
     layout: "wide",
@@ -38,7 +38,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "sunset-cat",
     poster: "assets/portfolio/posters/sunset-cat.webp",
-    video: "",
+    video: "assets/portfolio/videos/sunset-cat.mp4",
     titleRu: "Fantasy coast",
     titleEn: "Fantasy Coast",
     layout: "tall",
@@ -47,7 +47,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "cat-world",
     poster: "assets/portfolio/posters/cat-world.webp",
-    video: "",
+    video: "assets/portfolio/videos/cat-world.mp4",
     titleRu: "Другой мир",
     titleEn: "Another World",
     layout: "tall",
@@ -56,7 +56,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "cosmic-meditation",
     poster: "assets/portfolio/posters/cosmic-meditation.webp",
-    video: "",
+    video: "assets/portfolio/videos/cosmic-meditation.mp4",
     titleRu: "Cosmic meditation",
     titleEn: "Cosmic Meditation",
     layout: "square",
@@ -65,7 +65,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     id: "nadopen-arts",
     poster: "assets/portfolio/posters/nadopen-arts.webp",
-    video: "",
+    video: "assets/portfolio/videos/nadopen-arts.mp4",
     titleRu: "Nadopen Arts",
     titleEn: "Nadopen Arts",
     layout: "square",
