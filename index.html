@@ -1003,137 +1003,7 @@ h1,h2,h3{
   gap:40px;
   align-items:end
 }
-.about-visual{
-  min-height:min(56vh,540px);
-  position:relative;
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  align-content:center;
-  align-items:center;
-  gap:0;
-  padding:2px 0 0;
-  border:0;
-  border-radius:0;
-  overflow:visible;
-  background:none
-}
-.project-planet{
-  appearance:none;
-  -webkit-appearance:none;
-  position:relative;
-  min-width:0;
-  padding:0;
-  border:0;
-  background:none;
-  color:inherit;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
-  margin:-10px 0;
-  cursor:pointer;
-  contain:layout paint
-}
-.project-planet:nth-child(3){
-  grid-column:1 / -1;
-  width:54%;
-  justify-self:center;
-  margin:-25px 0
-}
-.project-planet-art{
-  position:relative;
-  width:100%;
-  max-width:168px;
-  aspect-ratio:1;
-  display:grid;
-  place-items:center
-}
-.project-planet-art::before{
-  content:"";
-  position:absolute;
-  inset:16%;
-  border-radius:50%;
-  z-index:-1;
-  background:
-    radial-gradient(circle,
-      rgba(103,225,232,.36) 0%,
-      rgba(115,149,255,.25) 38%,
-      rgba(174,125,255,.17) 58%,
-      transparent 74%);
-  filter:blur(18px);
-  opacity:.48;
-  transform:scale(.94);
-  animation:projectGlow 5.8s ease-in-out infinite alternate;
-  animation-play-state:paused
-}
-.project-planet img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  filter:
-    drop-shadow(0 0 8px rgba(115,220,255,.20))
-    drop-shadow(0 0 16px rgba(159,129,255,.14));
-  transform:rotate(0deg);
-  animation:projectSpin 68s linear infinite;
-  animation-play-state:paused;
-  will-change:transform
-}
-.project-planet:nth-child(2) img{animation-duration:82s;animation-direction:reverse}
-.project-planet:nth-child(3) img{animation-duration:74s}
-.project-planet:nth-child(4) img{animation-duration:90s;animation-direction:reverse}
-.project-planet:nth-child(5) img{animation-duration:78s}
-.project-planet:nth-child(1),
-.project-planet:nth-child(4){transform:translateX(14px)}
-.project-planet:nth-child(2),
-.project-planet:nth-child(5){transform:translateX(-14px)}
-.project-universe.projects-active .project-planet img,
-.project-universe.projects-active .project-planet-art::before{
-  animation-play-state:running
-}
-.project-planet-name{
-  position:relative;
-  z-index:2;
-  color:rgba(241,245,255,.82);
-  font-family:var(--display-font);
-  font-size:clamp(12px,3.45vw,15px);
-  line-height:1;
-  font-weight:300;
-  letter-spacing:.10em;
-  white-space:nowrap;
-  text-shadow:0 0 12px rgba(135,207,255,.16)
-}
-.project-planet-name::after{
-  content:"";
-  display:inline-block;
-  width:4px;
-  height:4px;
-  margin-left:7px;
-  vertical-align:.16em;
-  border-radius:50%;
-  background:#b7a3ff;
-  box-shadow:0 0 9px rgba(183,163,255,.65)
-}
-@media(hover:hover){
-  .project-planet-art,
-  .project-planet-name{
-    transition:transform .28s ease,filter .28s ease,color .28s ease
-  }
-  .project-planet:hover .project-planet-art{
-    transform:scale(1.045);
-    filter:brightness(1.06)
-  }
-  .project-planet:hover .project-planet-name{color:#fff}
-}
-.project-planet:active .project-planet-art{transform:scale(.97)}
-
-@keyframes projectSpin{
-  to{transform:rotate(360deg)}
-}
-@keyframes projectGlow{
-  from{opacity:.34;transform:scale(.91)}
-  to{opacity:.64;transform:scale(1.05)}
-}
+/* Project planet layout is in assets/projects/planets-v4.css. */
 
 .project-modal{
   position:fixed;
@@ -1791,6 +1661,8 @@ body.art-open{overflow:hidden}
 }
 
 </style>
+<link rel="stylesheet" href="assets/projects/planets-v4.css">
+<script src="assets/projects/planets-v4.js" defer></script>
 </head>
 <body>
 <div class="cosmic-bg"></div>
@@ -1892,24 +1764,24 @@ body.art-open{overflow:hidden}
       </div>
 
       <div class="about-visual project-universe" aria-label="Projects">
-        <button class="project-planet" type="button" data-project="SoulLux" data-image="assets/projects/soullux.webp?v=2">
-          <span class="project-planet-art"><img src="assets/projects/soullux.webp?v=2" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="SoulLux" data-image="assets/projects/soullux-v4.png">
+          <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/soullux-v4.webp"><img src="assets/projects/soullux-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
           <span class="project-planet-name">SoulLux</span>
         </button>
-        <button class="project-planet" type="button" data-project="Brax" data-image="assets/projects/brax.webp?v=2">
-          <span class="project-planet-art"><img src="assets/projects/brax.webp?v=2" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="Brax" data-image="assets/projects/brax-v4.png">
+          <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/brax-v4.webp"><img src="assets/projects/brax-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
           <span class="project-planet-name">Brax</span>
         </button>
-        <button class="project-planet" type="button" data-project="Seaversum" data-image="assets/projects/seaversum.webp?v=2">
-          <span class="project-planet-art"><img src="assets/projects/seaversum.webp?v=2" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="Seaversum" data-image="assets/projects/seaversum-v4.png">
+          <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/seaversum-v4.webp"><img src="assets/projects/seaversum-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
           <span class="project-planet-name">Seaversum</span>
         </button>
-        <button class="project-planet" type="button" data-project="NadopenArts" data-image="assets/projects/nadopenarts.webp?v=2">
-          <span class="project-planet-art"><img src="assets/projects/nadopenarts.webp?v=2" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="NadopenArts" data-image="assets/projects/nadopenarts-v4.png">
+          <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/nadopenarts-v4.webp"><img src="assets/projects/nadopenarts-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
           <span class="project-planet-name">NadopenArts</span>
         </button>
-        <button class="project-planet" type="button" data-project="OMuseum" data-image="assets/projects/omuseum.webp?v=2">
-          <span class="project-planet-art"><img src="assets/projects/omuseum.webp?v=2" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="OMuseum" data-image="assets/projects/omuseum-v4.png">
+          <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/omuseum-v4.webp"><img src="assets/projects/omuseum-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
           <span class="project-planet-name">OMuseum</span>
         </button>
       </div>
@@ -2159,7 +2031,7 @@ body.art-open{overflow:hidden}
 <div class="project-modal" id="project-modal" aria-hidden="true">
   <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
     <button class="project-modal-close" id="project-modal-close" type="button" aria-label="Close">×</button>
-    <img class="project-modal-planet" id="project-modal-image" src="" alt="">
+    <img class="project-modal-planet" id="project-modal-image" alt="">
     <h3 class="project-modal-title" id="project-modal-title"></h3>
     <p class="project-modal-copy" data-lang="ru">Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.</p>
     <p class="project-modal-copy" data-lang="en">This space will hold the project gallery and a short story. The structure is ready, so each planet can be updated independently.</p>

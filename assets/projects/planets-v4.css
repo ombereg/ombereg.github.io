@@ -1,0 +1,158 @@
+/* Compact project planets. Motion never affects the label or grid geometry. */
+.about-visual.project-universe {
+  --planet-size: clamp(74px, 21vw, 90px);
+  width: min(100%, 260px);
+  min-height: 0;
+  height: auto;
+  margin: 12px auto 4px;
+  padding: 6px 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  align-items: start;
+  justify-items: center;
+  align-self: center;
+  gap: 10px 20px;
+  overflow: visible;
+  background: none;
+  border: 0;
+}
+.project-universe .project-planet {
+  --planet-glow: 175, 157, 255;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  contain: none;
+  transform: none;
+  touch-action: manipulation;
+}
+.project-universe .project-planet:nth-child(2) { --planet-glow: 141, 205, 255; }
+.project-universe .project-planet:nth-child(3) {
+  --planet-glow: 99, 228, 214;
+  --planet-size: clamp(70px, 19vw, 82px);
+  grid-column: 1 / -1;
+  width: calc((100% - 20px) / 2);
+  justify-self: center;
+  margin: 0;
+}
+.project-universe .project-planet:nth-child(4) {
+  --planet-glow: 206, 157, 249;
+  --planet-size: clamp(80px, 23vw, 98px);
+}
+.project-universe .project-planet:nth-child(5) {
+  --planet-glow: 121, 190, 249;
+  --planet-size: clamp(80px, 23vw, 98px);
+}
+.project-universe .project-planet-art {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: var(--planet-size);
+  height: var(--planet-size);
+  max-width: none;
+  flex: 0 0 var(--planet-size);
+  aspect-ratio: 1;
+  overflow: visible;
+}
+.project-universe .project-planet-art::before {
+  content: '';
+  position: absolute;
+  inset: 11%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--planet-glow), .37), rgba(var(--planet-glow), .12) 48%, transparent 74%);
+  filter: blur(9px);
+  opacity: .34;
+  transform: scale(.96);
+  pointer-events: none;
+  animation: projectAuraV4 7s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.project-universe .project-planet-art picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.project-universe .project-planet img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 5px rgba(var(--planet-glow), .22));
+  animation: projectFloatSoulV4 7.2s ease-in-out infinite;
+  animation-play-state: paused;
+  will-change: auto;
+}
+.project-universe .project-planet:nth-child(2) img { animation-name: projectDriftBraxV4; animation-duration: 8.4s; animation-delay: -2s; }
+.project-universe .project-planet:nth-child(3) img { animation-name: projectSwaySeaV4; animation-duration: 7.8s; animation-delay: -3.4s; }
+.project-universe .project-planet:nth-child(4) img { animation-name: projectFloatArtsV4; animation-duration: 9.2s; animation-delay: -1.8s; }
+.project-universe .project-planet:nth-child(5) img { animation-name: projectBreatheMuseumV4; animation-duration: 8.8s; animation-delay: -4.2s; }
+.project-universe .project-planet:nth-child(2) .project-planet-art::before { animation-delay: -2s; }
+.project-universe .project-planet:nth-child(3) .project-planet-art::before { animation-delay: -4s; }
+.project-universe .project-planet:nth-child(4) .project-planet-art::before { animation-delay: -1s; }
+.project-universe .project-planet:nth-child(5) .project-planet-art::before { animation-delay: -3s; }
+.project-universe.projects-active .project-planet img,
+.project-universe.projects-active .project-planet-art::before { animation-play-state: running; }
+html[data-project-page-hidden='true'] .project-universe .project-planet img,
+html[data-project-page-hidden='true'] .project-universe .project-planet-art::before,
+body.project-open .project-universe .project-planet img,
+body.project-open .project-universe .project-planet-art::before { animation-play-state: paused; }
+.project-universe .project-planet-name {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+  font-family: var(--display-font);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 300;
+  letter-spacing: .055em;
+  color: rgba(241, 245, 255, .86);
+  text-shadow: none;
+  transform: none;
+}
+.project-universe .project-planet-name::after { content: none; }
+.project-universe .project-planet:focus-visible { outline: 1px solid #a5d8ef; outline-offset: 4px; border-radius: 8px; }
+@media (hover: hover) {
+  .project-universe .project-planet-art { transition: transform .2s ease; }
+  .project-universe .project-planet:hover .project-planet-art { transform: scale(1.025); }
+  .project-universe .project-planet:hover .project-planet-name { color: #fff; }
+}
+.project-universe .project-planet:active .project-planet-art { transform: scale(.98); }
+body.project-open main { overflow: hidden; }
+@keyframes projectAuraV4 { from { opacity: .25; transform: scale(.94); } to { opacity: .5; transform: scale(1.04); } }
+@keyframes projectFloatSoulV4 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(1px, -3px); } }
+@keyframes projectDriftBraxV4 { 0%, 100% { transform: translate(0, 0) rotate(-1deg); } 50% { transform: translate(-2px, -2px) rotate(1deg); } }
+@keyframes projectSwaySeaV4 { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-3px) rotate(1.2deg); } }
+@keyframes projectFloatArtsV4 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -3px); } }
+@keyframes projectBreatheMuseumV4 { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-2px) scale(1.025); } }
+@media (min-width: 760px) {
+  .about-visual.project-universe { --planet-size: 104px; width: min(100%, 290px); margin-block: 0; gap: 12px 24px; }
+  .project-universe .project-planet:nth-child(3) { --planet-size: 94px; width: calc((100% - 24px) / 2); }
+  .project-universe .project-planet:nth-child(4), .project-universe .project-planet:nth-child(5) { --planet-size: 110px; }
+  .project-universe .project-planet-name { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-universe .project-planet img,
+  .project-universe .project-planet-art,
+  .project-universe .project-planet-art::before { animation: none !important; transition: none !important; transform: none !important; }
+}
