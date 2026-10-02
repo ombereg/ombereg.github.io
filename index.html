@@ -874,9 +874,8 @@ h1,h2,h3{
   height:auto;
   object-fit:contain;
   filter:
-    drop-shadow(0 0 16px rgba(82,211,255,.42))
-    drop-shadow(0 0 30px rgba(143,103,255,.42))
-    drop-shadow(0 0 46px rgba(255,72,211,.28));
+    drop-shadow(0 0 8px rgba(92,216,255,.30))
+    drop-shadow(0 0 16px rgba(151,118,255,.24));
   animation:heroArtistFloat 8.5s ease-in-out infinite alternate;
   transform-origin:50% 72%;
   will-change:transform,filter
@@ -885,16 +884,14 @@ h1,h2,h3{
   from{
     transform:translate3d(0,4px,0) scale(1);
     filter:
-      drop-shadow(0 0 14px rgba(82,211,255,.34))
-      drop-shadow(0 0 28px rgba(143,103,255,.34))
-      drop-shadow(0 0 42px rgba(255,72,211,.22))
+      drop-shadow(0 0 8px rgba(92,216,255,.26))
+      drop-shadow(0 0 15px rgba(151,118,255,.20))
   }
   to{
     transform:translate3d(0,-9px,0) scale(1.012);
     filter:
-      drop-shadow(0 0 22px rgba(82,211,255,.54))
-      drop-shadow(0 0 40px rgba(143,103,255,.50))
-      drop-shadow(0 0 58px rgba(255,72,211,.34))
+      drop-shadow(0 0 11px rgba(92,216,255,.36))
+      drop-shadow(0 0 20px rgba(151,118,255,.28))
   }
 }
 @keyframes heroAura{
@@ -1223,21 +1220,21 @@ h1,h2,h3{
   width:auto;
   height:auto;
   display:block;
-  color:#62eadf;
+  color:#5be8da;
   background:transparent;
   border:0;
   border-radius:0;
   backdrop-filter:none;
   -webkit-backdrop-filter:none;
-  font-size:34px;
+  font-size:32px;
   line-height:1;
   padding:0 0 0 3px;
   transform:translate(-50%,-50%);
   text-shadow:
-    0 0 8px rgba(98,234,223,.86),
-    0 0 20px rgba(98,234,223,.42);
+    0 0 8px rgba(91,232,218,.92),
+    0 0 18px rgba(91,232,218,.48);
   box-shadow:none;
-  transition:transform .22s ease,filter .22s ease
+  transition:transform .22s ease,text-shadow .22s ease
 }
 .portfolio-more{
   margin:26px auto 0;
@@ -1824,7 +1821,9 @@ window.OMBEREG_PORTFOLIO = [
       video.controls = true;
       video.playsInline = true;
       video.autoplay = true;
+      video.preload = 'metadata';
       portfolioMedia.appendChild(video);
+      video.play().catch(() => {});
     }else{
       const img = document.createElement('img');
       img.src = item.poster;
