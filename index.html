@@ -794,29 +794,46 @@ h1,h2,h3{
 .text-gap{height:.72em}
 
 .hero-visual{
-  width:min(75vw,410px);
-  margin:2vh 3vw -1vh auto;
+  width:min(84vw,460px);
+  margin:1vh auto -1vh;
   position:relative;
   overflow:visible;
   background:none;
   border:0;
   box-shadow:none;
-  justify-self:end;
-  pointer-events:none
+  justify-self:center;
+  pointer-events:none;
+  isolation:isolate
 }
 .hero-visual::before{
   content:"";
   position:absolute;
-  inset:8% -4% 3% -4%;
-  z-index:-1;
+  inset:4% -10% -4%;
+  z-index:-2;
   border-radius:48%;
   background:
-    radial-gradient(ellipse at 52% 35%,rgba(218,175,255,.24),transparent 44%),
-    radial-gradient(ellipse at 58% 53%,rgba(105,213,255,.22),transparent 56%),
-    radial-gradient(ellipse at 48% 70%,rgba(255,104,220,.12),transparent 58%);
-  filter:blur(24px);
-  opacity:.78;
-  animation:heroAura 8s ease-in-out infinite alternate
+    radial-gradient(ellipse at 50% 30%,rgba(255,71,210,.42),transparent 34%),
+    radial-gradient(ellipse at 46% 46%,rgba(158,88,255,.46),transparent 48%),
+    radial-gradient(ellipse at 55% 58%,rgba(74,183,255,.42),transparent 58%),
+    radial-gradient(ellipse at 50% 70%,rgba(74,239,233,.28),transparent 64%);
+  filter:blur(28px);
+  opacity:.98;
+  transform:scale(1.02);
+  animation:heroAura 7.5s ease-in-out infinite alternate
+}
+.hero-visual::after{
+  content:"";
+  position:absolute;
+  inset:10% 3% 8%;
+  z-index:-1;
+  border-radius:46%;
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(255,98,220,.18),transparent 42%),
+    radial-gradient(ellipse at 48% 55%,rgba(111,127,255,.22),transparent 55%),
+    radial-gradient(ellipse at 50% 68%,rgba(78,226,238,.18),transparent 62%);
+  filter:blur(14px);
+  opacity:.95;
+  animation:heroAuraInner 5.8s ease-in-out infinite alternate
 }
 .hero-visual img{
   display:block;
@@ -824,26 +841,36 @@ h1,h2,h3{
   height:auto;
   object-fit:contain;
   filter:
-    drop-shadow(0 0 18px rgba(119,209,255,.26))
-    drop-shadow(0 0 34px rgba(190,130,255,.24))
-    drop-shadow(0 0 52px rgba(255,85,210,.10));
-  animation:heroArtistFloat 9s ease-in-out infinite alternate;
-  transform-origin:50% 70%;
+    drop-shadow(0 0 16px rgba(82,211,255,.42))
+    drop-shadow(0 0 30px rgba(143,103,255,.42))
+    drop-shadow(0 0 46px rgba(255,72,211,.28));
+  animation:heroArtistFloat 8.5s ease-in-out infinite alternate;
+  transform-origin:50% 72%;
   will-change:transform,filter
 }
 @keyframes heroArtistFloat{
   from{
-    transform:translate3d(0,2px,0) scale(1);
-    filter:drop-shadow(0 0 16px rgba(119,209,255,.22)) drop-shadow(0 0 30px rgba(190,130,255,.20)) drop-shadow(0 0 44px rgba(255,85,210,.08))
+    transform:translate3d(0,4px,0) scale(1);
+    filter:
+      drop-shadow(0 0 14px rgba(82,211,255,.34))
+      drop-shadow(0 0 28px rgba(143,103,255,.34))
+      drop-shadow(0 0 42px rgba(255,72,211,.22))
   }
   to{
-    transform:translate3d(0,-5px,0) scale(1.01);
-    filter:drop-shadow(0 0 24px rgba(119,209,255,.34)) drop-shadow(0 0 42px rgba(190,130,255,.30)) drop-shadow(0 0 60px rgba(255,85,210,.14))
+    transform:translate3d(0,-9px,0) scale(1.012);
+    filter:
+      drop-shadow(0 0 22px rgba(82,211,255,.54))
+      drop-shadow(0 0 40px rgba(143,103,255,.50))
+      drop-shadow(0 0 58px rgba(255,72,211,.34))
   }
 }
 @keyframes heroAura{
-  from{opacity:.58;transform:scale(.98)}
-  to{opacity:.90;transform:scale(1.045)}
+  from{opacity:.78;transform:scale(.98)}
+  to{opacity:1;transform:scale(1.07)}
+}
+@keyframes heroAuraInner{
+  from{opacity:.64;transform:scale(.99)}
+  to{opacity:.96;transform:scale(1.04)}
 }
 
 .scroll{
@@ -1159,7 +1186,7 @@ h1,h2,h3{
 }
 @media(min-width:760px){
   .hero-grid{grid-template-columns:1.16fr .84fr;padding-top:6vh}
-  .hero-visual{width:min(40vw,520px);margin:0 2vw 0 auto;justify-self:end}
+  .hero-visual{width:min(42vw,560px);margin:0 auto;justify-self:center}
   .about-grid{grid-template-columns:1fr 1fr;gap:8vw}
   .about-visual{height:57vh}
   .lines-grid{grid-template-columns:repeat(3,1fr)}
@@ -1186,7 +1213,7 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  .cosmic-bg,.edge-stars,.accent-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.hero-visual,.hero-visual::before,.hero-visual img,.skill-icon,.screen-index,.quote-mark,.cta{
+  .cosmic-bg,.edge-stars,.accent-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.hero-visual,.hero-visual::before,.hero-visual::after,.hero-visual img,.skill-icon,.screen-index,.quote-mark,.cta{
     animation:none!important
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
@@ -1242,7 +1269,7 @@ h1,h2,h3{
           <span class="text-line">atmosphere and technology.</span>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-girl-white.webp" alt="" loading="eager" fetchpriority="high"></div>
+      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-muse-final.webp" alt="" loading="eager" fetchpriority="high"></div>
     </div>
 
     <div class="scroll">
