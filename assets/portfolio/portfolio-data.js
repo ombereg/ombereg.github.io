@@ -9,11 +9,11 @@ window.OMBEREG_PORTFOLIO = [
     group: "featured"
   },
   {
-    id: "cyber-transform",
-    poster: "assets/portfolio/posters/cyber-transform.webp",
-    video: "assets/portfolio/videos/cyber-transform.mp4",
-    titleRu: "Cyber transformation",
-    titleEn: "Cyber transformation",
+    id: "neon-moon",
+    poster: "assets/portfolio/posters/neon-moon.webp",
+    video: "assets/portfolio/videos/neon-moon.mp4",
+    titleRu: "Неоновая луна",
+    titleEn: "Neon Moon",
     layout: "square",
     group: "featured"
   },
