@@ -1213,6 +1213,12 @@ h1,h2,h3{
 }
 .portfolio-card:hover .portfolio-play,
 .portfolio-card:focus-visible .portfolio-play{
+  transform:translate(-50%,-50%) scale(1.10);
+  text-shadow:
+    0 0 12px rgba(91,232,218,1),
+    0 0 24px rgba(91,232,218,.64)
+}
+.portfolio-play{
   position:absolute;
   left:50%;
   top:50%;
@@ -1226,15 +1232,16 @@ h1,h2,h3{
   border-radius:0;
   backdrop-filter:none;
   -webkit-backdrop-filter:none;
-  font-size:32px;
+  font-size:34px;
   line-height:1;
   padding:0 0 0 3px;
   transform:translate(-50%,-50%);
   text-shadow:
-    0 0 8px rgba(91,232,218,.92),
-    0 0 18px rgba(91,232,218,.48);
+    0 0 9px rgba(91,232,218,.95),
+    0 0 20px rgba(91,232,218,.50);
   box-shadow:none;
-  transition:transform .22s ease,text-shadow .22s ease
+  transition:transform .22s ease,text-shadow .22s ease;
+  pointer-events:none
 }
 .portfolio-more{
   margin:26px auto 0;
@@ -1765,14 +1772,14 @@ html[lang="en"] [data-lang="en"]{display:revert}
 
 <script>
 window.OMBEREG_PORTFOLIO = [
-  {id:"ocean-cosmos",poster:"assets/portfolio/posters/ocean-cosmos.webp",video:"",titleRu:"Море / космос",titleEn:"Sea / Cosmos",layout:"tall",group:"featured"},
-  {id:"cyber-transform",poster:"assets/portfolio/posters/cyber-transform.webp",video:"",titleRu:"Cyber transformation",titleEn:"Cyber transformation",layout:"square",group:"featured"},
-  {id:"sunset-dance",poster:"assets/portfolio/posters/sunset-dance.webp",video:"",titleRu:"Движение / закат",titleEn:"Motion / Sunset",layout:"square",group:"featured"},
-  {id:"night-ocean",poster:"assets/portfolio/posters/night-ocean.webp",video:"",titleRu:"Ночное море",titleEn:"Night Ocean",layout:"wide",group:"featured"},
-  {id:"sunset-cat",poster:"assets/portfolio/posters/sunset-cat.webp",video:"",titleRu:"Fantasy coast",titleEn:"Fantasy Coast",layout:"tall",group:"featured"},
-  {id:"cat-world",poster:"assets/portfolio/posters/cat-world.webp",video:"",titleRu:"Другой мир",titleEn:"Another World",layout:"tall",group:"featured"},
-  {id:"cosmic-meditation",poster:"assets/portfolio/posters/cosmic-meditation.webp",video:"",titleRu:"Cosmic meditation",titleEn:"Cosmic Meditation",layout:"square",group:"featured"},
-  {id:"nadopen-arts",poster:"assets/portfolio/posters/nadopen-arts.webp",video:"",titleRu:"Nadopen Arts",titleEn:"Nadopen Arts",layout:"square",group:"featured"}
+  {id:"ocean-cosmos",poster:"assets/portfolio/posters/ocean-cosmos.webp",video:"assets/portfolio/videos/ocean-cosmos.mp4",titleRu:"Море / космос",titleEn:"Sea / Cosmos",layout:"tall",group:"featured"},
+  {id:"cyber-transform",poster:"assets/portfolio/posters/cyber-transform.webp",video:"assets/portfolio/videos/cyber-transform.mp4",titleRu:"Cyber transformation",titleEn:"Cyber transformation",layout:"square",group:"featured"},
+  {id:"sunset-dance",poster:"assets/portfolio/posters/sunset-dance.webp",video:"assets/portfolio/videos/sunset-dance.mp4",titleRu:"Движение / закат",titleEn:"Motion / Sunset",layout:"square",group:"featured"},
+  {id:"night-ocean",poster:"assets/portfolio/posters/night-ocean.webp",video:"assets/portfolio/videos/night-ocean.mp4",titleRu:"Ночное море",titleEn:"Night Ocean",layout:"wide",group:"featured"},
+  {id:"sunset-cat",poster:"assets/portfolio/posters/sunset-cat.webp",video:"assets/portfolio/videos/sunset-cat.mp4",titleRu:"Fantasy coast",titleEn:"Fantasy Coast",layout:"tall",group:"featured"},
+  {id:"cat-world",poster:"assets/portfolio/posters/cat-world.webp",video:"assets/portfolio/videos/cat-world.mp4",titleRu:"Другой мир",titleEn:"Another World",layout:"tall",group:"featured"},
+  {id:"cosmic-meditation",poster:"assets/portfolio/posters/cosmic-meditation.webp",video:"assets/portfolio/videos/cosmic-meditation.mp4",titleRu:"Cosmic meditation",titleEn:"Cosmic Meditation",layout:"square",group:"featured"},
+  {id:"nadopen-arts",poster:"assets/portfolio/posters/nadopen-arts.webp",video:"assets/portfolio/videos/nadopen-arts.mp4",titleRu:"Nadopen Arts",titleEn:"Nadopen Arts",layout:"square",group:"featured"}
 ];
 </script>
 <script>
