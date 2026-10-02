@@ -247,13 +247,19 @@ button{font:inherit}
 }
 .shooting-star{
   position:absolute;
-  width:30px;
-  height:1px;
+  width:38px;
+  height:1.2px;
   border-radius:999px;
   opacity:0;
-  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(220,235,255,.22) 42%,rgba(224,213,255,.86) 100%);
-  filter:drop-shadow(0 0 3px rgba(190,171,255,.55));
-  transform:rotate(-34deg);
+  background:linear-gradient(
+    90deg,
+    rgba(226,234,255,0) 0%,
+    rgba(216,228,255,.10) 35%,
+    rgba(215,220,255,.32) 70%,
+    rgba(226,212,255,.88) 100%
+  );
+  filter:drop-shadow(0 0 3px rgba(190,171,255,.45));
+  transform:translate3d(0,0,0) rotate(34deg);
   transform-origin:right center;
   will-change:transform,opacity
 }
@@ -262,27 +268,29 @@ button{font:inherit}
   position:absolute;
   right:-1px;
   top:50%;
-  width:2px;
-  height:2px;
+  width:2.6px;
+  height:2.6px;
   border-radius:50%;
   background:#eadfff;
-  box-shadow:0 0 5px rgba(206,184,255,.85);
+  box-shadow:
+    0 0 5px rgba(218,197,255,.92),
+    0 0 9px rgba(173,150,255,.38);
   transform:translateY(-50%)
 }
 .shooting-star:nth-child(1){
-  top:17%;
-  right:10%;
-  animation:shootingStarA 29s linear infinite 5s
+  top:16%;
+  right:13%;
+  animation:shootingStarA 31s linear infinite 6s
 }
 .shooting-star:nth-child(2){
-  top:63%;
+  top:58%;
   left:8%;
-  animation:shootingStarB 37s linear infinite 14s
+  animation:shootingStarB 39s linear infinite 16s
 }
 .shooting-star:nth-child(3){
-  top:82%;
-  right:16%;
-  animation:shootingStarC 43s linear infinite 23s
+  top:78%;
+  right:18%;
+  animation:shootingStarC 47s linear infinite 27s
 }
 
 .noise{
@@ -295,22 +303,49 @@ button{font:inherit}
 }
 
 @keyframes shootingStarA{
-  0%,7%,100%{opacity:0;transform:rotate(-34deg) translate3d(0,0,0)}
-  7.5%{opacity:.78}
-  9.2%{opacity:.52;transform:rotate(-34deg) translate3d(-58px,42px,0)}
-  10%{opacity:0;transform:rotate(-34deg) translate3d(-82px,58px,0)}
+  0%,8%,100%{
+    opacity:0;
+    transform:translate3d(0,0,0) rotate(34deg)
+  }
+  8.5%{opacity:.78}
+  10.2%{
+    opacity:.48;
+    transform:translate3d(58px,39px,0) rotate(34deg)
+  }
+  11%{
+    opacity:0;
+    transform:translate3d(86px,58px,0) rotate(34deg)
+  }
 }
 @keyframes shootingStarB{
-  0%,31%,100%{opacity:0;transform:rotate(-31deg) translate3d(0,0,0)}
-  31.5%{opacity:.62}
-  33%{opacity:.40;transform:rotate(-31deg) translate3d(-50px,34px,0)}
-  33.8%{opacity:0;transform:rotate(-31deg) translate3d(-72px,50px,0)}
+  0%,34%,100%{
+    opacity:0;
+    transform:translate3d(0,0,0) rotate(32deg)
+  }
+  34.5%{opacity:.62}
+  36%{
+    opacity:.38;
+    transform:translate3d(52px,33px,0) rotate(32deg)
+  }
+  36.8%{
+    opacity:0;
+    transform:translate3d(78px,49px,0) rotate(32deg)
+  }
 }
 @keyframes shootingStarC{
-  0%,61%,100%{opacity:0;transform:rotate(-36deg) translate3d(0,0,0)}
-  61.4%{opacity:.58}
-  62.8%{opacity:.34;transform:rotate(-36deg) translate3d(-44px,34px,0)}
-  63.5%{opacity:0;transform:rotate(-36deg) translate3d(-67px,49px,0)}
+  0%,63%,100%{
+    opacity:0;
+    transform:translate3d(0,0,0) rotate(36deg)
+  }
+  63.4%{opacity:.56}
+  64.8%{
+    opacity:.33;
+    transform:translate3d(48px,35px,0) rotate(36deg)
+  }
+  65.6%{
+    opacity:0;
+    transform:translate3d(72px,52px,0) rotate(36deg)
+  }
 }
 @keyframes indexGlow{
   from{opacity:.58;box-shadow:0 0 5px rgba(195,166,255,.68),0 0 11px rgba(147,109,255,.24)}
@@ -720,15 +755,15 @@ h1,h2,h3{
   position:relative;
   width:100%;
   max-width:36rem;
-  padding:8px 8px 8px 34px;
-  color:rgba(235,232,255,.80);
-  font-family:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
-  font-size:clamp(18px,4.6vw,24px);
-  line-height:1.5;
+  padding:10px 16px 10px 38px;
+  color:rgba(235,236,255,.78);
+  font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;
+  font-size:clamp(17px,4.4vw,22px);
+  line-height:1.58;
   font-style:italic;
-  font-weight:400;
-  letter-spacing:.002em;
-  text-shadow:0 0 16px rgba(159,139,255,.06)
+  font-weight:200;
+  letter-spacing:.012em;
+  text-shadow:0 0 14px rgba(159,139,255,.055)
 }
 .quote-wrap{
   width:100%;
@@ -745,43 +780,39 @@ h1,h2,h3{
 }
 .quote-mark{
   position:absolute;
-  left:-2px;
-  top:0;
+  left:-4px;
+  top:-3px;
+  width:34px;
+  height:34px;
   display:block;
-  width:auto;
-  height:auto;
-  font-size:0;
-  line-height:1;
   pointer-events:none;
-  filter:drop-shadow(0 0 8px rgba(164,140,255,.18));
+  filter:drop-shadow(0 0 9px rgba(164,140,255,.18));
   animation:quoteMarkGlow 7s ease-in-out infinite alternate
 }
-.quote-mark::before{
-  content:"“";
-  display:block;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:3rem;
-  line-height:.72;
-  font-style:normal;
-  font-weight:700;
-  background:linear-gradient(115deg,#d4c3ff 0%,#a9cfff 48%,#69e4dc 100%);
-  background-size:180% 100%;
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent
+.quote-mark::before,
+.quote-mark::after{
+  content:"";
+  position:absolute;
+  top:7px;
+  width:10px;
+  height:18px;
+  border-radius:9px 9px 12px 12px;
+  background:linear-gradient(155deg,#d5c5ff 0%,#a9ceff 48%,#69e4dc 100%);
+  transform:rotate(18deg);
+  box-shadow:0 0 10px rgba(154,138,255,.12)
 }
+.quote-mark::before{left:4px}
+.quote-mark::after{left:17px}
 .quote-mark--end{
-  position:static;
-  display:inline-block;
-  margin-left:.10em;
-  vertical-align:-.34em
-}
-.quote-mark--end::before{
-  content:"”"
+  left:auto;
+  right:-2px;
+  top:auto;
+  bottom:-5px;
+  transform:rotate(180deg)
 }
 @keyframes quoteMarkGlow{
-  from{opacity:.78;filter:drop-shadow(0 0 5px rgba(170,145,255,.14))}
-  to{opacity:1;filter:drop-shadow(0 0 12px rgba(108,216,220,.22))}
+  from{opacity:.72;filter:drop-shadow(0 0 5px rgba(170,145,255,.12))}
+  to{opacity:1;filter:drop-shadow(0 0 12px rgba(108,216,220,.20))}
 }
 
 .copy{
@@ -1001,11 +1032,12 @@ h1,h2,h3{
 
 @media(max-width:390px){
   .creative-quote{
-    font-size:clamp(17px,4.5vw,20px);
-    padding-left:31px;
-    padding-right:5px
+    font-size:clamp(16px,4.25vw,19px);
+    padding-left:35px;
+    padding-right:10px
   }
-  .quote-mark::before{font-size:2.7rem}
+  .quote-mark{transform:scale(.92)}
+  .quote-mark--end{transform:rotate(180deg) scale(.92)}
 }
 @media(min-width:760px){
   .hero-grid{grid-template-columns:1.16fr .84fr;padding-top:6vh}
