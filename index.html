@@ -1004,7 +1004,7 @@ h1,h2,h3{
   align-items:end
 }
 .about-visual{
-  min-height:min(72vh,690px);
+  min-height:min(56vh,540px);
   position:relative;
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -1029,16 +1029,16 @@ h1,h2,h3{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:5px;
-  margin:-7px 0;
+  gap:3px;
+  margin:-10px 0;
   cursor:pointer;
   contain:layout paint
 }
 .project-planet:nth-child(3){
   grid-column:1 / -1;
-  width:55%;
+  width:54%;
   justify-self:center;
-  margin:-18px 0
+  margin:-25px 0
 }
 .project-planet-art{
   position:relative;
@@ -1084,9 +1084,9 @@ h1,h2,h3{
 .project-planet:nth-child(4) img{animation-duration:90s;animation-direction:reverse}
 .project-planet:nth-child(5) img{animation-duration:78s}
 .project-planet:nth-child(1),
-.project-planet:nth-child(4){transform:translateX(7px)}
+.project-planet:nth-child(4){transform:translateX(14px)}
 .project-planet:nth-child(2),
-.project-planet:nth-child(5){transform:translateX(-7px)}
+.project-planet:nth-child(5){transform:translateX(-14px)}
 .project-universe.projects-active .project-planet img,
 .project-universe.projects-active .project-planet-art::before{
   animation-play-state:running
@@ -1599,7 +1599,7 @@ html[lang="en"] [data-lang="en"]{display:revert}
   .hero-grid{grid-template-columns:1.16fr .84fr;padding-top:6vh}
   .hero-visual{width:min(38vw,504px);margin:0 auto;justify-self:center}
   .about-grid{grid-template-columns:1fr 1fr;gap:8vw}
-  .about-visual{height:57vh}
+  .about-visual{height:auto;min-height:500px}
   .lines-grid{grid-template-columns:repeat(3,1fr)}
 }
 
