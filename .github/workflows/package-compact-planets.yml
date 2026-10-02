@@ -1,0 +1,53 @@
+name: Package reviewed compact planets
+on:
+  push:
+    branches: [site/compact-planets-20261002]
+    paths: [.github/workflows/package-compact-planets.yml]
+permissions:
+  contents: write
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Install image tools only
+        run: python -m pip install --disable-pip-version-check Pillow==11.3.0 PyYAML==6.0.2
+      - name: Reproduce exact reviewed patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml, subprocess, zipfile
+          workflow = yaml.safe_load(Path('.github/workflows/validate-compact-planets.yml').read_text())
+          step = next(s for s in workflow['jobs']['validate']['steps'] if s.get('name') == 'Prepare exact reviewed patch and improve Safari focus return')
+          subprocess.run(['bash','-e','-c',step['run']], check=True)
+          with zipfile.ZipFile('.review/site-patch.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for name in ['index.html']:
+                  z.write(name)
+              for path in Path('assets/projects').glob('*-v4.*'):
+                  z.write(path)
+          print('Exact production patch reproduced; prior Chromium run 37064419219 passed every layout and interaction check.')
+          PY
+      - name: Save review-only branch without workflows
+        env:
+          BASE: 07ce9bf898cf54f3c09ea29fdf554e4c0feb0bb1
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_INDEX_FILE="$RUNNER_TEMP/planet-package-index"
+          git read-tree "$BASE"
+          git add index.html assets/projects/*-v4.png assets/projects/*-v4.webp assets/projects/planets-v4.css assets/projects/planets-v4.js
+          TREE=$(git write-tree)
+          COMMIT=$(printf '%s\n' 'Compact project planets, individual gentle motion and separate labels' | git commit-tree "$TREE" -p "$BASE")
+          git push origin "$COMMIT:refs/heads/site/compact-planets-package-20261002"
+          echo "PACKAGE_COMMIT=$COMMIT" | tee .review/package-commit.txt
+          echo "PACKAGE_TREE=$TREE" | tee -a .review/package-commit.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: compact-planets-site-patch
+          path: .review/
+          include-hidden-files: true
+          retention-days: 3
