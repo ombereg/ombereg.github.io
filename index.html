@@ -1010,8 +1010,8 @@ h1,h2,h3{
   grid-template-columns:repeat(2,minmax(0,1fr));
   align-content:center;
   align-items:center;
-  gap:14px 10px;
-  padding:10px 0 0;
+  gap:0;
+  padding:2px 0 0;
   border:0;
   border-radius:0;
   overflow:visible;
@@ -1029,15 +1029,16 @@ h1,h2,h3{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:7px;
+  gap:5px;
+  margin:-7px 0;
   cursor:pointer;
   contain:layout paint
 }
 .project-planet:nth-child(3){
   grid-column:1 / -1;
-  width:58%;
+  width:55%;
   justify-self:center;
-  margin:-8px 0
+  margin:-18px 0
 }
 .project-planet-art{
   position:relative;
@@ -1082,6 +1083,10 @@ h1,h2,h3{
 .project-planet:nth-child(3) img{animation-duration:74s}
 .project-planet:nth-child(4) img{animation-duration:90s;animation-direction:reverse}
 .project-planet:nth-child(5) img{animation-duration:78s}
+.project-planet:nth-child(1),
+.project-planet:nth-child(4){transform:translateX(7px)}
+.project-planet:nth-child(2),
+.project-planet:nth-child(5){transform:translateX(-7px)}
 .project-universe.projects-active .project-planet img,
 .project-universe.projects-active .project-planet-art::before{
   animation-play-state:running
@@ -1726,24 +1731,24 @@ html[lang="en"] [data-lang="en"]{display:revert}
       </div>
 
       <div class="about-visual project-universe" aria-label="Projects">
-        <button class="project-planet" type="button" data-project="SoulLux" data-image="assets/projects/soullux.webp">
-          <span class="project-planet-art"><img src="assets/projects/soullux.webp" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="SoulLux" data-image="assets/projects/soullux.webp?v=2">
+          <span class="project-planet-art"><img src="assets/projects/soullux.webp?v=2" alt="" loading="lazy" decoding="async"></span>
           <span class="project-planet-name">SoulLux</span>
         </button>
-        <button class="project-planet" type="button" data-project="Brax" data-image="assets/projects/brax.webp">
-          <span class="project-planet-art"><img src="assets/projects/brax.webp" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="Brax" data-image="assets/projects/brax.webp?v=2">
+          <span class="project-planet-art"><img src="assets/projects/brax.webp?v=2" alt="" loading="lazy" decoding="async"></span>
           <span class="project-planet-name">Brax</span>
         </button>
-        <button class="project-planet" type="button" data-project="Seaversum" data-image="assets/projects/seaversum.webp">
-          <span class="project-planet-art"><img src="assets/projects/seaversum.webp" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="Seaversum" data-image="assets/projects/seaversum.webp?v=2">
+          <span class="project-planet-art"><img src="assets/projects/seaversum.webp?v=2" alt="" loading="lazy" decoding="async"></span>
           <span class="project-planet-name">Seaversum</span>
         </button>
-        <button class="project-planet" type="button" data-project="NadopenArts" data-image="assets/projects/nadopenarts.webp">
-          <span class="project-planet-art"><img src="assets/projects/nadopenarts.webp" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="NadopenArts" data-image="assets/projects/nadopenarts.webp?v=2">
+          <span class="project-planet-art"><img src="assets/projects/nadopenarts.webp?v=2" alt="" loading="lazy" decoding="async"></span>
           <span class="project-planet-name">NadopenArts</span>
         </button>
-        <button class="project-planet" type="button" data-project="OMuseum" data-image="assets/projects/omuseum.webp">
-          <span class="project-planet-art"><img src="assets/projects/omuseum.webp" alt="" loading="lazy" decoding="async"></span>
+        <button class="project-planet" type="button" data-project="OMuseum" data-image="assets/projects/omuseum.webp?v=2">
+          <span class="project-planet-art"><img src="assets/projects/omuseum.webp?v=2" alt="" loading="lazy" decoding="async"></span>
           <span class="project-planet-name">OMuseum</span>
         </button>
       </div>
