@@ -1213,35 +1213,29 @@ h1,h2,h3{
 }
 .portfolio-card:hover .portfolio-play,
 .portfolio-card:focus-visible .portfolio-play{
-  transform:translate(-50%,-50%) scale(1.10);
-  text-shadow:
-    0 0 12px rgba(91,232,218,1),
-    0 0 24px rgba(91,232,218,.64)
-}
-.portfolio-play{
   position:absolute;
   left:50%;
   top:50%;
   z-index:2;
+  display:block;
   width:auto;
   height:auto;
-  display:block;
-  color:#5be8da;
-  background:transparent;
+  color:#67eee1;
+  background:none;
   border:0;
   border-radius:0;
   backdrop-filter:none;
   -webkit-backdrop-filter:none;
-  font-size:34px;
+  font-size:30px;
   line-height:1;
   padding:0 0 0 3px;
   transform:translate(-50%,-50%);
   text-shadow:
-    0 0 9px rgba(91,232,218,.95),
-    0 0 20px rgba(91,232,218,.50);
-  box-shadow:none;
-  transition:transform .22s ease,text-shadow .22s ease;
-  pointer-events:none
+    0 0 8px rgba(103,238,225,.90),
+    0 0 18px rgba(103,238,225,.52),
+    0 0 30px rgba(103,238,225,.22);
+  filter:drop-shadow(0 0 4px rgba(103,238,225,.45));
+  transition:transform .22s ease,filter .22s ease
 }
 .portfolio-more{
   margin:26px auto 0;
