@@ -1,0 +1,366 @@
+name: Prepare compact project planets
+on:
+  push:
+    branches: [site/compact-planets-20261002]
+    paths: [.github/workflows/prepare-compact-planets.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Install image and browser test tools
+        run: |
+          python -m pip install --disable-pip-version-check Pillow==11.3.0 playwright==1.55.0
+          python -m playwright install --with-deps chromium webkit
+      - name: Prepare PNG assets and scoped layout
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+          import hashlib, re, subprocess
+          names = ['soullux', 'brax', 'seaversum', 'nadopenarts', 'omuseum']
+          root = Path('assets/projects')
+          fingerprints = set()
+          for name in names:
+              source = Image.open(root / (name + '.webp')).convert('RGBA')
+              alpha = source.getchannel('A')
+              assert alpha.getextrema()[0] == 0, (name, 'source has no transparency')
+              fingerprint = hashlib.sha256(source.tobytes()).hexdigest()
+              assert fingerprint not in fingerprints, (name, 'duplicate planet image')
+              fingerprints.add(fingerprint)
+              bounds = alpha.getbbox()
+              assert bounds is not None
+              fitted = ImageOps.contain(source.crop(bounds), (296, 296), Image.Resampling.LANCZOS)
+              image = Image.new('RGBA', (320, 320), (0, 0, 0, 0))
+              image.alpha_composite(fitted, ((320-fitted.width)//2, (320-fitted.height)//2))
+              png = root / (name + '-v4.png')
+              webp = root / (name + '-v4.webp')
+              image.save(png, optimize=True)
+              image.save(webp, quality=88, method=6, exact=True)
+              print('ASSET', name, 'PNG', png.stat().st_size, 'WebP', webp.stat().st_size, 'RGBA', image.size, 'source', fingerprint[:16])
+          css = '''/* Compact project planets. Motion never affects the label or grid geometry. */
+          .about-visual.project-universe {
+            --planet-size: clamp(74px, 21vw, 90px);
+            width: min(100%, 260px);
+            min-height: 0;
+            height: auto;
+            margin: 12px auto 4px;
+            padding: 6px 0;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            align-content: start;
+            align-items: start;
+            justify-items: center;
+            align-self: center;
+            gap: 10px 20px;
+            overflow: visible;
+            background: none;
+            border: 0;
+          }
+          .project-universe .project-planet {
+            --planet-glow: 175, 157, 255;
+            appearance: none;
+            -webkit-appearance: none;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            width: 100%;
+            min-width: 0;
+            margin: 0;
+            padding: 4px 0;
+            border: 0;
+            background: none;
+            color: inherit;
+            cursor: pointer;
+            contain: none;
+            transform: none;
+            touch-action: manipulation;
+          }
+          .project-universe .project-planet:nth-child(2) { --planet-glow: 141, 205, 255; }
+          .project-universe .project-planet:nth-child(3) {
+            --planet-glow: 99, 228, 214;
+            --planet-size: clamp(70px, 19vw, 82px);
+            grid-column: 1 / -1;
+            width: calc((100% - 20px) / 2);
+            justify-self: center;
+            margin: 0;
+          }
+          .project-universe .project-planet:nth-child(4) {
+            --planet-glow: 206, 157, 249;
+            --planet-size: clamp(80px, 23vw, 98px);
+          }
+          .project-universe .project-planet:nth-child(5) {
+            --planet-glow: 121, 190, 249;
+            --planet-size: clamp(80px, 23vw, 98px);
+          }
+          .project-universe .project-planet-art {
+            position: relative;
+            isolation: isolate;
+            display: grid;
+            place-items: center;
+            width: var(--planet-size);
+            height: var(--planet-size);
+            max-width: none;
+            flex: 0 0 var(--planet-size);
+            aspect-ratio: 1;
+            overflow: visible;
+          }
+          .project-universe .project-planet-art::before {
+            content: '';
+            position: absolute;
+            inset: 11%;
+            z-index: -1;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(var(--planet-glow), .37), rgba(var(--planet-glow), .12) 48%, transparent 74%);
+            filter: blur(9px);
+            opacity: .34;
+            transform: scale(.96);
+            pointer-events: none;
+            animation: projectAuraV4 7s ease-in-out infinite alternate;
+            animation-play-state: paused;
+          }
+          .project-universe .project-planet-art picture {
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+          .project-universe .project-planet img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: 50% 50%;
+            filter: drop-shadow(0 0 5px rgba(var(--planet-glow), .22));
+            animation: projectFloatSoulV4 7.2s ease-in-out infinite;
+            animation-play-state: paused;
+            will-change: auto;
+          }
+          .project-universe .project-planet:nth-child(2) img { animation-name: projectDriftBraxV4; animation-duration: 8.4s; animation-delay: -2s; }
+          .project-universe .project-planet:nth-child(3) img { animation-name: projectSwaySeaV4; animation-duration: 7.8s; animation-delay: -3.4s; }
+          .project-universe .project-planet:nth-child(4) img { animation-name: projectFloatArtsV4; animation-duration: 9.2s; animation-delay: -1.8s; }
+          .project-universe .project-planet:nth-child(5) img { animation-name: projectBreatheMuseumV4; animation-duration: 8.8s; animation-delay: -4.2s; }
+          .project-universe .project-planet:nth-child(2) .project-planet-art::before { animation-delay: -2s; }
+          .project-universe .project-planet:nth-child(3) .project-planet-art::before { animation-delay: -4s; }
+          .project-universe .project-planet:nth-child(4) .project-planet-art::before { animation-delay: -1s; }
+          .project-universe .project-planet:nth-child(5) .project-planet-art::before { animation-delay: -3s; }
+          .project-universe.projects-active .project-planet img,
+          .project-universe.projects-active .project-planet-art::before { animation-play-state: running; }
+          html[data-project-page-hidden='true'] .project-universe .project-planet img,
+          html[data-project-page-hidden='true'] .project-universe .project-planet-art::before,
+          body.project-open .project-universe .project-planet img,
+          body.project-open .project-universe .project-planet-art::before { animation-play-state: paused; }
+          .project-universe .project-planet-name {
+            display: block;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            white-space: nowrap;
+            font-family: var(--display-font);
+            font-size: 12px;
+            line-height: 1.4;
+            font-weight: 300;
+            letter-spacing: .055em;
+            color: rgba(241, 245, 255, .86);
+            text-shadow: none;
+            transform: none;
+          }
+          .project-universe .project-planet-name::after { content: none; }
+          .project-universe .project-planet:focus-visible { outline: 1px solid #a5d8ef; outline-offset: 4px; border-radius: 8px; }
+          @media (hover: hover) {
+            .project-universe .project-planet-art { transition: transform .2s ease; }
+            .project-universe .project-planet:hover .project-planet-art { transform: scale(1.025); }
+            .project-universe .project-planet:hover .project-planet-name { color: #fff; }
+          }
+          .project-universe .project-planet:active .project-planet-art { transform: scale(.98); }
+          body.project-open main { overflow: hidden; }
+          @keyframes projectAuraV4 { from { opacity: .25; transform: scale(.94); } to { opacity: .5; transform: scale(1.04); } }
+          @keyframes projectFloatSoulV4 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(1px, -3px); } }
+          @keyframes projectDriftBraxV4 { 0%, 100% { transform: translate(0, 0) rotate(-1deg); } 50% { transform: translate(-2px, -2px) rotate(1deg); } }
+          @keyframes projectSwaySeaV4 { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-3px) rotate(1.2deg); } }
+          @keyframes projectFloatArtsV4 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(2px, -3px); } }
+          @keyframes projectBreatheMuseumV4 { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-2px) scale(1.025); } }
+          @media (min-width: 760px) {
+            .about-visual.project-universe { --planet-size: 104px; width: min(100%, 290px); margin-block: 0; gap: 12px 24px; }
+            .project-universe .project-planet:nth-child(3) { --planet-size: 94px; width: calc((100% - 24px) / 2); }
+            .project-universe .project-planet:nth-child(4), .project-universe .project-planet:nth-child(5) { --planet-size: 110px; }
+            .project-universe .project-planet-name { font-size: 13px; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .project-universe .project-planet img,
+            .project-universe .project-planet-art,
+            .project-universe .project-planet-art::before { animation: none !important; transition: none !important; transform: none !important; }
+          }
+          '''
+          css = '\n'.join(line[10:] if line.startswith('          ') else line for line in css.splitlines()) + '\n'
+          (root / 'planets-v4.css').write_text(css)
+          js = '''(() => {
+            'use strict';
+            const universe = document.querySelector('.project-universe');
+            const modal = document.getElementById('project-modal');
+            const main = document.querySelector('main');
+            if (!universe || !modal || !main) return;
+            const syncVisibility = () => { document.documentElement.dataset.projectPageHidden = String(document.hidden); };
+            syncVisibility();
+            document.addEventListener('visibilitychange', syncVisibility);
+            universe.querySelectorAll('.project-planet').forEach(button => {
+              button.setAttribute('aria-haspopup', 'dialog');
+              button.setAttribute('aria-controls', 'project-modal');
+            });
+            let wasOpen = false;
+            let returnFocus = null;
+            let previousInert = false;
+            const syncDialog = () => {
+              const open = modal.classList.contains('is-open');
+              if (open && !wasOpen) {
+                returnFocus = document.activeElement;
+                previousInert = main.inert;
+                main.inert = true;
+                modal.querySelector('.project-modal-close')?.focus({preventScroll: true});
+              } else if (!open && wasOpen) {
+                main.inert = previousInert;
+                if (returnFocus?.isConnected) returnFocus.focus({preventScroll: true});
+              }
+              wasOpen = open;
+            };
+            new MutationObserver(syncDialog).observe(modal, {attributes: true, attributeFilter: ['class']});
+            modal.addEventListener('keydown', event => {
+              if (event.key !== 'Tab' || !wasOpen) return;
+              const focusable = [...modal.querySelectorAll('button, a[href], input, select, textarea, [tabindex]')].filter(el => !el.disabled && el.tabIndex >= 0 && el.getClientRects().length);
+              if (!focusable.length) return;
+              const first = focusable[0], last = focusable[focusable.length - 1];
+              if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+              else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+            });
+          })();
+          '''
+          js = '\n'.join(line[10:] if line.startswith('          ') else line for line in js.splitlines()) + '\n'
+          (root / 'planets-v4.js').write_text(js)
+          path = Path('index.html')
+          html = path.read_text()
+          original = html
+          assert 'planets-v4.css' not in html
+          a = html.index('.about-visual{')
+          b = html.index('.project-modal{', a)
+          html = html[:a] + '/* Project planet layout is in assets/projects/planets-v4.css. */\n\n' + html[b:]
+          for name in names:
+              old = f'assets/projects/{name}.webp?v=2'
+              assert html.count(old) == 2, (name, html.count(old))
+              html = html.replace(f'data-image="{old}"', f'data-image="assets/projects/{name}-v4.png"')
+              image = f'<img src="{old}" alt="" loading="lazy" decoding="async">'
+              picture = f'<picture><source type="image/webp" srcset="assets/projects/{name}-v4.webp"><img src="assets/projects/{name}-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture>'
+              assert image in html
+              html = html.replace(image, picture)
+          html = html.replace('id="project-modal-image" src=""', 'id="project-modal-image"')
+          html = html.replace('</head>', '<link rel="stylesheet" href="assets/projects/planets-v4.css">\n<script src="assets/projects/planets-v4.js" defer></script>\n</head>', 1)
+          # Preserve every video, artwork, caption, gallery script and other page section.
+          for pattern in [r'window\.OMBEREG_PORTFOLIO = \[[\s\S]*?\n\]', r'const items = \[[\s\S]*?\n  \];']:
+              before = re.search(pattern, original)
+              after = re.search(pattern, html)
+              assert before and after and before.group(0) == after.group(0), 'An unrelated gallery changed'
+          assert html.count('class="project-planet"') == 5
+          assert html.count('<source type="image/webp" srcset="assets/projects/') == 5
+          path.write_text(html)
+          subprocess.run(['node', '--check', str(root / 'planets-v4.js')], check=True)
+          print('PATCH_OK: five distinct transparent PNGs, optimized WebP display copies; only project-planet layout modified')
+          PY
+      - name: Test layout, motion and project dialogs
+        run: |
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+          import threading, json
+          class QuietHandler(SimpleHTTPRequestHandler):
+              def log_message(self, *args): pass
+          server = ThreadingHTTPServer(('127.0.0.1', 8765), QuietHandler)
+          threading.Thread(target=server.serve_forever, daemon=True).start()
+          with sync_playwright() as p:
+              for engine in [p.chromium, p.webkit]:
+                  browser = engine.launch()
+                  for width in ([320, 390, 414, 768, 1280] if engine.name == 'chromium' else [390, 414]):
+                      page = browser.new_page(viewport={'width': width, 'height': 896}, device_scale_factor=2)
+                      errors = []
+                      page.on('pageerror', lambda error: errors.append(str(error)))
+                      page.goto('http://127.0.0.1:8765/', wait_until='load')
+                      page.locator('.project-universe').scroll_into_view_if_needed()
+                      page.wait_for_function("[...document.querySelectorAll('.project-planet img')].every(i => i.complete && i.naturalWidth === 320)")
+                      page.wait_for_timeout(1100)
+                      data = page.evaluate('''() => [...document.querySelectorAll('.project-planet')].map(b => {
+                        const img = b.querySelector('img');
+                        const label = b.querySelector('.project-planet-name');
+                        const slot = b.querySelector('.project-planet-art').getBoundingClientRect();
+                        const ir = img.getBoundingClientRect(), lr = label.getBoundingClientRect();
+                        const style = getComputedStyle(img);
+                        return {name: b.dataset.project, width: slot.width, cx: slot.x + slot.width / 2, y: slot.y, gap: lr.top - ir.bottom, left: lr.left, right: lr.right, animation: style.animationName, state: style.animationPlayState, src: img.currentSrc};
+                      })''')
+                      assert len(data) == 5
+                      assert len(set(d['src'] for d in data)) == 5
+                      assert len(set(d['animation'] for d in data)) == 5
+                      for d in data:
+                          assert d['gap'] >= 5, ('LABEL_OVERLAP', width, d)
+                          assert d['left'] >= 0 and d['right'] <= width, ('LABEL_OVERFLOW', width, d)
+                          assert d['state'] == 'running', ('ANIMATION_NOT_RUNNING', width, d)
+                          assert d['width'] <= (100 if width < 760 else 112), ('PLANET_TOO_LARGE', width, d)
+                      assert abs(data[0]['y'] - data[1]['y']) < 1
+                      assert abs(data[3]['y'] - data[4]['y']) < 1
+                      assert data[0]['y'] < data[2]['y'] < data[3]['y']
+                      assert abs(data[2]['cx'] - (data[0]['cx'] + data[1]['cx']) / 2) < 1
+                      for i, expected in enumerate(['SoulLux','Brax','Seaversum','NadopenArts','OMuseum']):
+                          button = page.locator('.project-planet').nth(i)
+                          button.click()
+                          page.wait_for_selector('.project-modal.is-open')
+                          page.wait_for_function("document.getElementById('project-modal-image').complete && document.getElementById('project-modal-image').naturalWidth === 320")
+                          assert page.locator('#project-modal-title').inner_text() == expected
+                          assert page.locator('#project-modal-image').get_attribute('src').endswith('-v4.png')
+                          assert page.evaluate("document.querySelector('main').inert")
+                          page.keyboard.press('Tab')
+                          assert page.evaluate("document.activeElement.id === 'project-modal-close'")
+                          page.keyboard.press('Escape')
+                          page.wait_for_selector('.project-modal.is-open', state='hidden')
+                          page.wait_for_function("!document.querySelector('main').inert")
+                          assert button.evaluate('(el) => document.activeElement === el')
+                      page.locator('.project-universe').scroll_into_view_if_needed()
+                      page.evaluate("document.querySelector('main').scrollTo(0, 0)")
+                      page.wait_for_timeout(350)
+                      assert page.evaluate("[...document.querySelectorAll('.project-planet img')].every(i => getComputedStyle(i).animationPlayState === 'paused')")
+                      assert page.locator('#art-grid .art-card').count() == 10
+                      assert page.locator('#portfolio-grid .portfolio-card').count() == 12
+                      assert not errors, errors
+                      print('PASS', engine.name, width, json.dumps(data, ensure_ascii=False))
+                      page.close()
+                  page = browser.new_page(viewport={'width':414,'height':896}, reduced_motion='reduce')
+                  page.goto('http://127.0.0.1:8765/', wait_until='load')
+                  page.locator('.project-universe').scroll_into_view_if_needed()
+                  assert page.evaluate("[...document.querySelectorAll('.project-planet img')].every(i => getComputedStyle(i).animationName === 'none')")
+                  print('PASS', engine.name, 'prefers-reduced-motion')
+                  browser.close()
+          server.shutdown()
+          print('ALL_PROJECT_PLANET_TESTS_PASSED')
+          PY
+      - name: Save only validated website changes on a clean review branch
+        env:
+          BASE: 07ce9bf898cf54f3c09ea29fdf554e4c0feb0bb1
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_INDEX_FILE="$RUNNER_TEMP/planet-output-index"
+          rm -f "$GIT_INDEX_FILE"
+          git read-tree "$BASE"
+          git add index.html assets/projects/*-v4.png assets/projects/*-v4.webp assets/projects/planets-v4.css assets/projects/planets-v4.js
+          TREE=$(git write-tree)
+          COMMIT=$(printf '%s\n' 'Refine project planets: compact transparent PNGs, gentle motion and separate labels' | git commit-tree "$TREE" -p "$BASE")
+          git diff-tree --no-commit-id --name-only -r "$COMMIT"
+          git push origin "$COMMIT:refs/heads/site/compact-planets-ready-20261002"
+          echo "VALIDATED_COMMIT=$COMMIT"
+          echo "Prepared and browser-tested commit: $COMMIT" >> "$GITHUB_STEP_SUMMARY"
