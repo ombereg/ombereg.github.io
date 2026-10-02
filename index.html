@@ -143,6 +143,56 @@ button{font:inherit}
   animation:edgeStarsC 10.8s ease-in-out infinite 3.2s
 }
 
+.accent-stars{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  mix-blend-mode:screen
+}
+.accent-stars::before,
+.accent-stars::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  will-change:opacity,filter
+}
+.accent-stars::before{
+  opacity:.22;
+  background:
+    radial-gradient(circle at 4% 9%,rgba(255,255,255,1) 0 .55px,rgba(220,240,255,.55) .8px,transparent 1.7px),
+    radial-gradient(circle at 9% 17%,rgba(255,255,255,.94) 0 .8px,rgba(214,237,255,.45) 1px,transparent 1.9px),
+    radial-gradient(circle at 15% 29%,rgba(250,253,255,.96) 0 .5px,transparent 1.35px),
+    radial-gradient(circle at 3% 39%,rgba(255,255,255,.98) 0 .7px,rgba(210,236,255,.38) .95px,transparent 1.8px),
+    radial-gradient(circle at 12% 52%,rgba(255,255,255,.96) 0 .6px,transparent 1.45px),
+    radial-gradient(circle at 6% 68%,rgba(247,252,255,.94) 0 .85px,rgba(210,238,255,.34) 1.05px,transparent 1.95px),
+    radial-gradient(circle at 14% 80%,rgba(255,255,255,.98) 0 .55px,transparent 1.4px),
+    radial-gradient(circle at 8% 93%,rgba(248,252,255,.92) 0 .75px,transparent 1.7px),
+    radial-gradient(circle at 96% 7%,rgba(255,255,255,1) 0 .6px,rgba(219,239,255,.5) .85px,transparent 1.75px),
+    radial-gradient(circle at 89% 18%,rgba(252,254,255,.96) 0 .85px,transparent 1.85px),
+    radial-gradient(circle at 97% 31%,rgba(255,255,255,.96) 0 .5px,transparent 1.35px),
+    radial-gradient(circle at 86% 44%,rgba(248,252,255,.92) 0 .7px,rgba(211,237,255,.34) .95px,transparent 1.75px),
+    radial-gradient(circle at 95% 59%,rgba(255,255,255,.98) 0 .6px,transparent 1.45px),
+    radial-gradient(circle at 88% 71%,rgba(255,255,255,.94) 0 .8px,rgba(215,238,255,.34) 1px,transparent 1.9px),
+    radial-gradient(circle at 96% 84%,rgba(250,254,255,.96) 0 .55px,transparent 1.4px),
+    radial-gradient(circle at 90% 95%,rgba(255,255,255,.96) 0 .75px,transparent 1.7px);
+  filter:drop-shadow(0 0 2px rgba(210,236,255,.38));
+  animation:accentWhiteTwinkle 8.6s ease-in-out infinite
+}
+.accent-stars::after{
+  opacity:.17;
+  background:
+    radial-gradient(circle at 11% 13%,rgba(255,232,148,.98) 0 .85px,rgba(255,209,103,.34) 1.1px,transparent 2.1px),
+    radial-gradient(circle at 4% 58%,rgba(255,222,118,.92) 0 .65px,rgba(255,197,80,.28) .95px,transparent 1.8px),
+    radial-gradient(circle at 16% 87%,rgba(255,238,167,.94) 0 .7px,transparent 1.7px),
+    radial-gradient(circle at 92% 23%,rgba(255,229,137,.96) 0 .8px,rgba(255,204,90,.30) 1.05px,transparent 2px),
+    radial-gradient(circle at 98% 64%,rgba(255,236,159,.92) 0 .65px,transparent 1.6px),
+    radial-gradient(circle at 87% 90%,rgba(255,221,112,.90) 0 .75px,rgba(255,195,76,.24) 1px,transparent 1.9px);
+  filter:drop-shadow(0 0 3px rgba(255,211,103,.28));
+  animation:accentGoldTwinkle 11.4s ease-in-out infinite 2.1s
+}
+
 .fluid-ribbon,
 .fluid-ribbon-2{
   position:fixed;
@@ -292,6 +342,16 @@ button{font:inherit}
   right:18%;
   animation:shootingStarC 47s linear infinite 27s
 }
+.shooting-star:nth-child(4){
+  top:27%;
+  left:10%;
+  animation:shootingStarD 43s linear infinite 21s
+}
+.shooting-star:nth-child(5){
+  top:69%;
+  right:28%;
+  animation:shootingStarE 56s linear infinite 34s
+}
 
 .noise{
   position:fixed;
@@ -345,6 +405,48 @@ button{font:inherit}
   65.6%{
     opacity:0;
     transform:translate3d(72px,52px,0) rotate(36deg)
+  }
+}
+@keyframes accentWhiteTwinkle{
+  0%,100%{opacity:.13;filter:drop-shadow(0 0 1px rgba(210,236,255,.20))}
+  22%{opacity:.27;filter:drop-shadow(0 0 3px rgba(220,244,255,.44))}
+  47%{opacity:.17}
+  71%{opacity:.31;filter:drop-shadow(0 0 4px rgba(226,247,255,.50))}
+}
+@keyframes accentGoldTwinkle{
+  0%,100%{opacity:.10;filter:drop-shadow(0 0 1px rgba(255,211,103,.18))}
+  29%{opacity:.21;filter:drop-shadow(0 0 4px rgba(255,216,120,.36))}
+  56%{opacity:.13}
+  83%{opacity:.24;filter:drop-shadow(0 0 5px rgba(255,218,126,.40))}
+}
+@keyframes shootingStarD{
+  0%,41%,100%{
+    opacity:0;
+    transform:translate3d(0,0,0) rotate(35deg)
+  }
+  41.4%{opacity:.48}
+  42.8%{
+    opacity:.29;
+    transform:translate3d(44px,31px,0) rotate(35deg)
+  }
+  43.5%{
+    opacity:0;
+    transform:translate3d(66px,47px,0) rotate(35deg)
+  }
+}
+@keyframes shootingStarE{
+  0%,58%,100%{
+    opacity:0;
+    transform:translate3d(0,0,0) rotate(33deg)
+  }
+  58.4%{opacity:.44}
+  59.7%{
+    opacity:.27;
+    transform:translate3d(40px,27px,0) rotate(33deg)
+  }
+  60.4%{
+    opacity:0;
+    transform:translate3d(61px,41px,0) rotate(33deg)
   }
 }
 @keyframes indexGlow{
@@ -1068,7 +1170,7 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  .cosmic-bg,.edge-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.skill-icon,.screen-index,.quote-mark,.cta{
+  .cosmic-bg,.edge-stars,.accent-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.skill-icon,.screen-index,.quote-mark,.cta{
     animation:none!important
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
@@ -1080,12 +1182,15 @@ h1,h2,h3{
 <div class="edge-stars edge-stars-a"></div>
 <div class="edge-stars edge-stars-b"></div>
 <div class="edge-stars edge-stars-c"></div>
+<div class="accent-stars"></div>
 <div class="fluid-ribbon"></div>
 <div class="fluid-ribbon-2"></div>
 <div class="motion-light motion-light-a"></div>
 <div class="motion-light motion-light-b"></div>
 <div class="stars"></div>
 <div class="shooting-stars" aria-hidden="true">
+  <span class="shooting-star"></span>
+  <span class="shooting-star"></span>
   <span class="shooting-star"></span>
   <span class="shooting-star"></span>
   <span class="shooting-star"></span>
