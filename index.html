@@ -1629,6 +1629,167 @@ html[lang="en"] [data-lang="en"]{display:revert}
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
 }
+
+/* ===== ART / PHOTO MASONRY GALLERY ===== */
+.art-gallery-screen{
+  justify-content:flex-start;
+  gap:20px;
+  padding-left:12px;
+  padding-right:12px;
+  padding-bottom:max(48px,env(safe-area-inset-bottom))
+}
+.art-gallery-screen .top{
+  padding-left:calc(var(--pad) - 12px);
+  padding-right:calc(var(--pad) - 12px)
+}
+.art-gallery-head{
+  width:100%;
+  max-width:var(--maxw);
+  margin:2vh auto 0;
+  padding:0 4px
+}
+.art-gallery-note{
+  margin-top:7px;
+  color:rgba(230,238,255,.40);
+  font-size:9px;
+  letter-spacing:.16em;
+  text-transform:uppercase
+}
+.art-grid{
+  width:100%;
+  max-width:var(--maxw);
+  margin:4px auto 0;
+  columns:3;
+  column-gap:3px
+}
+.art-card{
+  appearance:none;
+  -webkit-appearance:none;
+  display:block;
+  width:100%;
+  margin:0 0 3px;
+  padding:0;
+  border:0;
+  border-radius:1px;
+  overflow:hidden;
+  background:#050919;
+  break-inside:avoid;
+  cursor:pointer
+}
+.art-card img{
+  display:block;
+  width:100%;
+  height:auto;
+  border:0;
+  border-radius:1px;
+  transition:filter .22s ease,opacity .22s ease
+}
+@media(hover:hover){
+  .art-card:hover img{filter:brightness(1.08);opacity:.96}
+}
+.art-more{
+  margin:16px auto 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:8px 18px;
+  border:1px solid rgba(208,222,255,.13);
+  border-radius:999px;
+  background:rgba(5,10,28,.34);
+  color:rgba(233,239,255,.66);
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px)
+}
+.art-modal{
+  position:fixed;
+  inset:0;
+  z-index:260;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:max(18px,env(safe-area-inset-top)) 14px max(18px,env(safe-area-inset-bottom));
+  background:rgba(1,4,14,.94);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px)
+}
+.art-modal.is-open{display:flex}
+.art-modal-inner{
+  width:min(92vw,840px);
+  max-height:92svh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center
+}
+.art-modal-media{
+  max-width:100%;
+  max-height:84svh;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+.art-modal-media img{
+  display:block;
+  max-width:100%;
+  max-height:84svh;
+  width:auto;
+  height:auto;
+  object-fit:contain
+}
+.art-modal-count{
+  margin-top:10px;
+  color:rgba(235,241,255,.48);
+  font-size:9px;
+  letter-spacing:.16em
+}
+.art-modal-close{
+  position:fixed;
+  top:max(14px,env(safe-area-inset-top));
+  right:14px;
+  z-index:3;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:rgba(12,17,39,.52);
+  color:#fff;
+  font-size:25px;
+  font-weight:200;
+  cursor:pointer
+}
+.art-modal-nav{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:3;
+  width:42px;
+  height:62px;
+  border:0;
+  background:transparent;
+  color:rgba(255,255,255,.74);
+  font-size:30px;
+  font-weight:200;
+  cursor:pointer
+}
+.art-modal-prev{left:2px}
+.art-modal-next{right:2px}
+body.art-open{overflow:hidden}
+
+@media(min-width:760px){
+  .art-gallery-screen{padding-left:18px;padding-right:18px}
+  .art-gallery-screen .top{padding-left:calc(var(--pad) - 18px);padding-right:calc(var(--pad) - 18px)}
+  .art-grid{columns:5;column-gap:3px}
+  .art-card{margin-bottom:3px}
+}
+@media(min-width:1100px){
+  .art-grid{columns:6}
+}
+
 </style>
 </head>
 <body>
@@ -1841,6 +2002,26 @@ html[lang="en"] [data-lang="en"]{display:revert}
     <div></div>
   </section>
 
+  <section class="screen art-gallery-screen" id="art-gallery">
+    <div class="top">
+      <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
+      <span class="screen-index" aria-hidden="true"></span>
+    </div>
+
+    <div class="art-gallery-head">
+      <div class="section-kicker" data-lang="ru">РАБОТЫ</div>
+      <div class="section-kicker" data-lang="en">WORKS</div>
+      <div class="art-gallery-note">ART / AI / PHOTO</div>
+    </div>
+
+    <div class="art-grid" id="art-grid" aria-live="polite"></div>
+
+    <button class="art-more" id="art-more" type="button">
+      <span data-lang="ru">ЕЩЁ РАБОТЫ +</span>
+      <span data-lang="en">MORE WORK +</span>
+    </button>
+  </section>
+
   <section class="screen">
     <div class="top">
       <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
@@ -1963,6 +2144,16 @@ html[lang="en"] [data-lang="en"]{display:revert}
     </div>
   </div>
   <button class="portfolio-modal-nav portfolio-modal-next" id="portfolio-next" type="button" aria-label="Next">›</button>
+</div>
+
+<div class="art-modal" id="art-modal" aria-hidden="true">
+  <button class="art-modal-close" id="art-modal-close" type="button" aria-label="Close">×</button>
+  <button class="art-modal-nav art-modal-prev" id="art-prev" type="button" aria-label="Previous">‹</button>
+  <div class="art-modal-inner">
+    <div class="art-modal-media" id="art-modal-media"></div>
+    <div class="art-modal-count" id="art-modal-count"></div>
+  </div>
+  <button class="art-modal-nav art-modal-next" id="art-next" type="button" aria-label="Next">›</button>
 </div>
 
 <div class="project-modal" id="project-modal" aria-hidden="true">
@@ -2176,5 +2367,92 @@ window.OMBEREG_PORTFOLIO = [
 
 })();
 </script>
+
+<script>
+(function(){
+  const items = [
+    {src:"assets/gallery/ombereg-blue-portrait.webp",alt:"Ombereg portrait"},
+    {src:"assets/gallery/abstract-cosmos.webp",alt:"Abstract cosmos"},
+    {src:"assets/gallery/mosaic-mother-child.webp",alt:"Mosaic mother and child"},
+    {src:"assets/gallery/whale-architecture.webp",alt:"Fantasy coast and whale"},
+    {src:"assets/gallery/underwater-portrait.webp",alt:"Underwater portrait"},
+    {src:"assets/gallery/white-lion-portrait.webp",alt:"Portrait with white lion"},
+    {src:"assets/gallery/white-dragon-cat.webp",alt:"White fantasy creature"},
+    {src:"assets/gallery/cosmic-mermaid.webp",alt:"Cosmic ocean"},
+    {src:"assets/gallery/moon-cat.webp",alt:"Moonlit ocean and cat"},
+    {src:"assets/gallery/cosmic-coast.webp",alt:"Cosmic coast"}
+  ];
+
+  const grid = document.getElementById("art-grid");
+  const modal = document.getElementById("art-modal");
+  const media = document.getElementById("art-modal-media");
+  const count = document.getElementById("art-modal-count");
+  let index = 0;
+  let touchStartX = null;
+
+  function render(){
+    if(!grid) return;
+    grid.innerHTML = "";
+    items.forEach((item,i) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "art-card";
+      card.setAttribute("aria-label", item.alt);
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      card.appendChild(img);
+      card.addEventListener("click", () => open(i));
+      grid.appendChild(card);
+    });
+  }
+
+  function open(i){
+    if(!modal || !media) return;
+    index = (i + items.length) % items.length;
+    media.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = items[index].src;
+    img.alt = items[index].alt;
+    media.appendChild(img);
+    count.textContent = (index + 1) + " / " + items.length;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.classList.add("art-open");
+  }
+
+  function close(){
+    modal?.classList.remove("is-open");
+    modal?.setAttribute("aria-hidden","true");
+    document.body.classList.remove("art-open");
+    if(media) media.innerHTML = "";
+  }
+
+  function step(dir){ open(index + dir); }
+
+  render();
+
+  document.getElementById("art-modal-close")?.addEventListener("click", close);
+  document.getElementById("art-prev")?.addEventListener("click", () => step(-1));
+  document.getElementById("art-next")?.addEventListener("click", () => step(1));
+  modal?.addEventListener("click", e => { if(e.target === modal) close(); });
+  modal?.addEventListener("touchstart", e => { touchStartX = e.changedTouches[0].clientX; }, {passive:true});
+  modal?.addEventListener("touchend", e => {
+    if(touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+    touchStartX = null;
+  }, {passive:true});
+  document.addEventListener("keydown", e => {
+    if(!modal?.classList.contains("is-open")) return;
+    if(e.key === "Escape") close();
+    if(e.key === "ArrowLeft") step(-1);
+    if(e.key === "ArrowRight") step(1);
+  });
+})();
+</script>
+
 </body>
 </html>
