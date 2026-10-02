@@ -45,11 +45,11 @@ window.OMBEREG_PORTFOLIO = [
     group: "featured"
   },
   {
-    id: "cat-world",
-    poster: "assets/portfolio/posters/cat-world.webp",
-    video: "assets/portfolio/videos/cat-world.mp4",
-    titleRu: "Другой мир",
-    titleEn: "Another World",
+    id: "glam-selfie",
+    poster: "assets/portfolio/posters/glam-selfie.webp",
+    video: "assets/portfolio/videos/glam-selfie.mp4",
+    titleRu: "Digital beauty",
+    titleEn: "Digital Beauty",
     layout: "tall",
     group: "featured"
   },
@@ -70,5 +70,42 @@ window.OMBEREG_PORTFOLIO = [
     titleEn: "Nadopen Arts",
     layout: "square",
     group: "featured"
+  },
+
+  {
+    id: "cyber-transform",
+    poster: "assets/portfolio/posters/cyber-transform.webp",
+    video: "assets/portfolio/videos/cyber-transform.mp4",
+    titleRu: "Cyber transformation",
+    titleEn: "Cyber Transformation",
+    layout: "square",
+    group: "more"
+  },
+  {
+    id: "cat-world",
+    poster: "assets/portfolio/posters/cat-world.webp",
+    video: "assets/portfolio/videos/cat-world.mp4",
+    titleRu: "Другой мир",
+    titleEn: "Another World",
+    layout: "tall",
+    group: "more"
+  },
+  {
+    id: "birthday-bike",
+    poster: "assets/portfolio/posters/birthday-bike.webp",
+    video: "assets/portfolio/videos/birthday-bike.mp4",
+    titleRu: "Moto / Sunset",
+    titleEn: "Moto / Sunset",
+    layout: "square",
+    group: "more"
+  },
+  {
+    id: "cat-coast",
+    poster: "assets/portfolio/posters/cat-coast.webp",
+    video: "assets/portfolio/videos/cat-coast.mp4",
+    titleRu: "Cats / Coast",
+    titleEn: "Cats / Coast",
+    layout: "wide",
+    group: "more"
   }
 ];
