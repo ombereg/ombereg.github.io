@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-default-lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -796,9 +796,9 @@ main::-webkit-scrollbar{display:none}
 }
 
 .hero-grid{
-  padding:8vh 0 4vh;
+  padding:6vh 0 2vh;
   display:grid;
-  gap:7vw;
+  gap:0;
   align-items:center
 }
 .kicker,.section-kicker{
@@ -817,7 +817,7 @@ h1,h2,h3{
 
 
 .hero-copy{
-  margin-top:30px;
+  margin-top:24px;
   max-width:33rem;
   color:var(--muted);
   font-size:clamp(15px,4.05vw,19px);
@@ -827,8 +827,8 @@ h1,h2,h3{
 .text-gap{height:.72em}
 
 .hero-visual{
-  width:min(76vw,414px);
-  margin:1vh auto -1vh;
+  width:min(68vw,372px);
+  margin:3vh auto 0;
   position:relative;
   overflow:visible;
   background:none;
@@ -1216,35 +1216,28 @@ h1,h2,h3{
 }
 .portfolio-card:hover .portfolio-play,
 .portfolio-card:focus-visible .portfolio-play{
-  transform:translate(-50%,-50%) scale(1.08);
-  box-shadow:
-    0 0 20px rgba(91,232,218,.42),
-    0 0 36px rgba(91,232,218,.20)
-}
-.portfolio-play{
   position:absolute;
   left:50%;
   top:50%;
   z-index:2;
-  width:46px;
-  height:46px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  color:#5be8da;
-  background:rgba(4,11,26,.38);
-  border:1px solid rgba(91,232,218,.46);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  font-size:16px;
+  width:auto;
+  height:auto;
+  display:block;
+  color:#62eadf;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  font-size:34px;
   line-height:1;
-  padding-left:3px;
+  padding:0 0 0 3px;
   transform:translate(-50%,-50%);
-  text-shadow:0 0 9px rgba(91,232,218,.75);
-  box-shadow:
-    0 0 16px rgba(91,232,218,.30),
-    0 0 30px rgba(91,232,218,.13);
-  transition:transform .22s ease,box-shadow .22s ease
+  text-shadow:
+    0 0 8px rgba(98,234,223,.86),
+    0 0 20px rgba(98,234,223,.42);
+  box-shadow:none;
+  transition:transform .22s ease,filter .22s ease
 }
 .portfolio-more{
   margin:26px auto 0;
@@ -1412,7 +1405,8 @@ body.portfolio-open{overflow:hidden}
 }
 
 [data-lang]{display:none}
-[data-lang].active{display:block}
+html[lang="ru"] [data-lang="ru"],
+html[lang="en"] [data-lang="en"]{display:revert}
 
 @media(max-width:390px){
   .creative-quote{
@@ -1508,7 +1502,7 @@ body.portfolio-open{overflow:hidden}
           <span class="text-line">atmosphere and technology.</span>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-muse-hq.png" alt="" loading="eager" fetchpriority="high"></div>
+      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-muse-custom.png" alt="" loading="eager" fetchpriority="high"></div>
     </div>
 
     <div class="scroll">
@@ -1772,7 +1766,18 @@ body.portfolio-open{overflow:hidden}
   <button class="portfolio-modal-nav portfolio-modal-next" id="portfolio-next" type="button" aria-label="Next">›</button>
 </div>
 
-<script src="assets/portfolio/portfolio-data.js"></script>
+<script>
+window.OMBEREG_PORTFOLIO = [
+  {id:"ocean-cosmos",poster:"assets/portfolio/posters/ocean-cosmos.webp",video:"",titleRu:"Море / космос",titleEn:"Sea / Cosmos",layout:"tall",group:"featured"},
+  {id:"cyber-transform",poster:"assets/portfolio/posters/cyber-transform.webp",video:"",titleRu:"Cyber transformation",titleEn:"Cyber transformation",layout:"square",group:"featured"},
+  {id:"sunset-dance",poster:"assets/portfolio/posters/sunset-dance.webp",video:"",titleRu:"Движение / закат",titleEn:"Motion / Sunset",layout:"square",group:"featured"},
+  {id:"night-ocean",poster:"assets/portfolio/posters/night-ocean.webp",video:"",titleRu:"Ночное море",titleEn:"Night Ocean",layout:"wide",group:"featured"},
+  {id:"sunset-cat",poster:"assets/portfolio/posters/sunset-cat.webp",video:"",titleRu:"Fantasy coast",titleEn:"Fantasy Coast",layout:"tall",group:"featured"},
+  {id:"cat-world",poster:"assets/portfolio/posters/cat-world.webp",video:"",titleRu:"Другой мир",titleEn:"Another World",layout:"tall",group:"featured"},
+  {id:"cosmic-meditation",poster:"assets/portfolio/posters/cosmic-meditation.webp",video:"",titleRu:"Cosmic meditation",titleEn:"Cosmic Meditation",layout:"square",group:"featured"},
+  {id:"nadopen-arts",poster:"assets/portfolio/posters/nadopen-arts.webp",video:"",titleRu:"Nadopen Arts",titleEn:"Nadopen Arts",layout:"square",group:"featured"}
+];
+</script>
 <script>
 (function(){
   const portfolioItems = window.OMBEREG_PORTFOLIO || [];
