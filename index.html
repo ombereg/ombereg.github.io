@@ -719,8 +719,8 @@ h1,h2,h3{
 .creative-quote{
   position:relative;
   width:100%;
-  max-width:36rem;
-  padding:8px 0;
+  max-width:38rem;
+  padding:10px 28px 10px 30px;
   color:rgba(232,234,255,.78);
   font-family:"Avenir Next","Helvetica Neue",var(--display-font);
   font-size:clamp(17px,4.5vw,23px);
@@ -728,8 +728,14 @@ h1,h2,h3{
   font-style:italic;
   font-weight:300;
   letter-spacing:.012em;
-  text-wrap:balance;
   text-shadow:0 0 16px rgba(159,139,255,.07)
+}
+.creative-quote .quote-lines{
+  display:block
+}
+.creative-quote .quote-line{
+  display:block;
+  white-space:nowrap
 }
 .quote-wrap{
   width:100%;
@@ -745,12 +751,12 @@ h1,h2,h3{
   margin-bottom:8px
 }
 .quote-mark{
-  position:static;
-  display:inline-block;
+  position:absolute;
+  left:-2px;
+  top:7px;
+  display:block;
   width:auto;
   height:auto;
-  margin-right:.10em;
-  vertical-align:-.08em;
   font-size:0;
   line-height:1;
   pointer-events:none;
@@ -759,9 +765,9 @@ h1,h2,h3{
 }
 .quote-mark::before{
   content:"«";
-  display:inline-block;
+  display:block;
   font-family:"Helvetica Neue",Arial,sans-serif;
-  font-size:1.75rem;
+  font-size:2.2rem;
   line-height:.8;
   font-style:normal;
   font-weight:700;
@@ -773,9 +779,10 @@ h1,h2,h3{
   color:transparent
 }
 .quote-mark--end{
-  margin-left:.08em;
-  margin-right:0;
-  vertical-align:-.08em
+  left:auto;
+  right:0;
+  top:auto;
+  bottom:5px
 }
 .quote-mark--end::before{
   content:"»"
@@ -1000,6 +1007,14 @@ h1,h2,h3{
 [data-lang]{display:none}
 [data-lang].active{display:block}
 
+@media(max-width:390px){
+  .creative-quote{
+    font-size:clamp(15px,4.15vw,18px);
+    padding-left:26px;
+    padding-right:24px
+  }
+  .quote-mark::before{font-size:2rem}
+}
 @media(min-width:760px){
   .hero-grid{grid-template-columns:1.16fr .84fr;padding-top:6vh}
   .hero-visual{width:min(32vw,430px);margin:0;justify-self:end}
@@ -1137,10 +1152,22 @@ h1,h2,h3{
 
     <div class="inner quote-wrap quote-wrap--about">
       <div class="creative-quote" data-lang="ru">
-        <span class="quote-mark" aria-hidden="true"></span>Новые миры появляются там, где воображение человека встречается с возможностями технологий.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        <span class="quote-mark" aria-hidden="true"></span>
+        <span class="quote-lines">
+          <span class="quote-line">Новые миры появляются там,</span>
+          <span class="quote-line">где воображение человека встречается</span>
+          <span class="quote-line">с возможностями технологий.</span>
+        </span>
+        <span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
       <div class="creative-quote" data-lang="en">
-        <span class="quote-mark" aria-hidden="true"></span>New worlds emerge where human imagination meets the possibilities of technology.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        <span class="quote-mark" aria-hidden="true"></span>
+        <span class="quote-lines">
+          <span class="quote-line">New worlds emerge where human imagination</span>
+          <span class="quote-line">meets the possibilities</span>
+          <span class="quote-line">of technology.</span>
+        </span>
+        <span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
     </div>
     <div></div>
@@ -1184,10 +1211,22 @@ h1,h2,h3{
       </ul>
 
       <div class="creative-quote creative-quote--portfolio" data-lang="ru">
-        <span class="quote-mark" aria-hidden="true"></span>Будущее творчества — не человек или технология, а пространство, которое они создают вместе.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        <span class="quote-mark" aria-hidden="true"></span>
+        <span class="quote-lines">
+          <span class="quote-line">Будущее творчества — не человек</span>
+          <span class="quote-line">или технология, а пространство,</span>
+          <span class="quote-line">которое они создают вместе.</span>
+        </span>
+        <span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
       <div class="creative-quote creative-quote--portfolio" data-lang="en">
-        <span class="quote-mark" aria-hidden="true"></span>The future of creativity is not human or technology, but the space they create together.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        <span class="quote-mark" aria-hidden="true"></span>
+        <span class="quote-lines">
+          <span class="quote-line">The future of creativity is not human</span>
+          <span class="quote-line">or technology, but the space</span>
+          <span class="quote-line">they create together.</span>
+        </span>
+        <span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
 
       <div id="portfolio-anchor" aria-hidden="true"></div>
