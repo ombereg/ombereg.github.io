@@ -794,8 +794,8 @@ h1,h2,h3{
 .text-gap{height:.72em}
 
 .hero-visual{
-  width:min(66vw,360px);
-  margin:2.5vh -3vw -1vh auto;
+  width:min(75vw,410px);
+  margin:2vh 3vw -1vh auto;
   position:relative;
   overflow:visible;
   background:none;
@@ -804,14 +804,29 @@ h1,h2,h3{
   justify-self:end;
   pointer-events:none
 }
+.hero-visual::before{
+  content:"";
+  position:absolute;
+  inset:8% -4% 3% -4%;
+  z-index:-1;
+  border-radius:48%;
+  background:
+    radial-gradient(ellipse at 52% 35%,rgba(218,175,255,.24),transparent 44%),
+    radial-gradient(ellipse at 58% 53%,rgba(105,213,255,.22),transparent 56%),
+    radial-gradient(ellipse at 48% 70%,rgba(255,104,220,.12),transparent 58%);
+  filter:blur(24px);
+  opacity:.78;
+  animation:heroAura 8s ease-in-out infinite alternate
+}
 .hero-visual img{
   display:block;
   width:100%;
   height:auto;
   object-fit:contain;
   filter:
-    drop-shadow(0 0 12px rgba(142,198,255,.12))
-    drop-shadow(0 0 24px rgba(184,145,255,.10));
+    drop-shadow(0 0 18px rgba(119,209,255,.26))
+    drop-shadow(0 0 34px rgba(190,130,255,.24))
+    drop-shadow(0 0 52px rgba(255,85,210,.10));
   animation:heroArtistFloat 9s ease-in-out infinite alternate;
   transform-origin:50% 70%;
   will-change:transform,filter
@@ -819,12 +834,16 @@ h1,h2,h3{
 @keyframes heroArtistFloat{
   from{
     transform:translate3d(0,2px,0) scale(1);
-    filter:drop-shadow(0 0 10px rgba(142,198,255,.10)) drop-shadow(0 0 22px rgba(184,145,255,.08))
+    filter:drop-shadow(0 0 16px rgba(119,209,255,.22)) drop-shadow(0 0 30px rgba(190,130,255,.20)) drop-shadow(0 0 44px rgba(255,85,210,.08))
   }
   to{
-    transform:translate3d(0,-5px,0) scale(1.008);
-    filter:drop-shadow(0 0 16px rgba(142,198,255,.16)) drop-shadow(0 0 30px rgba(184,145,255,.13))
+    transform:translate3d(0,-5px,0) scale(1.01);
+    filter:drop-shadow(0 0 24px rgba(119,209,255,.34)) drop-shadow(0 0 42px rgba(190,130,255,.30)) drop-shadow(0 0 60px rgba(255,85,210,.14))
   }
+}
+@keyframes heroAura{
+  from{opacity:.58;transform:scale(.98)}
+  to{opacity:.90;transform:scale(1.045)}
 }
 
 .scroll{
@@ -1140,7 +1159,7 @@ h1,h2,h3{
 }
 @media(min-width:760px){
   .hero-grid{grid-template-columns:1.16fr .84fr;padding-top:6vh}
-  .hero-visual{width:min(35vw,460px);margin:0;justify-self:end}
+  .hero-visual{width:min(40vw,520px);margin:0 2vw 0 auto;justify-self:end}
   .about-grid{grid-template-columns:1fr 1fr;gap:8vw}
   .about-visual{height:57vh}
   .lines-grid{grid-template-columns:repeat(3,1fr)}
@@ -1167,7 +1186,7 @@ h1,h2,h3{
   to{background-position:100% 50%}
 }
 @media(prefers-reduced-motion:reduce){
-  .cosmic-bg,.edge-stars,.accent-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.hero-visual img,.skill-icon,.screen-index,.quote-mark,.cta{
+  .cosmic-bg,.edge-stars,.accent-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.hero-visual,.hero-visual::before,.hero-visual img,.skill-icon,.screen-index,.quote-mark,.cta{
     animation:none!important
   }
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
@@ -1223,7 +1242,7 @@ h1,h2,h3{
           <span class="text-line">atmosphere and technology.</span>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-girl-v2.webp" alt="" loading="eager" fetchpriority="high"></div>
+      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-girl-white.webp" alt="" loading="eager" fetchpriority="high"></div>
     </div>
 
     <div class="scroll">
