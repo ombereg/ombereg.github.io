@@ -1217,25 +1217,17 @@ h1,h2,h3{
   left:50%;
   top:50%;
   z-index:2;
-  display:block;
-  width:auto;
-  height:auto;
-  color:#67eee1;
-  background:none;
-  border:0;
-  border-radius:0;
-  backdrop-filter:none;
-  -webkit-backdrop-filter:none;
-  font-size:30px;
-  line-height:1;
-  padding:0 0 0 3px;
-  transform:translate(-50%,-50%);
-  text-shadow:
-    0 0 8px rgba(103,238,225,.90),
-    0 0 18px rgba(103,238,225,.52),
-    0 0 30px rgba(103,238,225,.22);
-  filter:drop-shadow(0 0 4px rgba(103,238,225,.45));
-  transition:transform .22s ease,filter .22s ease
+  width:0;
+  height:0;
+  border-top:12px solid transparent;
+  border-bottom:12px solid transparent;
+  border-left:19px solid #5be8da;
+  transform:translate(-42%,-50%);
+  filter:
+    drop-shadow(0 0 5px rgba(91,232,218,.95))
+    drop-shadow(0 0 12px rgba(91,232,218,.55));
+  transition:transform .22s ease,filter .22s ease;
+  pointer-events:none
 }
 .portfolio-more{
   margin:26px auto 0;
@@ -1800,7 +1792,7 @@ window.OMBEREG_PORTFOLIO = [
       card.type = 'button';
       card.className = 'portfolio-card portfolio-card--' + (item.layout || 'square') + (item.group === 'more' ? ' is-more' : '');
       card.setAttribute('aria-label', item.titleRu || item.titleEn || 'Portfolio item');
-      card.innerHTML = '<img src="' + item.poster + '" alt="" loading="lazy"><span class="portfolio-play" aria-hidden="true">▶</span>';
+      card.innerHTML = '<img src="' + item.poster + '" alt="" loading="lazy"><span class="portfolio-play" aria-hidden="true"></span>';
       card.addEventListener('click', () => openPortfolio(index));
       portfolioGrid.appendChild(card);
     });
