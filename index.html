@@ -1214,19 +1214,37 @@ h1,h2,h3{
   transform:scale(1.045);
   filter:saturate(1.05) brightness(1)
 }
+.portfolio-card:hover .portfolio-play,
+.portfolio-card:focus-visible .portfolio-play{
+  transform:translate(-50%,-50%) scale(1.08);
+  box-shadow:
+    0 0 20px rgba(91,232,218,.42),
+    0 0 36px rgba(91,232,218,.20)
+}
 .portfolio-play{
   position:absolute;
-  right:10px;
-  bottom:9px;
+  left:50%;
+  top:50%;
   z-index:2;
-  width:24px;
-  height:24px;
+  width:46px;
+  height:46px;
   display:grid;
   place-items:center;
-  color:rgba(255,255,255,.92);
-  font-size:10px;
+  border-radius:50%;
+  color:#5be8da;
+  background:rgba(4,11,26,.38);
+  border:1px solid rgba(91,232,218,.46);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  font-size:16px;
   line-height:1;
-  text-shadow:0 0 9px rgba(124,215,255,.65)
+  padding-left:3px;
+  transform:translate(-50%,-50%);
+  text-shadow:0 0 9px rgba(91,232,218,.75);
+  box-shadow:
+    0 0 16px rgba(91,232,218,.30),
+    0 0 30px rgba(91,232,218,.13);
+  transition:transform .22s ease,box-shadow .22s ease
 }
 .portfolio-more{
   margin:26px auto 0;
@@ -1490,7 +1508,7 @@ body.portfolio-open{overflow:hidden}
           <span class="text-line">atmosphere and technology.</span>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-muse-custom.png" alt="" loading="eager" fetchpriority="high"></div>
+      <div class="hero-visual" aria-hidden="true"><img src="assets/hero-muse-hq.png" alt="" loading="eager" fetchpriority="high"></div>
     </div>
 
     <div class="scroll">
@@ -1577,24 +1595,7 @@ body.portfolio-open{overflow:hidden}
   </section>
 
   
-  <section class="screen portfolio-screen" id="selected-motion">
-    <div class="top">
-      <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
-      <span class="screen-index" aria-hidden="true"></span>
-    </div>
-
-    <div class="inner">
-      <div class="section-kicker" data-lang="ru">ИЗБРАННЫЕ РАБОТЫ</div>
-      <div class="section-kicker" data-lang="en">SELECTED WORK</div>
-      <h2 class="portfolio-heading">MOTION</h2>
-
-      <div class="portfolio-grid" id="portfolioGrid" aria-live="polite"></div>
-      <button class="portfolio-more" id="portfolioMore" type="button">
-        <span data-lang="ru">ПОСМОТРЕТЬ ЕЩЁ +</span>
-        <span data-lang="en">MORE WORK +</span>
-      </button>
-    </div>
-  </section>
+  
 
 <section class="screen">
     <div class="top">
@@ -1758,20 +1759,6 @@ body.portfolio-open{overflow:hidden}
   </section>
 </main>
 
-<div class="portfolio-modal" id="portfolioModal" aria-hidden="true">
-  <div class="portfolio-modal-stage" role="dialog" aria-modal="true" aria-label="Selected motion">
-    <button class="portfolio-close" id="portfolioClose" type="button" aria-label="Close">×</button>
-    <button class="portfolio-nav portfolio-prev" id="portfolioPrev" type="button" aria-label="Previous">‹</button>
-    <div class="portfolio-modal-media" id="portfolioModalMedia"></div>
-    <button class="portfolio-nav portfolio-next" id="portfolioNext" type="button" aria-label="Next">›</button>
-    <div class="portfolio-modal-caption">
-      <span id="portfolioModalTitle"></span>
-      <span class="portfolio-modal-count" id="portfolioModalCount"></span>
-    </div>
-  </div>
-</div>
-
-
 <div class="portfolio-modal" id="portfolio-modal" aria-hidden="true">
   <button class="portfolio-modal-close" id="portfolio-modal-close" type="button" aria-label="Close">×</button>
   <button class="portfolio-modal-nav portfolio-modal-prev" id="portfolio-prev" type="button" aria-label="Previous">‹</button>
@@ -1921,200 +1908,6 @@ body.portfolio-open{overflow:hidden}
   } else {
     revealTargets.forEach(el => el.classList.add('is-visible'));
   }
-
-  // Portfolio is data-driven: reorder objects to reorder tiles, remove an object to
-  // remove a work, add featured:false to place it under "More work".
-  const portfolioItems = [
-    {
-      id:'ocean-cosmos',
-      titleRu:'Океан / Космос',
-      titleEn:'Ocean / Cosmos',
-      poster:'assets/portfolio/ocean-cosmos.webp',
-      video:'',
-      featured:true,
-      ratio:.72,
-      position:'50% 50%'
-    },
-    {
-      id:'sunset-cat',
-      titleRu:'Закат / Кот',
-      titleEn:'Sunset / Cat',
-      poster:'assets/portfolio/sunset-cat.webp',
-      video:'',
-      featured:true,
-      ratio:.84,
-      position:'50% 42%'
-    },
-    {
-      id:'night-ocean',
-      titleRu:'Биолюминесцентная ночь',
-      titleEn:'Bioluminescent Night',
-      poster:'assets/portfolio/night-ocean.webp',
-      video:'',
-      featured:true,
-      ratio:.70,
-      position:'50% 52%'
-    },
-    {
-      id:'cat-world',
-      titleRu:'Мир котов',
-      titleEn:'Cat World',
-      poster:'assets/portfolio/cat-world.webp',
-      video:'',
-      featured:true,
-      ratio:.98,
-      position:'50% 48%'
-    },
-    {
-      id:'sunset-dance',
-      titleRu:'Танец на закате',
-      titleEn:'Sunset Dance',
-      poster:'assets/portfolio/sunset-dance.webp',
-      video:'',
-      featured:true,
-      ratio:.70,
-      position:'50% 50%'
-    },
-    {
-      id:'cyber-transform',
-      titleRu:'Cyber Transformation',
-      titleEn:'Cyber Transformation',
-      poster:'assets/portfolio/cyber-transform.webp',
-      video:'',
-      featured:true,
-      ratio:.76,
-      position:'50% 48%'
-    },
-    {
-      id:'cosmic-meditation',
-      titleRu:'Космическая медитация',
-      titleEn:'Cosmic Meditation',
-      poster:'assets/portfolio/cosmic-meditation.webp',
-      video:'',
-      featured:true,
-      ratio:.84,
-      position:'50% 50%'
-    },
-    {
-      id:'nadopen-arts',
-      titleRu:'Nadopen Arts',
-      titleEn:'Nadopen Arts',
-      poster:'assets/portfolio/nadopen-arts.webp',
-      video:'',
-      featured:true,
-      ratio:.72,
-      position:'50% 50%'
-    }
-  ];
-
-  const portfolioGrid = document.getElementById('portfolioGrid');
-  const portfolioMore = document.getElementById('portfolioMore');
-  const portfolioModal = document.getElementById('portfolioModal');
-  const portfolioModalMedia = document.getElementById('portfolioModalMedia');
-  const portfolioModalTitle = document.getElementById('portfolioModalTitle');
-  const portfolioModalCount = document.getElementById('portfolioModalCount');
-  const portfolioClose = document.getElementById('portfolioClose');
-  const portfolioPrev = document.getElementById('portfolioPrev');
-  const portfolioNext = document.getElementById('portfolioNext');
-
-  let showPortfolioMore = false;
-  let activePortfolioIndex = 0;
-  let visiblePortfolioItems = [];
-  let touchStartX = 0;
-
-  function portfolioLang(){
-    return document.documentElement.lang === 'en' ? 'en' : 'ru';
-  }
-
-  function currentPortfolioSet(){
-    return showPortfolioMore
-      ? portfolioItems
-      : portfolioItems.filter(item => item.featured);
-  }
-
-  function renderPortfolio(){
-    if(!portfolioGrid) return;
-    visiblePortfolioItems = currentPortfolioSet();
-
-    portfolioGrid.innerHTML = visiblePortfolioItems.map((item,index) => `
-      <button
-        class="portfolio-item"
-        type="button"
-        data-portfolio-index="${index}"
-        aria-label="${portfolioLang()==='en' ? item.titleEn : item.titleRu}"
-        style="--ratio:${item.ratio};--pos:${item.position}">
-        <img class="portfolio-thumb" src="${item.poster}" alt="" loading="lazy">
-        <span class="portfolio-play" aria-hidden="true">▶</span>
-      </button>
-    `).join('');
-
-    portfolioGrid.querySelectorAll('.portfolio-item').forEach(btn => {
-      btn.addEventListener('click', () => openPortfolio(Number(btn.dataset.portfolioIndex)));
-    });
-
-    const hasMore = portfolioItems.some(item => !item.featured);
-    if(portfolioMore){
-      portfolioMore.classList.toggle('visible', hasMore);
-      portfolioMore.setAttribute('aria-expanded', String(showPortfolioMore));
-    }
-  }
-
-  function openPortfolio(index){
-    activePortfolioIndex = index;
-    renderPortfolioModal();
-    portfolioModal.classList.add('open');
-    portfolioModal.setAttribute('aria-hidden','false');
-    document.body.classList.add('portfolio-open');
-  }
-
-  function renderPortfolioModal(){
-    const item = visiblePortfolioItems[activePortfolioIndex];
-    if(!item) return;
-    portfolioModalMedia.innerHTML = item.video
-      ? `<video src="${item.video}" poster="${item.poster}" controls autoplay playsinline preload="metadata"></video>`
-      : `<img src="${item.poster}" alt="">`;
-    portfolioModalTitle.textContent = portfolioLang()==='en' ? item.titleEn : item.titleRu;
-    portfolioModalCount.textContent = `${activePortfolioIndex+1} / ${visiblePortfolioItems.length}`;
-  }
-
-  function closePortfolio(){
-    portfolioModal.classList.remove('open');
-    portfolioModal.setAttribute('aria-hidden','true');
-    document.body.classList.remove('portfolio-open');
-    const video = portfolioModalMedia.querySelector('video');
-    if(video) video.pause();
-  }
-
-  function stepPortfolio(direction){
-    activePortfolioIndex = (activePortfolioIndex + direction + visiblePortfolioItems.length) % visiblePortfolioItems.length;
-    renderPortfolioModal();
-  }
-
-  portfolioMore?.addEventListener('click', () => {
-    showPortfolioMore = !showPortfolioMore;
-    renderPortfolio();
-  });
-  portfolioClose?.addEventListener('click', closePortfolio);
-  portfolioPrev?.addEventListener('click', () => stepPortfolio(-1));
-  portfolioNext?.addEventListener('click', () => stepPortfolio(1));
-  portfolioModal?.addEventListener('click', event => {
-    if(event.target === portfolioModal) closePortfolio();
-  });
-  portfolioModal?.addEventListener('touchstart', event => {
-    touchStartX = event.changedTouches[0].clientX;
-  }, {passive:true});
-  portfolioModal?.addEventListener('touchend', event => {
-    const dx = event.changedTouches[0].clientX - touchStartX;
-    if(Math.abs(dx) > 45) stepPortfolio(dx < 0 ? 1 : -1);
-  }, {passive:true});
-  document.addEventListener('keydown', event => {
-    if(!portfolioModal?.classList.contains('open')) return;
-    if(event.key === 'Escape') closePortfolio();
-    if(event.key === 'ArrowLeft') stepPortfolio(-1);
-    if(event.key === 'ArrowRight') stepPortfolio(1);
-  });
-
-  renderPortfolio();
 
 })();
 </script>
