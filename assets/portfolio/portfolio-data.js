@@ -71,25 +71,6 @@ window.OMBEREG_PORTFOLIO = [
     layout: "square",
     group: "featured"
   },
-
-  {
-    id: "cyber-transform",
-    poster: "assets/portfolio/posters/cyber-transform.webp",
-    video: "assets/portfolio/videos/cyber-transform.mp4",
-    titleRu: "Cyber transformation",
-    titleEn: "Cyber Transformation",
-    layout: "square",
-    group: "more"
-  },
-  {
-    id: "cat-world",
-    poster: "assets/portfolio/posters/cat-world.webp",
-    video: "assets/portfolio/videos/cat-world.mp4",
-    titleRu: "Другой мир",
-    titleEn: "Another World",
-    layout: "tall",
-    group: "more"
-  },
   {
     id: "birthday-bike",
     poster: "assets/portfolio/posters/birthday-bike.webp",
