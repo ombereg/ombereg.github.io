@@ -100,6 +100,15 @@ window.OMBEREG_PORTFOLIO = [
     "group": "more"
   },
   {
+    "id": "video-20261003-04",
+    "poster": "assets/portfolio/video-20261003-04.webp",
+    "video": "assets/portfolio/video-20261003-04.mp4",
+    "titleRu": "Видео 04",
+    "titleEn": "Video 04",
+    "layout": "square",
+    "group": "more"
+  },
+  {
     "id": "birthday-bike",
     "poster": "assets/portfolio/posters/birthday-bike.webp",
     "video": "assets/portfolio/videos/birthday-bike.mp4",
