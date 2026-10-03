@@ -1081,6 +1081,51 @@ h1,h2,h3{
   letter-spacing:.15em;
   text-transform:uppercase
 }
+.project-modal-copy.is-rich{
+  margin-top:22px;
+  max-width:36rem;
+  text-align:left;
+  color:rgba(235,240,255,.72)
+}
+.project-modal-copy.is-rich p{margin:0 0 14px}
+.project-modal-copy.is-rich .lumina-name{
+  margin-bottom:8px;
+  color:rgba(248,250,255,.96);
+  font-family:var(--display-font);
+  font-size:clamp(20px,5vw,28px);
+  font-weight:400;
+  letter-spacing:.08em
+}
+.project-modal-copy.is-rich .lumina-lead{
+  margin-bottom:18px;
+  color:rgba(224,239,255,.84);
+  font-size:15px;
+  line-height:1.55
+}
+.project-modal-copy.is-rich .lumina-style{
+  margin-bottom:4px;
+  color:rgba(205,223,255,.88);
+  font-weight:600
+}
+.project-modal-copy.is-rich .lumina-vision{
+  margin-bottom:20px;
+  color:rgba(181,207,255,.64);
+  font-style:italic
+}
+.project-modal-copy.is-rich strong{color:rgba(245,248,255,.94)}
+.project-modal-copy.is-rich .lumina-transition{
+  margin-top:18px;
+  color:rgba(206,230,255,.84)
+}
+.project-modal-copy.is-rich .lumina-quote{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid rgba(185,214,255,.12);
+  color:rgba(236,242,255,.92);
+  font-size:15px;
+  line-height:1.65
+}
+.project-modal-status[hidden]{display:none!important}
 body.project-open{overflow:hidden}
 
 .skills{
@@ -2010,10 +2055,10 @@ body.art-open{overflow:hidden}
     <button class="project-modal-close" id="project-modal-close" type="button" aria-label="Close">×</button>
     <img class="project-modal-planet" id="project-modal-image" alt="">
     <h3 class="project-modal-title" id="project-modal-title"></h3>
-    <p class="project-modal-copy" data-lang="ru">Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.</p>
-    <p class="project-modal-copy" data-lang="en">This space will hold the project gallery and a short story. The structure is ready, so each planet can be updated independently.</p>
-    <span class="project-modal-status" data-lang="ru">ГАЛЕРЕЯ В РАЗРАБОТКЕ</span>
-    <span class="project-modal-status" data-lang="en">GALLERY IN DEVELOPMENT</span>
+    <div class="project-modal-copy" id="project-modal-copy-ru" data-lang="ru">Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.</div>
+    <div class="project-modal-copy" id="project-modal-copy-en" data-lang="en">This space will hold the project gallery and a short story. The structure is ready, so each planet can be updated independently.</div>
+    <span class="project-modal-status" id="project-modal-status-ru" data-lang="ru">ГАЛЕРЕЯ В РАЗРАБОТКЕ</span>
+    <span class="project-modal-status" id="project-modal-status-en" data-lang="en">GALLERY IN DEVELOPMENT</span>
   </div>
 </div>
 
@@ -2194,6 +2239,40 @@ body.art-open{overflow:hidden}
   const projectModal = document.getElementById('project-modal');
   const projectModalTitle = document.getElementById('project-modal-title');
   const projectModalImage = document.getElementById('project-modal-image');
+  const projectModalCopyRu = document.getElementById('project-modal-copy-ru');
+  const projectModalCopyEn = document.getElementById('project-modal-copy-en');
+  const projectModalStatusRu = document.getElementById('project-modal-status-ru');
+  const projectModalStatusEn = document.getElementById('project-modal-status-en');
+
+  const projectPlaceholders = {
+    ru: 'Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.',
+    en: 'This space will hold the project gallery and a short story. The structure is ready, so each planet can be updated independently.'
+  };
+
+  const nadopenLumina = {
+    ru: `
+      <p class="lumina-name"><strong>NADOPEN LUMINA</strong> 🔵</p>
+      <p class="lumina-lead">Порталы света между человеком, природой и космосом.</p>
+      <p class="lumina-style"><strong><em>Авторский люминарный косморомантизм</em></strong></p>
+      <p class="lumina-vision"><em>Visionary luminous cosmism</em></p>
+      <p>Визионарное искусство, в котором сознание, природа, океан и космос соединяются через световые порталы, переливающуюся материю и символы внутреннего пробуждения.</p>
+      <p><strong>Lumina</strong> — свет как живая материя, источник сознания и внутренней силы.</p>
+      <p><strong>Косморомантизм</strong> — соединение человеческих чувств, природы, океана и бесконечного космоса в одном эмоциональном пространстве.</p>
+      <p class="lumina-transition">Переход из обычной реальности в состояние внутреннего света.</p>
+      <p class="lumina-quote"><strong><em>Я создаю миры, в которых океан вспоминает, что он был космосом, зритель узнаёт в себе свет, а природа становится порталом к внутренней целостности. 🌸</em></strong></p>
+    `,
+    en: `
+      <p class="lumina-name"><strong>NADOPEN LUMINA</strong> 🔵</p>
+      <p class="lumina-lead">Portals of light between the human, nature and the cosmos.</p>
+      <p class="lumina-style"><strong><em>Authorial luminary cosmoromanticism</em></strong></p>
+      <p class="lumina-vision"><em>Visionary luminous cosmism</em></p>
+      <p>Visionary art in which consciousness, nature, the ocean and the cosmos connect through portals of light, iridescent matter and symbols of inner awakening.</p>
+      <p><strong>Lumina</strong> — light as living matter, a source of consciousness and inner strength.</p>
+      <p><strong>Cosmoromanticism</strong> — the union of human feeling, nature, the ocean and the infinite cosmos within one emotional space.</p>
+      <p class="lumina-transition">A transition from ordinary reality into a state of inner light.</p>
+      <p class="lumina-quote"><strong><em>I create worlds in which the ocean remembers that it was once the cosmos, the viewer recognizes light within themselves, and nature becomes a portal to inner wholeness. 🌸</em></strong></p>
+    `
+  };
 
   if(projectUniverse){
     if('IntersectionObserver' in window){
@@ -2209,8 +2288,18 @@ body.art-open{overflow:hidden}
 
     projectUniverse.querySelectorAll('.project-planet').forEach(button => {
       button.addEventListener('click', () => {
-        projectModalTitle.textContent = button.dataset.project || '';
+        const projectName = button.dataset.project || '';
+        const isNadopen = projectName === 'Nadopen Arts';
+        projectModalTitle.textContent = projectName;
         projectModalImage.src = button.dataset.image || '';
+        if(projectModalCopyRu && projectModalCopyEn){
+          projectModalCopyRu.classList.toggle('is-rich', isNadopen);
+          projectModalCopyEn.classList.toggle('is-rich', isNadopen);
+          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : projectPlaceholders.ru;
+          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : projectPlaceholders.en;
+        }
+        if(projectModalStatusRu) projectModalStatusRu.hidden = isNadopen;
+        if(projectModalStatusEn) projectModalStatusEn.hidden = isNadopen;
         projectModal?.classList.add('is-open');
         projectModal?.setAttribute('aria-hidden','false');
         document.body.classList.add('project-open');
