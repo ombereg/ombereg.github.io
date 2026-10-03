@@ -2329,6 +2329,29 @@ body.art-open{overflow:hidden}
     `
   };
 
+  const seaversumStory = {
+    ru: `
+      <p class="lumina-name"><strong>SEAVERSUM</strong> 🌊</p>
+      <p class="lumina-lead">Одежда, в которой телу не нужно ничего доказывать.</p>
+      <p><strong>Комфорт здесь — не компромисс, а форма роскоши.</strong></p>
+      <p>Мягкие премиальные ткани, точный крой, свобода движения и вещи, которые хочется чувствовать на себе дольше, чем планировал.</p>
+      <p><strong>SEA</strong> — текучесть, воздух, движение.</p>
+      <p><strong>VERSUM</strong> — личное пространство, которое всегда с тобой.</p>
+      <p>Seaversum — про состояние, когда одежда не отвлекает от жизни, а становится её естественным продолжением.</p>
+      <p class="lumina-quote"><strong><em>Носи свой мир ближе к телу.</em></strong></p>
+    `,
+    en: `
+      <p class="lumina-name"><strong>SEAVERSUM</strong> 🌊</p>
+      <p class="lumina-lead">Clothing in which the body does not need to prove anything.</p>
+      <p><strong>Here, comfort is not a compromise — it is a form of luxury.</strong></p>
+      <p>Soft premium fabrics, precise tailoring, freedom of movement, and pieces you want to keep feeling on your skin longer than you planned.</p>
+      <p><strong>SEA</strong> — fluidity, air, movement.</p>
+      <p><strong>VERSUM</strong> — a personal space that is always with you.</p>
+      <p>Seaversum is a state in which clothing does not distract from life, but becomes its natural extension.</p>
+      <p class="lumina-quote"><strong><em>Wear your world closer to the body.</em></strong></p>
+    `
+  };
+
   if(projectUniverse){
     if('IntersectionObserver' in window){
       const projectObserver = new IntersectionObserver(entries => {
@@ -2348,14 +2371,15 @@ body.art-open{overflow:hidden}
         const isOMuseum = projectName === 'OMuseum';
         const isBrx = projectName === 'Brux';
         const isSoulLux = projectName === 'Soul Lux';
-        const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux;
+        const isSeaversum = projectName === 'Seaversum';
+        const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum;
         projectModalTitle.textContent = projectName;
         projectModalImage.src = button.dataset.image || '';
         if(projectModalCopyRu && projectModalCopyEn){
           projectModalCopyRu.classList.toggle('is-rich', hasStory);
           projectModalCopyEn.classList.toggle('is-rich', hasStory);
-          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : (isSoulLux ? soulLuxStory.ru : projectPlaceholders.ru)));
-          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : (isSoulLux ? soulLuxStory.en : projectPlaceholders.en)));
+          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : (isSoulLux ? soulLuxStory.ru : (isSeaversum ? seaversumStory.ru : projectPlaceholders.ru))));
+          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : (isSoulLux ? soulLuxStory.en : (isSeaversum ? seaversumStory.en : projectPlaceholders.en))));
         }
         if(projectModalStatusRu) projectModalStatusRu.hidden = hasStory;
         if(projectModalStatusEn) projectModalStatusEn.hidden = hasStory;
