@@ -1,11 +1,15 @@
 /* Seven project worlds: OMuseum / Seaversum, Brux / Nadopen Arts / Soul Lux,
-   then Holidays / Branding. Only the artwork moves; every label has its own space. */
+   then Holidays / Branding. Only the artwork moves; every label has its own space.
+   The composition is enlarged by 15%; OMuseum and Seaversum stay smaller.
+   Scale actual layout dimensions, not transforms, so surrounding content reflows. */
 .about-visual.project-universe {
-  width: min(100%, 344px);
+  --composition-scale: 1.15;
+  width: min(calc(100% * var(--composition-scale)), calc(344px * var(--composition-scale)), calc(100vw - 24px));
+  justify-self: center;
   min-height: 0;
   height: auto;
-  margin: 10px auto 4px;
-  padding: 8px 0;
+  margin: 10px 0 4px;
+  padding: calc(8px * var(--composition-scale)) 0;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-template-areas:
@@ -16,7 +20,7 @@
   align-items: center;
   justify-items: center;
   align-self: center;
-  gap: 9px 8px;
+  gap: calc(9px * var(--composition-scale)) calc(8px * var(--composition-scale));
   overflow: visible;
   border: 0;
   background: none;
@@ -34,11 +38,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
+  gap: calc(10px * var(--composition-scale));
   width: 100%;
   min-width: 0;
   margin: 0;
-  padding: 3px 0;
+  padding: calc(3px * var(--composition-scale)) 0;
   border: 0;
   background: none;
   color: inherit;
@@ -50,7 +54,7 @@
 .project-universe .planet-omuseum {
   grid-area: museum;
   align-self: end;
-  --planet-size: clamp(62px, 18vw, 78px);
+  --planet-size: clamp(42px, 12vw, 52px);
   --planet-glow: 121, 190, 249;
   --planet-motion: projectBreatheMuseumV5;
   --planet-duration: 8.8s;
@@ -59,7 +63,7 @@
 .project-universe .planet-seaversum {
   grid-area: sea;
   align-self: end;
-  --planet-size: clamp(70px, 20vw, 86px);
+  --planet-size: clamp(52px, 14.7vw, 62px);
   --planet-glow: 99, 228, 214;
   --planet-motion: projectSwaySeaV5;
   --planet-duration: 7.8s;
@@ -107,10 +111,10 @@
   isolation: isolate;
   display: grid;
   place-items: center;
-  width: var(--planet-size);
-  height: var(--planet-size);
+  width: calc(var(--planet-size) * var(--composition-scale));
+  height: calc(var(--planet-size) * var(--composition-scale));
   max-width: none;
-  flex: 0 0 var(--planet-size);
+  flex: 0 0 calc(var(--planet-size) * var(--composition-scale));
   aspect-ratio: 1;
   overflow: visible;
 }
@@ -155,7 +159,7 @@ body.project-open .project-universe .project-planet-art::before { animation-play
   text-align: center;
   white-space: nowrap;
   font-family: var(--display-font);
-  font-size: 12px;
+  font-size: calc(12px * var(--composition-scale));
   line-height: 1.4;
   font-weight: 300;
   letter-spacing: .03em;
@@ -182,15 +186,19 @@ body.project-open main { overflow: hidden; }
 @keyframes projectSparkHolidayV5 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(2px,-2px) scale(1.035); } }
 @keyframes projectOrbitBrandingV5 { 0%,100% { transform: translateY(0) rotate(-1deg) scale(1); } 50% { transform: translateY(-2px) rotate(1.5deg) scale(1.025); } }
 @media (min-width: 760px) {
-  .about-visual.project-universe { width: min(100%, 368px); margin-block: 0; gap: 10px 8px; }
-  .project-universe .planet-omuseum { --planet-size: 84px; }
-  .project-universe .planet-seaversum { --planet-size: 94px; }
+  .about-visual.project-universe {
+    width: min(calc(100% * var(--composition-scale)), calc(368px * var(--composition-scale)));
+    margin-block: 0;
+    gap: calc(10px * var(--composition-scale)) calc(8px * var(--composition-scale));
+  }
+  .project-universe .planet-omuseum { --planet-size: 56px; }
+  .project-universe .planet-seaversum { --planet-size: 66px; }
   .project-universe .planet-brux { --planet-size: 68px; }
   .project-universe .planet-nadopenarts { --planet-size: 120px; }
   .project-universe .planet-soullux { --planet-size: 58px; }
   .project-universe .planet-holidays { --planet-size: 62px; }
   .project-universe .planet-branding { --planet-size: 88px; }
-  .project-universe .project-planet-name { font-size: 13px; }
+  .project-universe .project-planet-name { font-size: calc(13px * var(--composition-scale)); }
 }
 @media (prefers-reduced-motion: reduce) {
   .project-universe .project-planet img,
