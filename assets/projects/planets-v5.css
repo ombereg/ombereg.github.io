@@ -1,4 +1,4 @@
-/* Seven project worlds: OMuseum, Seaversum, Brux / Nadopen Arts / Soul Lux,
+/* Seven project worlds: OMuseum / Seaversum, Brux / Nadopen Arts / Soul Lux,
    then Holidays / Branding. Only the artwork moves; every label has its own space. */
 .about-visual.project-universe {
   width: min(100%, 344px);
@@ -9,8 +9,7 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-template-areas:
-    ". . museum museum . ."
-    ". . sea sea . ."
+    ". museum museum sea sea ."
     "brux brux arts arts soul soul"
     ". holidays holidays branding branding .";
   align-content: start;
@@ -50,6 +49,7 @@
 }
 .project-universe .planet-omuseum {
   grid-area: museum;
+  align-self: end;
   --planet-size: clamp(62px, 18vw, 78px);
   --planet-glow: 121, 190, 249;
   --planet-motion: projectBreatheMuseumV5;
@@ -58,6 +58,7 @@
 }
 .project-universe .planet-seaversum {
   grid-area: sea;
+  align-self: end;
   --planet-size: clamp(70px, 20vw, 86px);
   --planet-glow: 99, 228, 214;
   --planet-motion: projectSwaySeaV5;
