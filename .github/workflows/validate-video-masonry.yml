@@ -1,0 +1,73 @@
+name: Validate asymmetric video gallery
+on:
+  push:
+    branches: [site/video-masonry-20261003]
+    paths: [.github/workflows/validate-video-masonry.yml]
+permissions:
+  contents: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      PYTHONUNBUFFERED: '1'
+      BASE: 9d6b81330b32605d0b17aca230262e05f3e89262
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Install test tools
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.55.0 PyYAML==6.0.2 > /tmp/masonry-install.log 2>&1 || { tail -60 /tmp/masonry-install.log; exit 1; }
+          python -m playwright install --with-deps chromium >> /tmp/masonry-install.log 2>&1 || { tail -60 /tmp/masonry-install.log; exit 1; }
+      - name: Prepare reviewed patch and idle-layout guard
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml, subprocess
+          workflow=yaml.safe_load(Path('.github/workflows/prepare-video-masonry.yml').read_text())
+          steps=workflow['jobs']['prepare']['steps']
+          prepare=next(s['run'] for s in steps if s.get('name')=='Prepare isolated video layout assets')
+          subprocess.run(['bash','-e','-c',prepare],check=True)
+          path=Path('assets/portfolio/video-masonry-v1.js')
+          js=path.read_text()
+          old="    grid.classList.add('is-masonry');"
+          new="    if (!grid.classList.contains('is-masonry')) grid.classList.add('is-masonry');"
+          assert js.count(old)==1
+          path.write_text(js.replace(old,new))
+          subprocess.run(['node','--check',str(path)],check=True)
+          tests=next(s['run'] for s in steps if s.get('name')=='Test four live works and a twenty-item layout fixture')
+          # CSS uppercase affects innerText, but not the actual localized textContent.
+          tests=tests.replace("'Смотреть ещё' in more.inner_text()", "'Смотреть ещё' in more.text_content()")
+          marker='            before=geometry(); check(before)'
+          assert marker in tests
+          tests=tests.replace(marker,marker+'''\n            page.evaluate("window.masonryIdleChanges=0;new MutationObserver(()=>window.masonryIdleChanges++).observe(document.getElementById('portfolio-grid'),{attributes:true,attributeFilter:['class','style']})")\n            page.wait_for_timeout(250)\n            assert page.evaluate('window.masonryIdleChanges') <= 2, 'Repeated idle layout writes' ''')
+          Path('/tmp/masonry-tests.sh').write_text(tests)
+          Path('.review').mkdir(exist_ok=True)
+          PY
+      - name: Browser checks
+        run: |
+          set -o pipefail
+          bash -e /tmp/masonry-tests.sh 2>&1 | tee .review/test-log.txt
+      - name: Save tested site-only commit
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_INDEX_FILE="$RUNNER_TEMP/masonry-tested-index"
+          git read-tree "$BASE"
+          git add index.html assets/portfolio/video-masonry-v1.css assets/portfolio/video-masonry-v1.js
+          TREE=$(git write-tree)
+          COMMIT=$(printf '%s\n' 'Use compact asymmetric masonry previews and show eight videos before See more' | git commit-tree "$TREE" -p "$BASE")
+          git diff-tree --no-commit-id --name-only -r "$COMMIT"
+          git push origin "$COMMIT:refs/heads/site/video-masonry-ready-20261003"
+          echo "REVIEW_COMMIT=$COMMIT" | tee .review/commit.txt
+          echo "REVIEW_TREE=$TREE" | tee -a .review/commit.txt
+      - name: Save review results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: video-masonry-review
+          path: .review/
+          include-hidden-files: true
+          retention-days: 3
