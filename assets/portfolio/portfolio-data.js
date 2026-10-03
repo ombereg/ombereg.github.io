@@ -5,8 +5,8 @@ window.OMBEREG_PORTFOLIO = [
     "id": "work-20261003-01",
     "poster": "assets/portfolio/work-20261003-01.webp",
     "video": "assets/portfolio/work-20261003-01.mp4",
-    "titleRu": "Работа 01",
-    "titleEn": "Work 01",
+    "titleRu": "Рисуя реальность",
+    "titleEn": "Painting Reality",
     "layout": "tall",
     "group": "featured"
   },
