@@ -1,0 +1,198 @@
+/* Seven project worlds: OMuseum, Seaversum, Brux / Nadopen Arts / Soul Lux,
+   then Holidays / Branding. Only the artwork moves; every label has its own space. */
+.about-visual.project-universe {
+  width: min(100%, 344px);
+  min-height: 0;
+  height: auto;
+  margin: 10px auto 4px;
+  padding: 8px 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-areas:
+    ". . museum museum . ."
+    ". . sea sea . ."
+    "brux brux arts arts soul soul"
+    ". holidays holidays branding branding .";
+  align-content: start;
+  align-items: center;
+  justify-items: center;
+  align-self: center;
+  gap: 9px 8px;
+  overflow: visible;
+  border: 0;
+  background: none;
+}
+.project-universe .project-planet {
+  --planet-size: 70px;
+  --planet-glow: 175, 157, 255;
+  --planet-motion: projectFloatSoulV5;
+  --planet-duration: 7.2s;
+  --planet-phase: 0s;
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 3px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  contain: none;
+  transform: none;
+  touch-action: manipulation;
+}
+.project-universe .planet-omuseum {
+  grid-area: museum;
+  --planet-size: clamp(62px, 18vw, 78px);
+  --planet-glow: 121, 190, 249;
+  --planet-motion: projectBreatheMuseumV5;
+  --planet-duration: 8.8s;
+  --planet-phase: -4.2s;
+}
+.project-universe .planet-seaversum {
+  grid-area: sea;
+  --planet-size: clamp(70px, 20vw, 86px);
+  --planet-glow: 99, 228, 214;
+  --planet-motion: projectSwaySeaV5;
+  --planet-duration: 7.8s;
+  --planet-phase: -3.4s;
+}
+.project-universe .planet-brux {
+  grid-area: brux;
+  --planet-size: clamp(54px, 15vw, 64px);
+  --planet-glow: 145, 205, 255;
+  --planet-motion: projectDriftBruxV5;
+  --planet-duration: 8.4s;
+  --planet-phase: -2s;
+}
+.project-universe .planet-nadopenarts {
+  grid-area: arts;
+  --planet-size: clamp(92px, 27vw, 112px);
+  --planet-glow: 206, 157, 249;
+  --planet-motion: projectFloatArtsV5;
+  --planet-duration: 9.2s;
+  --planet-phase: -1.8s;
+}
+.project-universe .planet-soullux {
+  grid-area: soul;
+  --planet-size: clamp(64px, 17vw, 72px);
+  --planet-glow: 168, 206, 255;
+}
+.project-universe .planet-holidays {
+  grid-area: holidays;
+  --planet-size: clamp(48px, 13vw, 56px);
+  --planet-glow: 255, 204, 236;
+  --planet-motion: projectSparkHolidayV5;
+  --planet-duration: 8.1s;
+  --planet-phase: -4.6s;
+}
+.project-universe .planet-branding {
+  grid-area: branding;
+  --planet-size: clamp(44px, 12vw, 50px);
+  --planet-glow: 133, 195, 255;
+  --planet-motion: projectOrbitBrandingV5;
+  --planet-duration: 8.6s;
+  --planet-phase: -2.7s;
+}
+.project-universe .project-planet-art {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  width: var(--planet-size);
+  height: var(--planet-size);
+  max-width: none;
+  flex: 0 0 var(--planet-size);
+  aspect-ratio: 1;
+  overflow: visible;
+}
+.project-universe .project-planet-art::before {
+  content: '';
+  position: absolute;
+  inset: 11%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--planet-glow), .38), rgba(var(--planet-glow), .12) 48%, transparent 74%);
+  filter: blur(9px);
+  opacity: .34;
+  pointer-events: none;
+  animation: projectAuraV5 7s ease-in-out var(--planet-phase) infinite alternate;
+  animation-play-state: paused;
+}
+.project-universe .project-planet-art picture { display: block; width: 100%; height: 100%; }
+.project-universe .project-planet img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 5px rgba(var(--planet-glow), .22));
+  animation: var(--planet-motion) var(--planet-duration) ease-in-out var(--planet-phase) infinite;
+  animation-play-state: paused;
+  will-change: auto;
+}
+.project-universe.projects-active .project-planet img,
+.project-universe.projects-active .project-planet-art::before { animation-play-state: running; }
+html[data-project-page-hidden='true'] .project-universe .project-planet img,
+html[data-project-page-hidden='true'] .project-universe .project-planet-art::before,
+body.project-open .project-universe .project-planet img,
+body.project-open .project-universe .project-planet-art::before { animation-play-state: paused; }
+.project-universe .project-planet-name {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+  font-family: var(--display-font);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 300;
+  letter-spacing: .03em;
+  color: rgba(241, 245, 255, .86);
+  text-shadow: none;
+  transform: none;
+}
+.project-universe .planet-nadopenarts .project-planet-name { color: #f5f7ff; }
+.project-universe .project-planet-name::after { content: none; }
+.project-universe .project-planet:focus-visible { outline: 1px solid #a5d8ef; outline-offset: 4px; border-radius: 8px; }
+@media (hover: hover) {
+  .project-universe .project-planet-art { transition: transform .2s ease; }
+  .project-universe .project-planet:hover .project-planet-art { transform: scale(1.025); }
+  .project-universe .project-planet:hover .project-planet-name { color: #fff; }
+}
+.project-universe .project-planet:active .project-planet-art { transform: scale(.98); }
+body.project-open main { overflow: hidden; }
+@keyframes projectAuraV5 { from { opacity: .25; transform: scale(.94); } to { opacity: .5; transform: scale(1.05); } }
+@keyframes projectBreatheMuseumV5 { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-2px) scale(1.025); } }
+@keyframes projectSwaySeaV5 { 0%,100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-3px) rotate(1.2deg); } }
+@keyframes projectDriftBruxV5 { 0%,100% { transform: translate(0,0) rotate(-1deg); } 50% { transform: translate(-2px,-2px) rotate(1deg); } }
+@keyframes projectFloatArtsV5 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(2px,-3px); } }
+@keyframes projectFloatSoulV5 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(1px,-3px); } }
+@keyframes projectSparkHolidayV5 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(2px,-2px) scale(1.035); } }
+@keyframes projectOrbitBrandingV5 { 0%,100% { transform: translateY(0) rotate(-1deg) scale(1); } 50% { transform: translateY(-2px) rotate(1.5deg) scale(1.025); } }
+@media (min-width: 760px) {
+  .about-visual.project-universe { width: min(100%, 368px); margin-block: 0; gap: 10px 8px; }
+  .project-universe .planet-omuseum { --planet-size: 84px; }
+  .project-universe .planet-seaversum { --planet-size: 94px; }
+  .project-universe .planet-brux { --planet-size: 68px; }
+  .project-universe .planet-nadopenarts { --planet-size: 120px; }
+  .project-universe .planet-soullux { --planet-size: 78px; }
+  .project-universe .planet-holidays { --planet-size: 62px; }
+  .project-universe .planet-branding { --planet-size: 54px; }
+  .project-universe .project-planet-name { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-universe .project-planet img,
+  .project-universe .project-planet-art,
+  .project-universe .project-planet-art::before { animation: none !important; transition: none !important; transform: none !important; }
+}
