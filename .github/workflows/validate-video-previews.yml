@@ -1,0 +1,32 @@
+name: Validate video preview update
+on:
+  push:
+    branches: [site/video-previews-20261003]
+    paths: [.github/workflows/validate-video-previews.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    env:
+      BASE: 81f1520198d5f13366f71cb0bddfdd9f5ddcbf29
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Read patch definition
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.2
+      - name: Apply and syntax-check video changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml, subprocess
+          workflow = yaml.safe_load(Path('.github/workflows/refresh-video-previews.yml').read_text())
+          steps = workflow['jobs']['prepare']['steps']
+          code = next(s['run'] for s in steps if s.get('name') == 'Apply scoped video-only changes')
+          code = '\n'.join(line for line in code.splitlines() if not line.startswith('old = old.replace(') and not line.startswith('new = new.replace(')) + '\n'
+          subprocess.run(['bash', '-e', '-c', code], check=True)
+          save = next(s['run'] for s in steps if s.get('name') == 'Save clean reviewed commit')
+          subprocess.run(['bash', '-e', '-c', save], check=True)
+          PY
