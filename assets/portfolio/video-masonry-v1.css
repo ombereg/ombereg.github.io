@@ -1,0 +1,38 @@
+/* Video-only masonry. Full-screen playback always retains the source proportions. */
+#portfolio-grid {
+  --video-columns: 2;
+  --video-gap: 6px;
+  grid-auto-flow: row;
+}
+#portfolio-grid.is-masonry {
+  position: relative;
+  display: block;
+  isolation: isolate;
+  overflow: visible;
+}
+#portfolio-grid.is-masonry > .portfolio-card {
+  position: absolute;
+  top: var(--tile-top, 0px);
+  left: var(--tile-left, 0px);
+  width: var(--tile-width, 100%);
+  height: var(--tile-height, auto);
+  grid-area: auto;
+  margin: 0;
+  border-radius: 5px;
+}
+#portfolio-grid.is-masonry > .portfolio-card img {
+  object-fit: cover;
+  object-position: var(--preview-position, 50% 42%);
+  transform: none;
+}
+#portfolio-grid.is-masonry > .portfolio-card:hover img,
+#portfolio-grid.is-masonry > .portfolio-card:focus-visible img {
+  transform: none;
+}
+#portfolio-more[hidden] { display: none !important; }
+@media (min-width: 760px) {
+  #portfolio-grid { --video-columns: 3; }
+}
+@media (min-width: 1100px) {
+  #portfolio-grid { --video-columns: 4; }
+}
