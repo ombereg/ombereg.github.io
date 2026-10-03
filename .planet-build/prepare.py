@@ -16,7 +16,9 @@ for name, expected in [('branding', 'dab714f53c2f734e48e3dd647c0de9baf4c0bc16'),
         encoded = base64.b64encode(payload).decode('ascii')
         fragment = 'BeTHL24yQC+jbIc8G'
         assert encoded.count(fragment + fragment) == 1
-        payload = base64.b64decode(encoded.replace(fragment + fragment, fragment, 1), validate=True)
+        repaired = encoded.replace(fragment + fragment, fragment, 1)
+        repaired += '=' * (-len(repaired) % 4)
+        payload = base64.b64decode(repaired, validate=True)
     assert git_hash(payload) == expected, (name, 'Image integrity check failed')
     (root / (name + '-v5.webp')).write_bytes(payload)
 
