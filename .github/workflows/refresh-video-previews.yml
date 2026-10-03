@@ -1,0 +1,159 @@
+name: Refresh video previews
+on:
+  push:
+    branches: [site/video-previews-20261003]
+    paths: [.github/workflows/refresh-video-previews.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    env:
+      BASE: 81f1520198d5f13366f71cb0bddfdd9f5ddcbf29
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Apply scoped video-only changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, re, subprocess
+          page = Path('index.html')
+          original = page.read_text()
+          raw = page.read_bytes()
+          assert hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest() == 'ba7fdc5277f92902c33a34aab264200f948f4c6a', 'Source page changed; review before applying.'
+          match = re.search(r'<script>\s*window\.OMBEREG_PORTFOLIO = (\[[\s\S]*?\n\])\s*</script>', original)
+          assert match
+          items = json.loads(subprocess.check_output(['node', '-e', 'console.log(JSON.stringify(' + match.group(1) + '))'], text=True))
+          assert len(items) == 12
+          items = [i for i in items if i['id'] not in {'cyber-transform', 'cat-world'}]
+          assert len(items) == 10
+          for item in items:
+              assert Path(item['poster']).is_file() and Path(item['video']).is_file(), item['id']
+          Path('assets/portfolio/portfolio-data.js').write_text('// Edit titleRu and titleEn to rename a video. Keep its id and file paths unchanged.\nwindow.OMBEREG_PORTFOLIO = ' + json.dumps(items, ensure_ascii=False, indent=2) + ';\n')
+          h = original[:match.start()] + '<script src="assets/portfolio/portfolio-data.js?v=20261003-video-refresh"></script>' + original[match.end():]
+          a = h.index('.portfolio-card:hover .portfolio-play,')
+          b = h.index('.portfolio-more{', a)
+          h = h[:a] + h[b:]
+          h = h.replace('</head>', '<link rel="stylesheet" href="assets/portfolio/video-preview-v2.css">\n</head>', 1)
+          old = '''      card.setAttribute('aria-label', item.titleRu || item.titleEn || 'Portfolio item');
+                card.innerHTML = '<img src="' + item.poster + '" alt="" loading="lazy"><span class="portfolio-play" aria-hidden="true"></span>';'''
+          old = old.replace('\n      ', '\n')
+          new = '''      card.dataset.videoId = item.id;
+                card.setAttribute('aria-label', (item.video ? 'Смотреть видео: ' : '') + (item.titleRu || item.titleEn || 'Portfolio item'));
+                card.setAttribute('aria-haspopup', 'dialog');
+                card.setAttribute('aria-controls', 'portfolio-modal');
+                const poster = document.createElement('img');
+                poster.src = item.poster;
+                poster.alt = '';
+                poster.loading = 'lazy';
+                poster.decoding = 'async';
+                card.appendChild(poster);
+                if(item.video){
+                  const play = document.createElement('span');
+                  play.className = 'portfolio-play';
+                  play.setAttribute('aria-hidden', 'true');
+                  play.innerHTML = '<svg viewBox="0 0 32 32" focusable="false" aria-hidden="true"><path d="M8 4 L27 16 L8 28 Z"/></svg>';
+                  card.appendChild(play);
+                }'''
+          new = new.replace('\n      ', '\n')
+          assert old in h, repr(old)
+          h = h.replace(old, new, 1)
+          old = '  function openPortfolio(index){'
+          new = '''  function disposePortfolioMedia(){
+              portfolioMedia?.querySelectorAll('video').forEach(video => {
+                video.pause();
+                video.removeAttribute('src');
+                video.load();
+              });
+              if(portfolioMedia) portfolioMedia.replaceChildren();
+            }
+          
+            function openPortfolio(index){'''
+          new = new.replace('\n          ', '\n')
+          assert old in h
+          h = h.replace(old, new, 1)
+          h = h.replace("    portfolioMedia.innerHTML = '';\n    if(item.video)", "    disposePortfolioMedia();\n    if(item.video)", 1)
+          h = h.replace("    if(portfolioMedia) portfolioMedia.innerHTML = '';", "    disposePortfolioMedia();", 1)
+          old = "    document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';"
+          assert old in h
+          extra = '''
+              portfolioGrid?.querySelectorAll('.portfolio-card').forEach((card, i) => {
+                const item = portfolioItems[i];
+                card.setAttribute('aria-label', (item.video ? (lang === 'en' ? 'Play video: ' : 'Смотреть видео: ') : '') + itemTitle(item));
+              });'''
+          extra = extra.replace('\n          ', '\n')
+          h = h.replace(old, old + extra, 1)
+          h = h.replace('<div class="portfolio-modal" id="portfolio-modal" aria-hidden="true">', '<div class="portfolio-modal" id="portfolio-modal" role="dialog" aria-modal="true" aria-labelledby="portfolio-modal-title" aria-hidden="true">', 1)
+          h = h.replace("  portfolioModal?.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, {passive:true});", "  portfolioModal?.addEventListener('touchstart', e => { touchStartX = e.target.closest('video, button') ? null : e.changedTouches[0].clientX; }, {passive:true});", 1)
+          h = h.replace("    if(e.key === 'Escape') closePortfolio();\n    if(e.key === 'ArrowLeft')", "    if(e.key === 'Escape') closePortfolio();\n    if(e.target.tagName === 'VIDEO') return;\n    if(e.key === 'ArrowLeft')", 1)
+          for pattern in [r'const items = \[[\s\S]*?\n  \];', r'<div class="about-visual project-universe"[\s\S]*?</div>']:
+              assert re.search(pattern, h).group(0) == re.search(pattern, original).group(0)
+          assert 'Cyber transformation' not in h and 'Другой мир' not in h
+          assert 'cyber-transform' not in h and 'cat-world' not in h
+          page.write_text(h)
+          css = '''/* Always-visible, translucent white play triangle; no circle or backdrop. */
+          .portfolio-card .portfolio-play {
+            position: absolute;
+            right: 11px;
+            bottom: 11px;
+            left: auto;
+            top: auto;
+            z-index: 2;
+            display: block;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            transform: none;
+            opacity: .85;
+            pointer-events: none;
+            filter: drop-shadow(0 0 4px rgba(255,255,255,.6)) drop-shadow(0 0 9px rgba(255,255,255,.28));
+            transition: opacity .2s ease;
+          }
+          .portfolio-play svg { display: block; width: 100%; height: 100%; overflow: visible; }
+          .portfolio-play path {
+            fill: rgba(255,255,255,.44);
+            stroke: rgba(255,255,255,.88);
+            stroke-width: 1.15;
+            stroke-linejoin: round;
+          }
+          .portfolio-card:hover .portfolio-play,
+          .portfolio-card:focus-visible .portfolio-play { opacity: 1; }
+          .portfolio-card:focus-visible { outline: 2px solid rgba(255,255,255,.9); outline-offset: 3px; }
+          body.portfolio-open main { overflow: hidden; }
+          @media (min-width: 760px) {
+            .portfolio-card .portfolio-play { width: 32px; height: 32px; right: 13px; bottom: 13px; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .portfolio-card .portfolio-play { transition: none; }
+          }
+          '''
+          css = '\n'.join(line[10:] if line.startswith('          ') else line for line in css.splitlines()).rstrip() + '\n'
+          Path('assets/portfolio/video-preview-v2.css').write_text(css)
+          for name in ('cyber-transform', 'cat-world'):
+              for path in [f'assets/portfolio/{name}.webp', f'assets/portfolio/posters/{name}.webp', f'assets/portfolio/videos/{name}.mp4']:
+                  Path(path).unlink(missing_ok=True)
+          for script in re.findall(r'<script>([\s\S]*?)</script>', h):
+              subprocess.run(['node', '--check'], input=script, text=True, check=True)
+          subprocess.run(['node', '--check', 'assets/portfolio/portfolio-data.js'], check=True)
+          print('VIDEO_REFRESH_OK: ten existing videos, retired covers removed, white triangular markers, titles centralized.')
+          PY
+      - name: Save clean reviewed commit
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_INDEX_FILE="$RUNNER_TEMP/video-refresh-index"
+          git read-tree "$BASE"
+          git add -A index.html assets/portfolio
+          TREE=$(git write-tree)
+          COMMIT=$(printf '%s\n' 'Remove Cyber Transformation and Another World covers; add translucent white video play triangles' | git commit-tree "$TREE" -p "$BASE")
+          git diff-tree --no-commit-id --name-status -r "$COMMIT"
+          git push origin "$COMMIT:refs/heads/site/video-previews-ready-20261003"
+          echo "READY_COMMIT=$COMMIT" >> "$GITHUB_STEP_SUMMARY"
