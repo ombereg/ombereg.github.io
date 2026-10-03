@@ -73,6 +73,33 @@ window.OMBEREG_PORTFOLIO = [
     "group": "featured"
   },
   {
+    "id": "video-20261003-01",
+    "poster": "assets/portfolio/video-20261003-01.webp",
+    "video": "assets/portfolio/video-20261003-01.mp4",
+    "titleRu": "Видео 01",
+    "titleEn": "Video 01",
+    "layout": "tall",
+    "group": "more"
+  },
+  {
+    "id": "video-20261003-02",
+    "poster": "assets/portfolio/video-20261003-02.webp",
+    "video": "assets/portfolio/video-20261003-02.mp4",
+    "titleRu": "Видео 02",
+    "titleEn": "Video 02",
+    "layout": "tall",
+    "group": "more"
+  },
+  {
+    "id": "video-20261003-03",
+    "poster": "assets/portfolio/video-20261003-03.webp",
+    "video": "assets/portfolio/video-20261003-03.mp4",
+    "titleRu": "Видео 03",
+    "titleEn": "Video 03",
+    "layout": "tall",
+    "group": "more"
+  },
+  {
     "id": "birthday-bike",
     "poster": "assets/portfolio/posters/birthday-bike.webp",
     "video": "assets/portfolio/videos/birthday-bike.mp4",
