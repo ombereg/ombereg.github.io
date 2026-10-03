@@ -2287,6 +2287,29 @@ body.art-open{overflow:hidden}
     `
   };
 
+  const brxStory = {
+    ru: `
+      <p class="lumina-name"><strong>Открыться</strong> 🧬</p>
+      <p>Мы всю жизнь думаем, что ищем другие миры. А потом один из них смотрит на нас чужими глазами — и оказывается, что путешествие было не к звёздам, а к той части себя, которая всё ещё способна не закрыться.</p>
+      <p class="lumina-style"><strong>«БРАКС» — первая глава.</strong></p>
+      <p>Возможно, продолжение начнётся не на экране, а в том, как вы теперь посмотрите на того, кого раньше назвали бы чужим.</p>
+      <p class="lumina-lead"><strong>Свои среди звёзд</strong> 👽</p>
+      <p>Иногда новый мир принимает тебя так, будто ждал всю жизнь. И тогда понимаешь: дом — не место на карте, а те, рядом с кем ты становишься своим.</p>
+      <p class="lumina-vision"><em>По стихам автора <strong>«Созидание» Романа Чердакова.</strong></em></p>
+      <p class="lumina-vision"><em>Визуальный мир и анимация <strong>Nadopen Arts</strong>, с помощью Ai.</em></p>
+    `,
+    en: `
+      <p class="lumina-name"><strong>Open Up</strong> 🧬</p>
+      <p>All our lives, we think we are searching for other worlds. Then one of them looks back at us through unfamiliar eyes — and we realize the journey was never toward the stars, but toward the part of ourselves that is still capable of remaining open.</p>
+      <p class="lumina-style"><strong>“BRAX” — Chapter One.</strong></p>
+      <p>Perhaps the continuation will begin not on the screen, but in the way you now look at someone you once would have called a stranger.</p>
+      <p class="lumina-lead"><strong>Among Our Own Beneath the Stars</strong> 👽</p>
+      <p>Sometimes a new world welcomes you as if it has been waiting for you all your life. And then you understand: home is not a place on a map, but the ones beside whom you become one of your own.</p>
+      <p class="lumina-vision"><em>Based on the poetry of Roman Cherdakov, author of <strong>“Creation”.</strong></em></p>
+      <p class="lumina-vision"><em>Visual world and animation by <strong>Nadopen Arts</strong>, created with AI.</em></p>
+    `
+  };
+
   if(projectUniverse){
     if('IntersectionObserver' in window){
       const projectObserver = new IntersectionObserver(entries => {
@@ -2304,14 +2327,15 @@ body.art-open{overflow:hidden}
         const projectName = button.dataset.project || '';
         const isNadopen = projectName === 'Nadopen Arts';
         const isOMuseum = projectName === 'OMuseum';
-        const hasStory = isNadopen || isOMuseum;
+        const isBrx = projectName === 'Brux';
+        const hasStory = isNadopen || isOMuseum || isBrx;
         projectModalTitle.textContent = projectName;
         projectModalImage.src = button.dataset.image || '';
         if(projectModalCopyRu && projectModalCopyEn){
           projectModalCopyRu.classList.toggle('is-rich', hasStory);
           projectModalCopyEn.classList.toggle('is-rich', hasStory);
-          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : projectPlaceholders.ru);
-          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : projectPlaceholders.en);
+          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : projectPlaceholders.ru));
+          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : projectPlaceholders.en));
         }
         if(projectModalStatusRu) projectModalStatusRu.hidden = hasStory;
         if(projectModalStatusEn) projectModalStatusEn.hidden = hasStory;
