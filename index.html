@@ -2274,6 +2274,19 @@ body.art-open{overflow:hidden}
     `
   };
 
+  const omuseumStory = {
+    ru: `
+      <p class="lumina-lead">Некоторые картины украшают стены. Другие меняют пространство вокруг вас. 🔭</p>
+      <p><strong>Ombereg — музей, где картины не висят на стенах. Они становятся порталами в другие состояния.</strong></p>
+      <p class="lumina-quote">Место, где искусство можно не только увидеть, но и прожить. И однажды этот мир станет реальностью. ♾️</p>
+    `,
+    en: `
+      <p class="lumina-lead">Some paintings decorate walls. Others change the space around you. 🔭</p>
+      <p><strong>Ombereg is a museum where paintings do not hang on walls. They become portals into other states.</strong></p>
+      <p class="lumina-quote">A place where art can be not only seen, but lived. And one day this world will become real. ♾️</p>
+    `
+  };
+
   if(projectUniverse){
     if('IntersectionObserver' in window){
       const projectObserver = new IntersectionObserver(entries => {
@@ -2290,16 +2303,18 @@ body.art-open{overflow:hidden}
       button.addEventListener('click', () => {
         const projectName = button.dataset.project || '';
         const isNadopen = projectName === 'Nadopen Arts';
+        const isOMuseum = projectName === 'OMuseum';
+        const hasStory = isNadopen || isOMuseum;
         projectModalTitle.textContent = projectName;
         projectModalImage.src = button.dataset.image || '';
         if(projectModalCopyRu && projectModalCopyEn){
-          projectModalCopyRu.classList.toggle('is-rich', isNadopen);
-          projectModalCopyEn.classList.toggle('is-rich', isNadopen);
-          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : projectPlaceholders.ru;
-          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : projectPlaceholders.en;
+          projectModalCopyRu.classList.toggle('is-rich', hasStory);
+          projectModalCopyEn.classList.toggle('is-rich', hasStory);
+          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : projectPlaceholders.ru);
+          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : projectPlaceholders.en);
         }
-        if(projectModalStatusRu) projectModalStatusRu.hidden = isNadopen;
-        if(projectModalStatusEn) projectModalStatusEn.hidden = isNadopen;
+        if(projectModalStatusRu) projectModalStatusRu.hidden = hasStory;
+        if(projectModalStatusEn) projectModalStatusEn.hidden = hasStory;
         projectModal?.classList.add('is-open');
         projectModal?.setAttribute('aria-hidden','false');
         document.body.classList.add('project-open');
