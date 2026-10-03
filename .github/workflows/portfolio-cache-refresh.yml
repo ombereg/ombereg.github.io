@@ -1,0 +1,134 @@
+name: Refresh portfolio asset versions
+on:
+  push:
+    branches: [site/portfolio-cache-refresh-20261003]
+    paths: [.github/workflows/portfolio-cache-refresh.yml]
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    env:
+      BASE: 81b5d53aa7ac31022cc9c9f802ef7148e59e5218
+      READY: site/portfolio-cache-ready-20261003
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Prepare minimal index-only patch and inspect public responses
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json,re,subprocess,urllib.request
+          blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          index=Path('index.html'); before=index.read_bytes()
+          assert blob(before)=='499418674ef44b01a13ce267e80105a9da8859c0','Index changed; reconcile first'
+          cat=Path('assets/portfolio/portfolio-data.js').read_bytes()
+          assert blob(cat)=='0bcd073fea6eaa9e47ad24bdc591385ad7f6edb8','Catalog changed; reconcile first'
+          items=json.loads(cat.decode().split('window.OMBEREG_PORTFOLIO = ',1)[1].strip().rstrip(';'))
+          assert len(items)==20
+          assert items[-2]['video']=='assets/portfolio/om-logo-v2.mp4'
+          assert items[-1]['video']=='assets/portfolio/video-20261003-03.mp4'
+          assert items[-1]['poster']=='assets/portfolio/hb-bro-cover-v2.webp'
+          for item in items:
+              for key in ['poster','video']: assert Path(item[key]).is_file(),item[key]
+          report={'public_before':[]}
+          for path in ['','assets/portfolio/portfolio-data.js?v=20261003-video-refresh']:
+              try:
+                  with urllib.request.urlopen('https://ombereg.github.io/'+path,timeout=20) as r:
+                      b=r.read(); rec={'path':path,'status':r.status,'sha':blob(b),'headers':{k:r.headers.get(k) for k in ['Cache-Control','Age','Last-Modified','ETag']}}
+                      if 'portfolio-data.js' in path:
+                          d=json.loads(b.decode().split('window.OMBEREG_PORTFOLIO = ',1)[1].strip().rstrip(';')); rec['last_two']=d[-2:]
+                      report['public_before'].append(rec)
+              except Exception as e: report['public_before'].append({'path':path,'error':str(e)})
+          print('PUBLIC_BEFORE',json.dumps(report['public_before'],ensure_ascii=False))
+          html=before.decode()
+          replacements={
+            'assets/portfolio/portfolio-data.js?v=20261003-video-refresh':'assets/portfolio/portfolio-data.js?v=0bcd073fea6e-last-two',
+            'href="assets/portfolio/video-preview-v2.css"':'href="assets/portfolio/video-preview-v2.css?v=c0d152e4289b"',
+            'href="assets/portfolio/video-masonry-v1.css"':'href="assets/portfolio/video-masonry-v1.css?v=faa1be44c5b0"',
+            'src="assets/portfolio/video-masonry-v1.js"':'src="assets/portfolio/video-masonry-v1.js?v=ceba5104bb02"',
+            '  const portfolioItems = window.OMBEREG_PORTFOLIO || [];':"  const portfolioItems = window.OMBEREG_PORTFOLIO || [];\n  // Refresh overwritten covers without disabling caching for unchanged videos.\n  function portfolioPosterUrl(item){\n    return item.poster + (item.poster.includes('?') ? '&' : '?') + 'v=20261003-covers-5229d508';\n  }",
+            '      poster.src = item.poster;':'      poster.src = portfolioPosterUrl(item);',
+            '      video.poster = item.poster;':'      video.poster = portfolioPosterUrl(item);',
+            '      img.src = item.poster;':'      img.src = portfolioPosterUrl(item);'
+          }
+          for old,new in replacements.items():
+              assert html.count(old)==1,(old,html.count(old))
+              html=html.replace(old,new,1)
+          undo=html
+          for old,new in reversed(list(replacements.items())): undo=undo.replace(new,old,1)
+          assert undo.encode()==before
+          index.write_text(html)
+          assert blob(index.read_bytes())=='c55995efdf82df89f81459de627c2fe02cc7d338'
+          for i,script in enumerate(re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>',html)):
+              if not script.strip(): continue
+              p=Path('/tmp')/f'cache-inline-{i}.js';p.write_text(script)
+              subprocess.run(['node','--check',str(p)],check=True)
+          Path('.review').mkdir(exist_ok=True)
+          report['patch']={'status':'PASS','index_before':blob(before),'index_after':blob(index.read_bytes()),'changed_files':['index.html'],'video_count':20,'catalog_unchanged':True,'media_unchanged':True}
+          Path('.review/portfolio-cache-check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print('PATCH_PASS',json.dumps(report['patch']))
+          PY
+      - name: Save patch for review without publishing it
+        run: |
+          cp index.html /tmp/portfolio-cache-index.html
+          git restore index.html
+          git checkout -b "$READY" "$BASE"
+          cp /tmp/portfolio-cache-index.html index.html
+          test "$(git diff --name-only)" = "index.html"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Refresh cached portfolio catalog, covers and layout URLs; keep all media unchanged'
+          git push origin "HEAD:refs/heads/$READY"
+          echo "REVIEW_COMMIT=$(git rev-parse HEAD)"
+      - name: Verify public site after reviewed publication
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,time,urllib.request,re
+          blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          origin='https://ombereg.github.io/'
+          def get(path):
+              req=urllib.request.Request(origin+path,headers={'Cache-Control':'no-cache','User-Agent':'OMBEREG-Public-Verification'})
+              with urllib.request.urlopen(req,timeout=25) as r:
+                  return r.read(), {'status':r.status,'cache_control':r.headers.get('Cache-Control'),'content_type':r.headers.get('Content-Type')}
+          target=Path('index.html').read_bytes()
+          for attempt in range(30):
+              try:
+                  data,headers=get('?v=20261003-media-refresh')
+                  if data==target: break
+                  print('WAITING_FOR_REVIEWED_PUBLICATION',attempt+1,blob(data))
+              except Exception as e: print('PUBLIC_RETRY',attempt+1,str(e))
+              time.sleep(10)
+          else: raise RuntimeError('Public index not verified within this check window')
+          text=data.decode()
+          catalog_src=re.search(r'<script src="([^"]*portfolio-data\.js[^"]*)"',text).group(1)
+          cat,h=get(catalog_src)
+          assert cat==Path('assets/portfolio/portfolio-data.js').read_bytes(),'Public catalog differs'
+          items=json.loads(cat.decode().split('window.OMBEREG_PORTFOLIO = ',1)[1].strip().rstrip(';'))
+          report=json.loads(Path('.review/portfolio-cache-check.json').read_text())
+          report['public_after']={'index_sha':blob(data),'catalog_url':catalog_src,'catalog_sha':blob(cat),'count':len(items),'assets':[]}
+          for i,item in enumerate(items):
+              path=item['poster']+'?v=20261003-covers-5229d508'
+              b,h=get(path); assert b==Path(item['poster']).read_bytes(),path
+              report['public_after']['assets'].append({'number':i+1,'kind':'poster','path':path,'sha':blob(b),'status':h['status']})
+          for i,item in enumerate(items[-2:],19):
+              b,h=get(item['video']); assert b==Path(item['video']).read_bytes(),item['video']
+              report['public_after']['assets'].append({'number':i,'kind':'video','title':item['titleRu'],'path':item['video'],'sha':blob(b),'status':h['status']})
+          assert len(items)==20
+          report['status']='PASS'
+          Path('.review/portfolio-cache-check.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          print('PUBLIC_VERIFIED',json.dumps(report['public_after'],ensure_ascii=False))
+          PY
+      - name: Save verification results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: portfolio-cache-verification
+          path: .review/
+          include-hidden-files: true
+          retention-days: 3
