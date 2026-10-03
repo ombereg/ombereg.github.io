@@ -2310,6 +2310,25 @@ body.art-open{overflow:hidden}
     `
   };
 
+  const soulLuxStory = {
+    ru: `
+      <p class="lumina-lead">Путь к себе начинается не со света. Он начинается с тишины, в которой ты впервые чувствуешь то, что тянет тебя вверх.</p>
+      <p><strong>Порыв</strong> (воздух) — первое движение навстречу себе, ещё до того, как понимаешь, куда летишь. 🐦‍🔥</p>
+      <p><strong>Трансформация</strong> (огонь) — всё, что сгорает в тебе, не потеря. Это старая форма, освобождающая место для того, кем ты уже стал. 🔥</p>
+      <p><strong>Растворение</strong> (вода) — не найти себя. А перестать держаться — и позволить себе стать частью того, что больше тебя. 🫧</p>
+      <p><strong>Просветление</strong> (земля) — момент, когда свет перестаёт приходить извне. Он рождается внутри — и путь заканчивается там же, где начинался. 🌸</p>
+      <p class="lumina-quote"><strong>Единство</strong> (эфир) — не часть пути. Это то, из чего рождается сам путь. 🔭</p>
+    `,
+    en: `
+      <p class="lumina-lead">The path to yourself does not begin with light. It begins with silence — the moment you first feel what is drawing you upward.</p>
+      <p><strong>Impulse</strong> (air) — the first movement toward yourself, before you even understand where you are flying. 🐦‍🔥</p>
+      <p><strong>Transformation</strong> (fire) — everything that burns away within you is not a loss. It is an old form making space for who you have already become. 🔥</p>
+      <p><strong>Dissolution</strong> (water) — not finding yourself, but letting go and allowing yourself to become part of something greater than you. 🫧</p>
+      <p><strong>Enlightenment</strong> (earth) — the moment when light stops coming from outside. It is born within, and the journey ends where it began. 🌸</p>
+      <p class="lumina-quote"><strong>Unity</strong> (aether) — not a part of the path. It is what the path itself is born from. 🔭</p>
+    `
+  };
+
   if(projectUniverse){
     if('IntersectionObserver' in window){
       const projectObserver = new IntersectionObserver(entries => {
@@ -2328,14 +2347,15 @@ body.art-open{overflow:hidden}
         const isNadopen = projectName === 'Nadopen Arts';
         const isOMuseum = projectName === 'OMuseum';
         const isBrx = projectName === 'Brux';
-        const hasStory = isNadopen || isOMuseum || isBrx;
+        const isSoulLux = projectName === 'Soul Lux';
+        const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux;
         projectModalTitle.textContent = projectName;
         projectModalImage.src = button.dataset.image || '';
         if(projectModalCopyRu && projectModalCopyEn){
           projectModalCopyRu.classList.toggle('is-rich', hasStory);
           projectModalCopyEn.classList.toggle('is-rich', hasStory);
-          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : projectPlaceholders.ru));
-          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : projectPlaceholders.en));
+          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : (isSoulLux ? soulLuxStory.ru : projectPlaceholders.ru)));
+          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : (isSoulLux ? soulLuxStory.en : projectPlaceholders.en)));
         }
         if(projectModalStatusRu) projectModalStatusRu.hidden = hasStory;
         if(projectModalStatusEn) projectModalStatusEn.hidden = hasStory;
