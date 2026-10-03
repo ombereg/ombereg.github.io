@@ -83,7 +83,7 @@
 }
 .project-universe .planet-soullux {
   grid-area: soul;
-  --planet-size: clamp(64px, 17vw, 72px);
+  --planet-size: clamp(50px, 14vw, 60px);
   --planet-glow: 168, 206, 255;
 }
 .project-universe .planet-holidays {
@@ -96,7 +96,7 @@
 }
 .project-universe .planet-branding {
   grid-area: branding;
-  --planet-size: clamp(44px, 12vw, 50px);
+  --planet-size: clamp(66px, 19vw, 80px);
   --planet-glow: 133, 195, 255;
   --planet-motion: projectOrbitBrandingV5;
   --planet-duration: 8.6s;
@@ -187,9 +187,9 @@ body.project-open main { overflow: hidden; }
   .project-universe .planet-seaversum { --planet-size: 94px; }
   .project-universe .planet-brux { --planet-size: 68px; }
   .project-universe .planet-nadopenarts { --planet-size: 120px; }
-  .project-universe .planet-soullux { --planet-size: 78px; }
+  .project-universe .planet-soullux { --planet-size: 58px; }
   .project-universe .planet-holidays { --planet-size: 62px; }
-  .project-universe .planet-branding { --planet-size: 54px; }
+  .project-universe .planet-branding { --planet-size: 88px; }
   .project-universe .project-planet-name { font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) {
