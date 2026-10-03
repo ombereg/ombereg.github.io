@@ -166,7 +166,7 @@ window.OMBEREG_PORTFOLIO = [
   {
     "id": "video-20261003-03",
     "poster": "assets/portfolio/video-20261003-03.webp",
-    "video": "assets/portfolio/video-20261003-03.mp4",
+    "video": "assets/portfolio/om-logo-v2.mp4",
     "titleRu": "OM лого",
     "titleEn": "OM Logo",
     "layout": "tall",
@@ -174,11 +174,11 @@ window.OMBEREG_PORTFOLIO = [
   },
   {
     "id": "video-20261003-04",
-    "poster": "assets/portfolio/video-20261003-04.webp",
-    "video": "assets/portfolio/video-20261003-04.mp4",
+    "poster": "assets/portfolio/hb-bro-cover-v2.webp",
+    "video": "assets/portfolio/video-20261003-03.mp4",
     "titleRu": "HB бро",
     "titleEn": "HB Bro",
-    "layout": "square",
+    "layout": "tall",
     "group": "more"
   }
 ];
