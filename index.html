@@ -2373,6 +2373,23 @@ body.art-open{overflow:hidden}
     `
   };
 
+  const holidaysStory = {
+    ru: `
+      <p class="lumina-name"><strong>HOLIDAYS</strong> ✨</p>
+      <p class="lumina-lead">Есть дни, которые просто проходят.<br>А есть те, к которым потом возвращаются внутри.</p>
+      <p>Для меня праздник — это искусство собирать счастье из деталей: образа, света, музыки, видео, пространства и маленьких неожиданностей.</p>
+      <p>Мне важнее всего момент, когда человек перестаёт смотреть на то, что вокруг, — и просто <strong>улыбается по-настоящему.</strong></p>
+      <p class="lumina-quote"><strong><em>Праздник заканчивается. Чувство остаётся.</em></strong> ✨</p>
+    `,
+    en: `
+      <p class="lumina-name"><strong>HOLIDAYS</strong> ✨</p>
+      <p class="lumina-lead">Some days simply pass.<br>Others are the ones you return to inside yourself.</p>
+      <p>For me, a celebration is the art of assembling happiness from details: image, light, music, video, space, and small surprises.</p>
+      <p>What matters most is the moment when someone stops looking at everything around them — and simply <strong>smiles for real.</strong></p>
+      <p class="lumina-quote"><strong><em>The celebration ends. The feeling remains.</em></strong> ✨</p>
+    `
+  };
+
   if(projectUniverse){
     if('IntersectionObserver' in window){
       const projectObserver = new IntersectionObserver(entries => {
@@ -2394,14 +2411,15 @@ body.art-open{overflow:hidden}
         const isSoulLux = projectName === 'Soul Lux';
         const isSeaversum = projectName === 'Seaversum';
         const isBranding = projectName === 'Branding';
-        const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding;
+        const isHolidays = projectName === 'Holidays';
+        const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
         projectModalImage.src = button.dataset.image || '';
         if(projectModalCopyRu && projectModalCopyEn){
           projectModalCopyRu.classList.toggle('is-rich', hasStory);
           projectModalCopyEn.classList.toggle('is-rich', hasStory);
-          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : (isSoulLux ? soulLuxStory.ru : (isSeaversum ? seaversumStory.ru : (isBranding ? brandingStory.ru : projectPlaceholders.ru)))));
-          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : (isSoulLux ? soulLuxStory.en : (isSeaversum ? seaversumStory.en : (isBranding ? brandingStory.en : projectPlaceholders.en)))));
+          projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : (isSoulLux ? soulLuxStory.ru : (isSeaversum ? seaversumStory.ru : (isBranding ? brandingStory.ru : (isHolidays ? holidaysStory.ru : projectPlaceholders.ru))))));
+          projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : (isSoulLux ? soulLuxStory.en : (isSeaversum ? seaversumStory.en : (isBranding ? brandingStory.en : (isHolidays ? holidaysStory.en : projectPlaceholders.en))))));
         }
         if(projectModalStatusRu) projectModalStatusRu.hidden = hasStory;
         if(projectModalStatusEn) projectModalStatusEn.hidden = hasStory;
