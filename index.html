@@ -1262,31 +1262,6 @@ body.project-open{overflow:hidden}
   transform:scale(1.045);
   filter:saturate(1.05) brightness(1)
 }
-.portfolio-card:hover .portfolio-play,
-.portfolio-card:focus-visible .portfolio-play{
-  position:absolute;
-  left:50%;
-  top:50%;
-  z-index:2;
-  width:auto;
-  height:auto;
-  display:block;
-  color:#5be8da;
-  background:none;
-  border:0;
-  border-radius:0;
-  backdrop-filter:none;
-  -webkit-backdrop-filter:none;
-  font-size:34px;
-  line-height:1;
-  padding:0 0 0 3px;
-  transform:translate(-50%,-50%);
-  text-shadow:
-    0 0 8px rgba(91,232,218,.88),
-    0 0 18px rgba(91,232,218,.44);
-  box-shadow:none;
-  transition:transform .22s ease,text-shadow .22s ease
-}
 .portfolio-more{
   margin:26px auto 0;
   display:none;
@@ -1663,6 +1638,7 @@ body.art-open{overflow:hidden}
 </style>
 <link rel="stylesheet" href="assets/projects/planets-v5.css">
 <script src="assets/projects/planets-v4.js" defer></script>
+<link rel="stylesheet" href="assets/portfolio/video-preview-v2.css">
 </head>
 <body>
 <div class="cosmic-bg"></div>
@@ -2013,7 +1989,7 @@ body.art-open{overflow:hidden}
   </section>
 </main>
 
-<div class="portfolio-modal" id="portfolio-modal" aria-hidden="true">
+<div class="portfolio-modal" id="portfolio-modal" role="dialog" aria-modal="true" aria-labelledby="portfolio-modal-title" aria-hidden="true">
   <button class="portfolio-modal-close" id="portfolio-modal-close" type="button" aria-label="Close">×</button>
   <button class="portfolio-modal-nav portfolio-modal-prev" id="portfolio-prev" type="button" aria-label="Previous">‹</button>
   <div class="portfolio-modal-inner">
@@ -2048,23 +2024,7 @@ body.art-open{overflow:hidden}
   </div>
 </div>
 
-<script>
-window.OMBEREG_PORTFOLIO = [
-  {id:"ocean-cosmos",poster:"assets/portfolio/posters/ocean-cosmos.webp",video:"assets/portfolio/videos/ocean-cosmos.mp4",titleRu:"Море / космос",titleEn:"Sea / Cosmos",layout:"tall",group:"featured"},
-  {id:"glam-selfie",poster:"assets/portfolio/posters/glam-selfie.webp",video:"assets/portfolio/videos/glam-selfie.mp4",titleRu:"Digital Glam",titleEn:"Digital Glam",layout:"square",group:"featured"},
-  {id:"sunset-dance",poster:"assets/portfolio/posters/sunset-dance.webp",video:"assets/portfolio/videos/sunset-dance.mp4",titleRu:"Движение / закат",titleEn:"Motion / Sunset",layout:"square",group:"featured"},
-  {id:"night-ocean",poster:"assets/portfolio/posters/night-ocean.webp",video:"assets/portfolio/videos/night-ocean.mp4",titleRu:"Ночное море",titleEn:"Night Ocean",layout:"wide",group:"featured"},
-  {id:"sunset-cat",poster:"assets/portfolio/posters/sunset-cat.webp",video:"assets/portfolio/videos/sunset-cat.mp4",titleRu:"Fantasy coast",titleEn:"Fantasy Coast",layout:"tall",group:"featured"},
-  {id:"neon-moon",poster:"assets/portfolio/posters/neon-moon.webp",video:"assets/portfolio/videos/neon-moon.mp4",titleRu:"Neon Moon",titleEn:"Neon Moon",layout:"tall",group:"featured"},
-  {id:"cosmic-meditation",poster:"assets/portfolio/posters/cosmic-meditation.webp",video:"assets/portfolio/videos/cosmic-meditation.mp4",titleRu:"Cosmic meditation",titleEn:"Cosmic Meditation",layout:"square",group:"featured"},
-  {id:"nadopen-arts",poster:"assets/portfolio/posters/nadopen-arts.webp",video:"assets/portfolio/videos/nadopen-arts.mp4",titleRu:"Nadopen Arts",titleEn:"Nadopen Arts",layout:"square",group:"featured"},
-
-  {id:"cyber-transform",poster:"assets/portfolio/posters/cyber-transform.webp",video:"assets/portfolio/videos/cyber-transform.mp4",titleRu:"Cyber transformation",titleEn:"Cyber Transformation",layout:"square",group:"more"},
-  {id:"cat-world",poster:"assets/portfolio/posters/cat-world.webp",video:"assets/portfolio/videos/cat-world.mp4",titleRu:"Другой мир",titleEn:"Another World",layout:"tall",group:"more"},
-  {id:"birthday-bike",poster:"assets/portfolio/posters/birthday-bike.webp",video:"assets/portfolio/videos/birthday-bike.mp4",titleRu:"Moto Story",titleEn:"Moto Story",layout:"square",group:"more"},
-  {id:"cat-coast",poster:"assets/portfolio/posters/cat-coast.webp",video:"assets/portfolio/videos/cat-coast.mp4",titleRu:"Cat Coast",titleEn:"Cat Coast",layout:"tall",group:"more"}
-]
-</script>
+<script src="assets/portfolio/portfolio-data.js?v=20261003-video-refresh"></script>
 <script>
 (function(){
   const portfolioItems = window.OMBEREG_PORTFOLIO || [];
@@ -2088,8 +2048,23 @@ window.OMBEREG_PORTFOLIO = [
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'portfolio-card portfolio-card--' + (item.layout || 'square') + (item.group === 'more' ? ' is-more' : '');
-      card.setAttribute('aria-label', item.titleRu || item.titleEn || 'Portfolio item');
-      card.innerHTML = '<img src="' + item.poster + '" alt="" loading="lazy"><span class="portfolio-play" aria-hidden="true"></span>';
+      card.dataset.videoId = item.id;
+      card.setAttribute('aria-label', (item.video ? 'Смотреть видео: ' : '') + (item.titleRu || item.titleEn || 'Portfolio item'));
+      card.setAttribute('aria-haspopup', 'dialog');
+      card.setAttribute('aria-controls', 'portfolio-modal');
+      const poster = document.createElement('img');
+      poster.src = item.poster;
+      poster.alt = '';
+      poster.loading = 'lazy';
+      poster.decoding = 'async';
+      card.appendChild(poster);
+      if(item.video){
+        const play = document.createElement('span');
+        play.className = 'portfolio-play';
+        play.setAttribute('aria-hidden', 'true');
+        play.innerHTML = '<svg viewBox="0 0 32 32" focusable="false" aria-hidden="true"><path d="M8 4 L27 16 L8 28 Z"/></svg>';
+        card.appendChild(play);
+      }
       card.addEventListener('click', () => openPortfolio(index));
       portfolioGrid.appendChild(card);
     });
@@ -2099,11 +2074,20 @@ window.OMBEREG_PORTFOLIO = [
     }
   }
 
+  function disposePortfolioMedia(){
+    portfolioMedia?.querySelectorAll('video').forEach(video => {
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
+    });
+    if(portfolioMedia) portfolioMedia.replaceChildren();
+  }
+
   function openPortfolio(index){
     if(!portfolioModal || !portfolioMedia || !portfolioItems.length) return;
     portfolioIndex = (index + portfolioItems.length) % portfolioItems.length;
     const item = portfolioItems[portfolioIndex];
-    portfolioMedia.innerHTML = '';
+    disposePortfolioMedia();
     if(item.video){
       const video = document.createElement('video');
       video.src = item.video;
@@ -2132,7 +2116,7 @@ window.OMBEREG_PORTFOLIO = [
     portfolioModal.classList.remove('is-open');
     portfolioModal.setAttribute('aria-hidden','true');
     document.body.classList.remove('portfolio-open');
-    if(portfolioMedia) portfolioMedia.innerHTML = '';
+    disposePortfolioMedia();
   }
 
   function stepPortfolio(dir){
@@ -2150,7 +2134,7 @@ window.OMBEREG_PORTFOLIO = [
   document.getElementById('portfolio-prev')?.addEventListener('click', () => stepPortfolio(-1));
   document.getElementById('portfolio-next')?.addEventListener('click', () => stepPortfolio(1));
   portfolioModal?.addEventListener('click', e => { if(e.target === portfolioModal) closePortfolio(); });
-  portfolioModal?.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, {passive:true});
+  portfolioModal?.addEventListener('touchstart', e => { touchStartX = e.target.closest('video, button') ? null : e.changedTouches[0].clientX; }, {passive:true});
   portfolioModal?.addEventListener('touchend', e => {
     if(touchStartX === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
@@ -2160,6 +2144,7 @@ window.OMBEREG_PORTFOLIO = [
   document.addEventListener('keydown', e => {
     if(!portfolioModal?.classList.contains('is-open')) return;
     if(e.key === 'Escape') closePortfolio();
+    if(e.target.tagName === 'VIDEO') return;
     if(e.key === 'ArrowLeft') stepPortfolio(-1);
     if(e.key === 'ArrowRight') stepPortfolio(1);
   });
@@ -2172,6 +2157,10 @@ window.OMBEREG_PORTFOLIO = [
     targets.forEach(el => el.classList.toggle('active', el.dataset.lang === lang));
     buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.setLang === lang));
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
+    portfolioGrid?.querySelectorAll('.portfolio-card').forEach((card, i) => {
+      const item = portfolioItems[i];
+      card.setAttribute('aria-label', (item.video ? (lang === 'en' ? 'Play video: ' : 'Смотреть видео: ') : '') + itemTitle(item));
+    });
     if(portfolioModal?.classList.contains('is-open') && portfolioItems[portfolioIndex]){
       portfolioTitle.textContent = itemTitle(portfolioItems[portfolioIndex]);
     }
