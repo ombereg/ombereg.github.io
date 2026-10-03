@@ -2,7 +2,7 @@ name: Prepare seven project planets
 on:
   push:
     branches: [site/nadopen-center-20261003]
-    paths: [.github/workflows/prepare-seven-planets.yml]
+    paths: [.github/workflows/prepare-seven-planets.yml, .planet-build/prepare.py]
 permissions:
   contents: write
 jobs:
