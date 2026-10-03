@@ -1638,9 +1638,9 @@ body.art-open{overflow:hidden}
 </style>
 <link rel="stylesheet" href="assets/projects/planets-v5.css">
 <script src="assets/projects/planets-v4.js" defer></script>
-<link rel="stylesheet" href="assets/portfolio/video-preview-v2.css">
-<link rel="stylesheet" href="assets/portfolio/video-masonry-v1.css">
-<script src="assets/portfolio/video-masonry-v1.js" defer></script>
+<link rel="stylesheet" href="assets/portfolio/video-preview-v2.css?v=c0d152e4289b">
+<link rel="stylesheet" href="assets/portfolio/video-masonry-v1.css?v=faa1be44c5b0">
+<script src="assets/portfolio/video-masonry-v1.js?v=ceba5104bb02" defer></script>
 </head>
 <body>
 <div class="cosmic-bg"></div>
@@ -2026,10 +2026,14 @@ body.art-open{overflow:hidden}
   </div>
 </div>
 
-<script src="assets/portfolio/portfolio-data.js?v=20261003-video-refresh"></script>
+<script src="assets/portfolio/portfolio-data.js?v=0bcd073fea6e-last-two"></script>
 <script>
 (function(){
   const portfolioItems = window.OMBEREG_PORTFOLIO || [];
+  // Refresh overwritten covers without disabling caching for unchanged videos.
+  function portfolioPosterUrl(item){
+    return item.poster + (item.poster.includes('?') ? '&' : '?') + 'v=20261003-covers-5229d508';
+  }
   const portfolioGrid = document.getElementById('portfolio-grid');
   const portfolioMore = document.getElementById('portfolio-more');
   const portfolioModal = document.getElementById('portfolio-modal');
@@ -2055,7 +2059,7 @@ body.art-open{overflow:hidden}
       card.setAttribute('aria-haspopup', 'dialog');
       card.setAttribute('aria-controls', 'portfolio-modal');
       const poster = document.createElement('img');
-      poster.src = item.poster;
+      poster.src = portfolioPosterUrl(item);
       poster.alt = '';
       poster.loading = 'lazy';
       poster.decoding = 'async';
@@ -2093,7 +2097,7 @@ body.art-open{overflow:hidden}
     if(item.video){
       const video = document.createElement('video');
       video.src = item.video;
-      video.poster = item.poster;
+      video.poster = portfolioPosterUrl(item);
       video.controls = true;
       video.playsInline = true;
       video.autoplay = true;
@@ -2102,7 +2106,7 @@ body.art-open{overflow:hidden}
       video.play().catch(() => {});
     }else{
       const img = document.createElement('img');
-      img.src = item.poster;
+      img.src = portfolioPosterUrl(item);
       img.alt = '';
       portfolioMedia.appendChild(img);
     }
