@@ -1,0 +1,38 @@
+name: Prepare seven project planets
+on:
+  push:
+    branches: [site/nadopen-center-20261003]
+    paths: [.github/workflows/prepare-seven-planets.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    env:
+      PYTHONUNBUFFERED: '1'
+      BASE: 45c1f753d9a93c7472da5a412904518516f9c805
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Install image export tools
+        run: python -m pip install --disable-pip-version-check Pillow==11.3.0
+      - name: Verify image integrity and apply scoped site changes
+        run: python .planet-build/prepare.py
+      - name: Save clean review commit without build helpers
+        run: |
+          set -eu
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_INDEX_FILE="$RUNNER_TEMP/seven-planets-index"
+          rm -f "$GIT_INDEX_FILE"
+          git read-tree "$BASE"
+          git add index.html assets/projects/planets-v5.css assets/projects/branding-v5.png assets/projects/branding-v5.webp assets/projects/holidays-v5.png assets/projects/holidays-v5.webp
+          TREE=$(git write-tree)
+          COMMIT=$(printf '%s\n' 'Center Nadopen Arts; order seven varied-size planets with OMuseum first and Holidays/Branding below' | git commit-tree "$TREE" -p "$BASE")
+          git diff-tree --no-commit-id --name-only -r "$COMMIT"
+          git push origin "$COMMIT:refs/heads/site/nadopen-center-ready-20261003"
+          echo "READY_COMMIT=$COMMIT"
+          echo "READY_TREE=$TREE"
+          echo "Prepared seven-planet site commit: $COMMIT" >> "$GITHUB_STEP_SUMMARY"
