@@ -1177,6 +1177,16 @@ h1,h2,h3{
   filter:none;
   box-shadow:0 18px 50px rgba(0,0,0,.28)
 }
+.project-modal-planet.is-seaversum-cover{
+  width:100%;
+  max-width:36rem;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  margin:0 auto 18px;
+  border-radius:14px;
+  filter:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
 .project-gallery-more{
   display:flex;
   align-items:center;
@@ -2416,6 +2426,21 @@ body.art-open{overflow:hidden}
     {full:'assets/projects/08_soullux_interior_visual_2.png',thumb:'assets/projects/08_soullux_interior_visual_2_web.jpg'},
     {full:'assets/projects/09_soullux_interior_visual_3.png',thumb:'assets/projects/09_soullux_interior_visual_3_web.jpg'}
   ];
+  const seaversumCover = 'assets/projects/01_seaversum_runway_hero_web.jpg';
+  const seaversumGallery = [
+    {full:'assets/projects/02_seaversum_sunset_pair.png',thumb:'assets/projects/02_seaversum_sunset_pair_web.jpg'},
+    {full:'assets/projects/03_seaversum_woman_solo.png',thumb:'assets/projects/03_seaversum_woman_solo_web.jpg'},
+    {full:'assets/projects/04_seaversum_man_solo.png',thumb:'assets/projects/04_seaversum_man_solo_web.jpg'},
+    {full:'assets/projects/05_seaversum_marina_pair.png',thumb:'assets/projects/05_seaversum_marina_pair_web.jpg'},
+    {full:'assets/projects/06_seaversum_editorial_collage.png',thumb:'assets/projects/06_seaversum_editorial_collage_web.jpg'},
+    {full:'assets/projects/07_seaversum_coastal_runway_pair.png',thumb:'assets/projects/07_seaversum_coastal_runway_pair_web.jpg'},
+    {full:'assets/projects/08_seaversum_cliff_pair_soft_blue.png',thumb:'assets/projects/08_seaversum_cliff_pair_soft_blue_web.jpg'},
+    {full:'assets/projects/09_seaversum_cliff_pair_jumpsuits.png',thumb:'assets/projects/09_seaversum_cliff_pair_jumpsuits_web.jpg'},
+    {full:'assets/projects/10_seaversum_hooded_pair.png',thumb:'assets/projects/10_seaversum_hooded_pair_web.jpg'},
+    {full:'assets/projects/11_seaversum_sage_pair_web.jpg',thumb:'assets/projects/11_seaversum_sage_pair_web.jpg'},
+    {full:'assets/projects/12_seaversum_motorcycle_standing_web.jpg',thumb:'assets/projects/12_seaversum_motorcycle_standing_web.jpg'},
+    {full:'assets/projects/13_seaversum_motorcycle_riding.png',thumb:'assets/projects/13_seaversum_motorcycle_riding_web.jpg'}
+  ];
   const omuseumGallery = [
     'assets/projects/omuseum-02.webp',
     'assets/projects/omuseum-03.webp',
@@ -2452,7 +2477,8 @@ body.art-open{overflow:hidden}
   const projectGalleryCatalogs = {
     BRX: {items: brxGallery, initialCount: brxGallery.length, version:'brx-masonry-1'},
     OMuseum: {items: omuseumGallery, initialCount:6, version:'omuseum-masonry-1'},
-    'Soul Lux': {items: soulLuxGallery, initialCount:soulLuxGallery.length, version:'soullux-masonry-1'}
+    'Soul Lux': {items: soulLuxGallery, initialCount:soulLuxGallery.length, version:'soullux-masonry-1'},
+    Seaversum: {items: seaversumGallery, initialCount:6, version:'seaversum-masonry-1'}
   };
 
   let currentProjectName = '';
@@ -2938,9 +2964,9 @@ body.art-open{overflow:hidden}
         const isHolidays = projectName === 'Holidays';
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
-        projectModalTitle.hidden = isBrx || isOMuseum || isSoulLux;
+        projectModalTitle.hidden = isBrx || isOMuseum || isSoulLux || isSeaversum;
         projectGalleryExpanded = false;
-        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover');
+        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover','is-seaversum-cover');
         if(isBrx){
           projectModalImage.src = brxCover + '?v=brx-cover-2';
           projectModalImage.classList.add('is-brx-cover');
@@ -2952,6 +2978,10 @@ body.art-open{overflow:hidden}
         }else if(isSoulLux){
           projectModalImage.src = soulLuxCover + '?v=soullux-cover-1';
           projectModalImage.classList.add('is-soullux-cover');
+          if(projectFilmHero) projectFilmHero.hidden = true;
+        }else if(isSeaversum){
+          projectModalImage.src = seaversumCover + '?v=seaversum-cover-1';
+          projectModalImage.classList.add('is-seaversum-cover');
           if(projectFilmHero) projectFilmHero.hidden = true;
         }else{
           projectModalImage.src = button.dataset.image || '';
