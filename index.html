@@ -2478,12 +2478,12 @@ body.art-open{overflow:hidden}
   const omuseumStory = {
     ru: `
       <p class="lumina-lead">Некоторые картины украшают стены. Другие меняют пространство вокруг вас. </p>
-      <p><strong>Ombereg — музей, где картины не висят на&nbsp;стенах. Они становятся порталами в&nbsp;другие состояния.</strong></p>
+      <p><strong>OMuseum — это музей, где картины не висят на&nbsp;стенах. Они становятся порталами в&nbsp;другие состояния.</strong></p>
       <p class="lumina-quote">Место, где искусство можно не только увидеть, но и&nbsp;прожить. И&nbsp;однажды этот мир станет реальностью. </p>
     `,
     en: `
       <p class="lumina-lead">Some paintings decorate walls. Others change the space around you. </p>
-      <p><strong>Ombereg is a museum where paintings do not hang on walls. They become portals into other states.</strong></p>
+      <p><strong>OMuseum is a museum where paintings do not hang on walls. They become portals into other states.</strong></p>
       <p class="lumina-quote">A place where art can be not only seen, but lived. And one day this world will become real. </p>
     `
   };
@@ -2612,7 +2612,7 @@ body.art-open{overflow:hidden}
         const isHolidays = projectName === 'Holidays';
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
-        projectModalTitle.hidden = isBrx;
+        projectModalTitle.hidden = isBrx || isOMuseum;
         projectGalleryExpanded = false;
         projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover');
         if(isBrx){
