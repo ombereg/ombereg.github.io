@@ -1147,6 +1147,30 @@ h1,h2,h3{
   border-color:rgba(184,220,255,.34);
   background:rgba(255,255,255,.06)
 }
+.project-modal-planet.is-brx-cover{
+  width:100%;
+  max-width:36rem;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  margin:0 auto 10px;
+  border-radius:14px;
+  filter:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
+.project-film-link--hero{
+  width:max-content;
+  margin:0 auto 20px;
+  justify-content:center
+}
+.project-film-link--hero[hidden]{display:none!important}
+.youtube-mark{
+  display:inline-flex;
+  width:22px;
+  height:16px;
+  color:#ff0033;
+  flex:0 0 auto
+}
+.youtube-mark svg{display:block;width:100%;height:100%}
 .project-story-gallery{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -1161,7 +1185,6 @@ h1,h2,h3{
   border-radius:10px;
   background:rgba(255,255,255,.025)
 }
-.project-story-gallery a:first-child{grid-column:1/-1}
 .project-story-gallery img{
   display:block;
   width:100%;
@@ -1842,9 +1865,9 @@ body.art-open{overflow:hidden}
           <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/seaversum-v4.webp"><img src="assets/projects/seaversum-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
           <span class="project-planet-name">Seaversum</span>
         </button>
-        <button class="project-planet planet-brux" type="button" data-project="Brux" data-image="assets/projects/brax-v4.png" aria-haspopup="dialog" aria-controls="project-modal">
+        <button class="project-planet planet-brux" type="button" data-project="BRX" data-image="assets/projects/brax-v4.png" aria-haspopup="dialog" aria-controls="project-modal">
           <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/brax-v4.webp"><img src="assets/projects/brax-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
-          <span class="project-planet-name">Brux</span>
+          <span class="project-planet-name">BRX</span>
         </button>
         <button class="project-planet planet-nadopenarts" type="button" data-project="Nadopen Arts" data-image="assets/projects/nadopenarts-v4.png" aria-haspopup="dialog" aria-controls="project-modal">
           <span class="project-planet-art"><picture><source type="image/webp" srcset="assets/projects/nadopenarts-v4.webp"><img src="assets/projects/nadopenarts-v4.png" width="320" height="320" alt="" loading="lazy" decoding="async"></picture></span>
@@ -2100,6 +2123,11 @@ body.art-open{overflow:hidden}
   <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
     <button class="project-modal-close" id="project-modal-close" type="button" aria-label="Close">×</button>
     <img class="project-modal-planet" id="project-modal-image" alt="">
+    <a class="project-film-link project-film-link--hero" id="project-film-hero" href="https://youtu.be/SfEyYkarWz4?si=mRVcLZLZI-uTrCuW" target="_blank" rel="noopener" hidden>
+      <span class="youtube-mark" aria-hidden="true"><svg viewBox="0 0 32 22" focusable="false"><rect x="0" y="0" width="32" height="22" rx="6" fill="currentColor"/><path d="M13 6.5 22 11l-9 4.5z" fill="#fff"/></svg></span>
+      <span data-lang="ru">Смотреть мультфильм</span>
+      <span data-lang="en">Watch the film</span>
+    </a>
     <h3 class="project-modal-title" id="project-modal-title"></h3>
     <div class="project-modal-copy" id="project-modal-copy-ru" data-lang="ru">Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.</div>
     <div class="project-modal-copy" id="project-modal-copy-en" data-lang="en">This space will hold the project gallery and a short story. The structure is ready, so each planet can be updated independently.</div>
@@ -2291,8 +2319,9 @@ body.art-open{overflow:hidden}
   const projectModalStatusRu = document.getElementById('project-modal-status-ru');
   const projectModalStatusEn = document.getElementById('project-modal-status-en');
   const projectStoryGallery = document.getElementById('project-story-gallery');
+  const projectFilmHero = document.getElementById('project-film-hero');
+  const brxCover = 'assets/projects/brx-01.webp';
   const brxGallery = [
-    'assets/projects/brx-01.webp',
     'assets/projects/brx-02.webp',
     'assets/projects/brx-03.webp',
     'assets/projects/brx-04.webp',
@@ -2303,7 +2332,7 @@ body.art-open{overflow:hidden}
   function renderProjectGallery(projectName){
     if(!projectStoryGallery) return;
     projectStoryGallery.replaceChildren();
-    if(projectName !== 'Brux'){
+    if(projectName !== 'BRX'){
       projectStoryGallery.hidden = true;
       return;
     }
@@ -2312,7 +2341,7 @@ body.art-open{overflow:hidden}
       link.href = src;
       link.target = '_blank';
       link.rel = 'noopener';
-      link.setAttribute('aria-label', 'BRX ' + (index + 1));
+      link.setAttribute('aria-label', 'BRX ' + (index + 2));
       const img = document.createElement('img');
       img.src = src + '?v=brx-gallery-1';
       img.alt = '';
@@ -2378,7 +2407,6 @@ body.art-open{overflow:hidden}
       <p>Иногда новый мир принимает тебя так, будто ждал всю жизнь. И&nbsp;тогда понимаешь: дом — не место на&nbsp;карте, а&nbsp;те, рядом с&nbsp;кем ты становишься своим.</p>
       <p class="lumina-vision"><em>По&nbsp;стихам автора <strong>«Созидание» Романа Чердакова.</strong></em></p>
       <p class="lumina-vision"><em>Визуальный мир и&nbsp;анимация <strong>Nadopen Arts</strong>, с&nbsp;помощью Ai.</em></p>
-      <p><a class="project-film-link" href="https://youtu.be/SfEyYkarWz4?si=mRVcLZLZI-uTrCuW" target="_blank" rel="noopener">Смотреть мультфильм ↗</a></p>
     `,
     en: `
       <p class="lumina-name"><strong>Open Up</strong></p>
@@ -2389,7 +2417,6 @@ body.art-open{overflow:hidden}
       <p>Sometimes a new world welcomes you as if it has been waiting for you all your life. And then you understand: home is not a place on a map, but the ones beside whom you become one of your own.</p>
       <p class="lumina-vision"><em>Based on the poetry of Roman Cherdakov, author of <strong>“Creation”.</strong></em></p>
       <p class="lumina-vision"><em>Visual world and animation by <strong>Nadopen Arts</strong>, created with AI.</em></p>
-      <p><a class="project-film-link" href="https://youtu.be/SfEyYkarWz4?si=mRVcLZLZI-uTrCuW" target="_blank" rel="noopener">Watch the film ↗</a></p>
     `
   };
 
@@ -2487,14 +2514,22 @@ body.art-open{overflow:hidden}
         const projectName = button.dataset.project || '';
         const isNadopen = projectName === 'Nadopen Arts';
         const isOMuseum = projectName === 'OMuseum';
-        const isBrx = projectName === 'Brux';
+        const isBrx = projectName === 'BRX';
         const isSoulLux = projectName === 'Soul Lux';
         const isSeaversum = projectName === 'Seaversum';
         const isBranding = projectName === 'Branding';
         const isHolidays = projectName === 'Holidays';
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
-        projectModalImage.src = button.dataset.image || '';
+        if(isBrx){
+          projectModalImage.src = brxCover + '?v=brx-cover-2';
+          projectModalImage.classList.add('is-brx-cover');
+          if(projectFilmHero) projectFilmHero.hidden = false;
+        }else{
+          projectModalImage.src = button.dataset.image || '';
+          projectModalImage.classList.remove('is-brx-cover');
+          if(projectFilmHero) projectFilmHero.hidden = true;
+        }
         renderProjectGallery(projectName);
         if(projectModalCopyRu && projectModalCopyEn){
           projectModalCopyRu.classList.toggle('is-rich', hasStory);
