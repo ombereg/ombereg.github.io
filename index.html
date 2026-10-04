@@ -1320,7 +1320,13 @@ body.project-open{overflow:hidden}
   flex-direction:column;
   align-items:flex-start;
   gap:9px;
-  padding:0
+  padding:0;
+  cursor:pointer;
+  border-radius:18px
+}
+.skills li:focus-visible{
+  outline:2px solid rgba(164,220,255,.82);
+  outline-offset:8px
 }
 .skill-icon{
   width:58px;
@@ -1365,10 +1371,11 @@ body.project-open{overflow:hidden}
   to{transform:translate3d(0,-3px,0)}
 }
 @media(hover:hover){
-  .skill-icon,.skill-label{transition:transform .24s ease,filter .24s ease}
+  .skill-icon,.skill-label{transition:transform .24s ease,filter .24s ease,opacity .24s ease}
   .skills li:hover .skill-icon{transform:translateY(-4px) scale(1.04);filter:drop-shadow(0 0 20px rgba(92,228,221,.28))}
   .skills li:hover .skill-label{transform:translateX(4px)}
 }
+.skills li:active .skill-label{opacity:.72}
 .lines-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -2061,27 +2068,27 @@ body.art-open{overflow:hidden}
       <div class="section-kicker" data-lang="en">PRACTICE</div>
 
       <ul class="skills">
-        <li>
+        <li role="button" tabindex="0" data-scroll-target="art-gallery" aria-label="Открыть галерею ART / AI / PHOTO">
           <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g1" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><rect stroke="#9fd8ff" x="10" y="12" width="20" height="17" rx="6"/><path stroke="#9fd8ff" d="M20 8v4"/><circle stroke="#9fd8ff" cx="20" cy="6" r="1.8"/><circle stroke="#9fd8ff" cx="16" cy="20" r="1.5"/><circle stroke="#9fd8ff" cx="24" cy="20" r="1.5"/><path stroke="#9fd8ff" d="M16 25h8M10 19H7m26 0h-3"/></svg></span>
           <span class="skill-label"><span data-lang="ru">ai-визуалы</span><span data-lang="en">ai visuals</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
-        <li>
+        <li role="button" tabindex="0" data-project-target="Seaversum" aria-label="Открыть SeaVersum">
           <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g2" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="#9fd8ff" d="M13 9l7-3 7 3 4 8-5 2.5V34H14V19.5L9 17l4-8Z"/><path stroke="#9fd8ff" d="M15 9c1 2.2 2.6 3.3 5 3.3S24 11.2 25 9"/></svg></span>
           <span class="skill-label"><span data-lang="ru">fashion</span><span data-lang="en">fashion</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
-        <li>
+        <li role="button" tabindex="0" data-scroll-target="portfolio" aria-label="Открыть видео работы">
           <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g3" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><rect stroke="#9fd8ff" x="7" y="10" width="21" height="20" rx="4"/><path stroke="#9fd8ff" d="M28 16l6-3v14l-6-3zM11 26l5-5 4 4 4-5 4 6"/></svg></span>
           <span class="skill-label"><span data-lang="ru">видео</span><span data-lang="en">video</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
-        <li>
+        <li role="button" tabindex="0" data-project-target="Nadopen Arts" aria-label="Открыть Nadopen Arts">
           <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g4" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="#9fd8ff" d="M8 30c6-13 10-19 17-19 5 0 8 3 8 7 0 9-13 15-25 12ZM13 29c1-6 5-10 11-11"/><circle stroke="#9fd8ff" cx="28" cy="17" r="1.7"/></svg></span>
           <span class="skill-label"><span data-lang="ru">искусство</span><span data-lang="en">art</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
-        <li>
+        <li role="button" tabindex="0" data-project-target="Branding" aria-label="Открыть Branding">
           <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g5" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="#9fd8ff" d="M8 9h24v22H8zM13 14h14v12H13zM20 9v22M8 20h24M11 12l18 16"/></svg></span>
           <span class="skill-label"><span data-lang="ru">айдентика</span><span data-lang="en">identity</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
-        <li>
+        <li role="button" tabindex="0" data-project-target="BRX" aria-label="Открыть BRX">
           <span class="skill-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="g6" x1="5" y1="5" x2="35" y2="35"><stop stop-color="#d9c8ff"/><stop offset=".52" stop-color="#9fd8ff"/><stop offset="1" stop-color="#66e8dc"/></linearGradient></defs><path stroke="#9fd8ff" d="M10 31l6-16h8l6 16M13 24h14M16 10l4-4 4 4M8 15l2-2 2 2"/><circle stroke="#9fd8ff" cx="31" cy="12" r="2.2"/></svg></span>
           <span class="skill-label"><span data-lang="ru">эксперименты</span><span data-lang="en">experiments</span><span class="skill-dot" aria-hidden="true"></span></span>
         </li>
@@ -3152,6 +3159,28 @@ body.art-open{overflow:hidden}
       });
     });
   }
+
+  document.querySelectorAll('.skills li[data-project-target], .skills li[data-scroll-target]').forEach(item => {
+    const activateDirection = () => {
+      const projectTarget = item.dataset.projectTarget;
+      const scrollTarget = item.dataset.scrollTarget;
+      if(projectTarget){
+        const planet = projectUniverse?.querySelector('.project-planet[data-project="' + CSS.escape(projectTarget) + '"]');
+        planet?.click();
+        return;
+      }
+      if(scrollTarget){
+        document.getElementById(scrollTarget)?.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    };
+    item.addEventListener('click', activateDirection);
+    item.addEventListener('keydown', event => {
+      if(event.key === 'Enter' || event.key === ' '){
+        event.preventDefault();
+        activateDirection();
+      }
+    });
+  });
 
   document.querySelectorAll('.line-card[data-project-target]').forEach(card => {
     const openMatchingProject = () => {
