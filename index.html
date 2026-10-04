@@ -1197,6 +1197,16 @@ h1,h2,h3{
   filter:none;
   box-shadow:0 18px 50px rgba(0,0,0,.28)
 }
+.project-modal-planet.is-holidays-cover{
+  width:100%;
+  max-width:52rem;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  margin:0 auto 18px;
+  border-radius:14px;
+  filter:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
 .project-gallery-more{
   display:flex;
   align-items:center;
@@ -2485,6 +2495,28 @@ body.art-open{overflow:hidden}
     {full:'assets/projects/10-glowing-waterfall-entryway.webp',thumb:'assets/projects/10-glowing-waterfall-entryway.webp'},
     {full:'assets/projects/11-cove-sunset-mediterranean.webp',thumb:'assets/projects/11-cove-sunset-mediterranean.webp'}
   ];
+  const holidaysCover = 'assets/00-hero-be-happy-holidays.jpg';
+  const holidaysGallery = [
+    {full:'assets/01-bird-console-mediterranean.jpg',thumb:'assets/01-bird-console-mediterranean.jpg'},
+    {full:'assets/02-rainbow-portrait-luxe-room.jpg',thumb:'assets/02-rainbow-portrait-luxe-room.jpg'},
+    {full:'assets/03-sea-goddess-bedroom-sunset.jpg',thumb:'assets/03-sea-goddess-bedroom-sunset.jpg'},
+    {full:'assets/04-cosmic-whale-kids-room.jpg',thumb:'assets/04-cosmic-whale-kids-room.jpg'},
+    {full:'assets/05-underwater-spa-art.jpg',thumb:'assets/05-underwater-spa-art.jpg'},
+    {full:'assets/06-fantasy-waterfall-round-wall.jpg',thumb:'assets/06-fantasy-waterfall-round-wall.jpg'},
+    {full:'assets/07-surf-sunset-coastal-interior.jpg',thumb:'assets/07-surf-sunset-coastal-interior.jpg'},
+    {full:'assets/08-mandala-boho-room.jpg',thumb:'assets/08-mandala-boho-room.jpg'},
+    {full:'assets/09-rock-portrait-dark-interior.jpg',thumb:'assets/09-rock-portrait-dark-interior.jpg'},
+    {full:'assets/10-avatar-family-coastal-home.jpg',thumb:'assets/10-avatar-family-coastal-home.jpg'},
+    {full:'assets/11-bunny-love-nursery.jpg',thumb:'assets/11-bunny-love-nursery.jpg'},
+    {full:'assets/12-fisherman-birthday-cabin.jpg',thumb:'assets/12-fisherman-birthday-cabin.jpg'},
+    {full:'assets/13-princess-girl-frame.jpg',thumb:'assets/13-princess-girl-frame.jpg'},
+    {full:'assets/14-office-cat-funny-frame.jpg',thumb:'assets/14-office-cat-funny-frame.jpg'},
+    {full:'assets/15-cosmonaut-anniversary-study.jpg',thumb:'assets/15-cosmonaut-anniversary-study.jpg'},
+    {full:'assets/16-red-dress-birthday-portrait.jpg',thumb:'assets/16-red-dress-birthday-portrait.jpg'},
+    {full:'assets/17-grandpa-baby-painterly-gift.jpg',thumb:'assets/17-grandpa-baby-painterly-gift.jpg'},
+    {full:'assets/18-watercolor-elegant-portrait.jpg',thumb:'assets/18-watercolor-elegant-portrait.jpg'},
+    {full:'assets/19-father-son-birthday-frame.jpg',thumb:'assets/19-father-son-birthday-frame.jpg'}
+  ];
   const omuseumGallery = [
     'assets/projects/omuseum-02.webp',
     'assets/projects/omuseum-03.webp',
@@ -2523,7 +2555,8 @@ body.art-open{overflow:hidden}
     OMuseum: {items: omuseumGallery, initialCount:6, version:'omuseum-masonry-1'},
     'Soul Lux': {items: soulLuxGallery, initialCount:soulLuxGallery.length, version:'soullux-masonry-1'},
     Seaversum: {items: seaversumGallery, initialCount:6, version:'seaversum-masonry-1'},
-    'Nadopen Arts': {items: nadopenGallery, initialCount:6, version:'nadopen-masonry-1'}
+    'Nadopen Arts': {items: nadopenGallery, initialCount:6, version:'nadopen-masonry-1'},
+    Holidays: {items: holidaysGallery, initialCount:6, version:'holidays-masonry-1'}
   };
 
   let currentProjectName = '';
@@ -3009,9 +3042,9 @@ body.art-open{overflow:hidden}
         const isHolidays = projectName === 'Holidays';
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
-        projectModalTitle.hidden = isNadopen || isBrx || isOMuseum || isSoulLux || isSeaversum;
+        projectModalTitle.hidden = isNadopen || isBrx || isOMuseum || isSoulLux || isSeaversum || isHolidays;
         projectGalleryExpanded = false;
-        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover','is-seaversum-cover','is-nadopen-cover');
+        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover','is-seaversum-cover','is-nadopen-cover','is-holidays-cover');
         if(isBrx){
           projectModalImage.src = brxCover + '?v=brx-cover-2';
           projectModalImage.classList.add('is-brx-cover');
@@ -3031,6 +3064,10 @@ body.art-open{overflow:hidden}
         }else if(isNadopen){
           projectModalImage.src = nadopenCover + '?v=nadopen-cover-1';
           projectModalImage.classList.add('is-nadopen-cover');
+          if(projectFilmHero) projectFilmHero.hidden = true;
+        }else if(isHolidays){
+          projectModalImage.src = holidaysCover + '?v=holidays-cover-1';
+          projectModalImage.classList.add('is-holidays-cover');
           if(projectFilmHero) projectFilmHero.hidden = true;
         }else{
           projectModalImage.src = button.dataset.image || '';
