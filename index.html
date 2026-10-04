@@ -2241,36 +2241,55 @@ body.art-open{overflow:hidden}
     return document.documentElement.lang === 'en' ? item.titleEn : item.titleRu;
   }
 
+  let portfolioMoreRendered = false;
+
+  function createPortfolioCard(item,index){
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'portfolio-card portfolio-card--' + (item.layout || 'square') + (index >= 8 ? ' is-more' : '');
+    card.dataset.videoId = item.id;
+    card.setAttribute('aria-label', (item.video ? 'Смотреть видео: ' : '') + (item.titleRu || item.titleEn || 'Portfolio item'));
+    card.setAttribute('aria-haspopup', 'dialog');
+    card.setAttribute('aria-controls', 'portfolio-modal');
+    const poster = document.createElement('img');
+    poster.src = portfolioPosterUrl(item);
+    poster.alt = '';
+    poster.loading = 'lazy';
+    poster.decoding = 'async';
+    poster.fetchPriority = 'low';
+    card.appendChild(poster);
+    if(item.video){
+      const play = document.createElement('span');
+      play.className = 'portfolio-play';
+      play.setAttribute('aria-hidden', 'true');
+      play.innerHTML = '<svg viewBox="0 0 32 32" focusable="false" aria-hidden="true"><path d="M8 4 L27 16 L8 28 Z"/></svg>';
+      card.appendChild(play);
+    }
+    card.addEventListener('click', () => openPortfolio(index));
+    return card;
+  }
+
+  function appendPortfolioMore(){
+    if(portfolioMoreRendered || !portfolioGrid) return;
+    const fragment = document.createDocumentFragment();
+    portfolioItems.slice(8).forEach((item,offset) => {
+      fragment.appendChild(createPortfolioCard(item,offset+8));
+    });
+    portfolioGrid.appendChild(fragment);
+    portfolioMoreRendered = true;
+  }
+
   function renderPortfolio(){
     if(!portfolioGrid) return;
     portfolioGrid.innerHTML = '';
-    portfolioItems.forEach((item,index) => {
-      const card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'portfolio-card portfolio-card--' + (item.layout || 'square') + (item.group === 'more' ? ' is-more' : '');
-      card.dataset.videoId = item.id;
-      card.setAttribute('aria-label', (item.video ? 'Смотреть видео: ' : '') + (item.titleRu || item.titleEn || 'Portfolio item'));
-      card.setAttribute('aria-haspopup', 'dialog');
-      card.setAttribute('aria-controls', 'portfolio-modal');
-      const poster = document.createElement('img');
-      poster.src = portfolioPosterUrl(item);
-      poster.alt = '';
-      poster.loading = 'lazy';
-      poster.decoding = 'async';
-      card.appendChild(poster);
-      if(item.video){
-        const play = document.createElement('span');
-        play.className = 'portfolio-play';
-        play.setAttribute('aria-hidden', 'true');
-        play.innerHTML = '<svg viewBox="0 0 32 32" focusable="false" aria-hidden="true"><path d="M8 4 L27 16 L8 28 Z"/></svg>';
-        card.appendChild(play);
-      }
-      card.addEventListener('click', () => openPortfolio(index));
-      portfolioGrid.appendChild(card);
+    portfolioMoreRendered = false;
+    const fragment = document.createDocumentFragment();
+    portfolioItems.slice(0,8).forEach((item,index) => {
+      fragment.appendChild(createPortfolioCard(item,index));
     });
+    portfolioGrid.appendChild(fragment);
     if(portfolioMore){
-      const hasMore = portfolioItems.some(item => item.group === 'more');
-      portfolioMore.classList.toggle('is-visible', hasMore);
+      portfolioMore.classList.toggle('is-visible', portfolioItems.length > 8);
     }
   }
 
@@ -2326,6 +2345,8 @@ body.art-open{overflow:hidden}
   renderPortfolio();
 
   portfolioMore?.addEventListener('click', () => {
+    const willShow = !portfolioGrid.classList.contains('show-more');
+    if(willShow) appendPortfolioMore();
     const showing = portfolioGrid.classList.toggle('show-more');
     portfolioMore.querySelector('[data-lang="ru"]').textContent = showing ? 'СКРЫТЬ −' : 'ЕЩЁ РАБОТЫ +';
     portfolioMore.querySelector('[data-lang="en"]').textContent = showing ? 'HIDE −' : 'MORE WORK +';
