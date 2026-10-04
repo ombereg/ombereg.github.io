@@ -1208,6 +1208,7 @@ h1,h2,h3{
 .youtube-mark svg{display:block;width:100%;height:100%}
 .project-story-gallery{
   --project-gallery-cols:2;
+  --project-gallery-gap:6px;
   position:relative;
   display:block;
   width:100%;
@@ -2447,8 +2448,10 @@ body.art-open{overflow:hidden}
     if(!projectStoryGallery || projectStoryGallery.hidden) return;
     const width = projectStoryGallery.getBoundingClientRect().width;
     if(!width) return;
-    const columns = Math.max(1, parseInt(getComputedStyle(projectStoryGallery).getPropertyValue('--project-gallery-cols')) || 2);
-    const w = width / columns;
+    const style = getComputedStyle(projectStoryGallery);
+    const columns = Math.max(1, parseInt(style.getPropertyValue('--project-gallery-cols')) || 2);
+    const gap = Math.max(0, parseFloat(style.getPropertyValue('--project-gallery-gap')) || 6);
+    const w = (width - gap * (columns - 1)) / columns;
     const heights = Array(columns).fill(0);
     [...projectStoryGallery.children].forEach(card => {
       const img = card.querySelector('img');
@@ -2460,12 +2463,12 @@ body.art-open{overflow:hidden}
       Object.assign(card.style,{
         width:w+'px',
         height:h+'px',
-        left:(col*w)+'px',
+        left:(col*(w+gap))+'px',
         top:heights[col]+'px'
       });
-      heights[col] += h;
+      heights[col] += h + gap;
     });
-    projectStoryGallery.style.height = Math.max(0,Math.max(...heights))+'px';
+    projectStoryGallery.style.height = Math.max(0,Math.max(...heights)-gap)+'px';
   }
 
   function scheduleProjectGallery(){
