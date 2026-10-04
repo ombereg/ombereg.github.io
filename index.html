@@ -1147,6 +1147,31 @@ h1,h2,h3{
   border-color:rgba(184,220,255,.34);
   background:rgba(255,255,255,.06)
 }
+.project-story-gallery{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;
+  margin:22px auto 2px;
+  max-width:36rem
+}
+.project-story-gallery[hidden]{display:none!important}
+.project-story-gallery a{
+  display:block;
+  overflow:hidden;
+  border-radius:10px;
+  background:rgba(255,255,255,.025)
+}
+.project-story-gallery a:first-child{grid-column:1/-1}
+.project-story-gallery img{
+  display:block;
+  width:100%;
+  height:auto;
+  transition:transform .35s ease,filter .35s ease
+}
+.project-story-gallery a:hover img{
+  transform:scale(1.015);
+  filter:brightness(1.04)
+}
 body.project-open{overflow:hidden}
 
 .skills{
@@ -2078,6 +2103,7 @@ body.art-open{overflow:hidden}
     <h3 class="project-modal-title" id="project-modal-title"></h3>
     <div class="project-modal-copy" id="project-modal-copy-ru" data-lang="ru">Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.</div>
     <div class="project-modal-copy" id="project-modal-copy-en" data-lang="en">This space will hold the project gallery and a short story. The structure is ready, so each planet can be updated independently.</div>
+    <div class="project-story-gallery" id="project-story-gallery" hidden aria-label="Project gallery"></div>
     <span class="project-modal-status" id="project-modal-status-ru" data-lang="ru">ГАЛЕРЕЯ В РАЗРАБОТКЕ</span>
     <span class="project-modal-status" id="project-modal-status-en" data-lang="en">GALLERY IN DEVELOPMENT</span>
   </div>
@@ -2264,6 +2290,40 @@ body.art-open{overflow:hidden}
   const projectModalCopyEn = document.getElementById('project-modal-copy-en');
   const projectModalStatusRu = document.getElementById('project-modal-status-ru');
   const projectModalStatusEn = document.getElementById('project-modal-status-en');
+  const projectStoryGallery = document.getElementById('project-story-gallery');
+  const brxGallery = [
+    'assets/projects/brx-01.webp',
+    'assets/projects/brx-02.webp',
+    'assets/projects/brx-03.webp',
+    'assets/projects/brx-04.webp',
+    'assets/projects/brx-05.webp',
+    'assets/projects/brx-06.webp'
+  ];
+
+  function renderProjectGallery(projectName){
+    if(!projectStoryGallery) return;
+    projectStoryGallery.replaceChildren();
+    if(projectName !== 'Brux'){
+      projectStoryGallery.hidden = true;
+      return;
+    }
+    brxGallery.forEach((src,index) => {
+      const link = document.createElement('a');
+      link.href = src;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.setAttribute('aria-label', 'BRX ' + (index + 1));
+      const img = document.createElement('img');
+      img.src = src + '?v=brx-gallery-1';
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.onerror = () => link.remove();
+      link.appendChild(img);
+      projectStoryGallery.appendChild(link);
+    });
+    projectStoryGallery.hidden = false;
+  }
 
   const projectPlaceholders = {
     ru: 'Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.',
@@ -2435,6 +2495,7 @@ body.art-open{overflow:hidden}
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
         projectModalImage.src = button.dataset.image || '';
+        renderProjectGallery(projectName);
         if(projectModalCopyRu && projectModalCopyEn){
           projectModalCopyRu.classList.toggle('is-rich', hasStory);
           projectModalCopyEn.classList.toggle('is-rich', hasStory);
