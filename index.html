@@ -1208,7 +1208,7 @@ h1,h2,h3{
 .youtube-mark svg{display:block;width:100%;height:100%}
 .project-story-gallery{
   --project-gallery-cols:2;
-  --project-gallery-gap:6px;
+  --project-gallery-gap:4px;
   position:relative;
   display:block;
   width:100%;
@@ -2450,7 +2450,7 @@ body.art-open{overflow:hidden}
     if(!width) return;
     const style = getComputedStyle(projectStoryGallery);
     const columns = Math.max(1, parseInt(style.getPropertyValue('--project-gallery-cols')) || 2);
-    const gap = Math.max(0, parseFloat(style.getPropertyValue('--project-gallery-gap')) || 6);
+    const gap = Math.max(0, parseFloat(style.getPropertyValue('--project-gallery-gap')) || 4);
     const w = (width - gap * (columns - 1)) / columns;
     const heights = Array(columns).fill(0);
     [...projectStoryGallery.children].forEach(card => {
