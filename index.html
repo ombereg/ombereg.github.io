@@ -1167,6 +1167,16 @@ h1,h2,h3{
   filter:none;
   box-shadow:0 18px 50px rgba(0,0,0,.28)
 }
+.project-modal-planet.is-soullux-cover{
+  width:100%;
+  max-width:36rem;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  margin:0 auto 18px;
+  border-radius:14px;
+  filter:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
 .project-gallery-more{
   display:flex;
   align-items:center;
@@ -2395,6 +2405,17 @@ body.art-open{overflow:hidden}
     'assets/projects/brx-07.webp'
   ];
   const omuseumCover = 'assets/projects/omuseum-01.webp';
+  const soulLuxCover = 'assets/projects/01_soullux_hero_bohostyle_sea_view_web.jpg';
+  const soulLuxGallery = [
+    {full:'assets/projects/02_soullux_transformer_lamp_gallery_hall.png',thumb:'assets/projects/02_soullux_transformer_lamp_gallery_hall_web.jpg'},
+    {full:'assets/projects/03_soullux_paintings_interior_gallery.png',thumb:'assets/projects/03_soullux_paintings_interior_gallery_web.jpg'},
+    {full:'assets/projects/04_soullux_bird_transformer_lamp.png',thumb:'assets/projects/04_soullux_bird_transformer_lamp_web.jpg'},
+    {full:'assets/projects/05_soullux_braided_basket_chandelier_interior.png',thumb:'assets/projects/05_soullux_braided_basket_chandelier_interior_web.jpg'},
+    {full:'assets/projects/06_soullux_decorative_boho_box.png',thumb:'assets/projects/06_soullux_decorative_boho_box_web.jpg'},
+    {full:'assets/projects/07_soullux_interior_visual_1.png',thumb:'assets/projects/07_soullux_interior_visual_1_web.jpg'},
+    {full:'assets/projects/08_soullux_interior_visual_2.png',thumb:'assets/projects/08_soullux_interior_visual_2_web.jpg'},
+    {full:'assets/projects/09_soullux_interior_visual_3.png',thumb:'assets/projects/09_soullux_interior_visual_3_web.jpg'}
+  ];
   const omuseumGallery = [
     'assets/projects/omuseum-02.webp',
     'assets/projects/omuseum-03.webp',
@@ -2430,7 +2451,8 @@ body.art-open{overflow:hidden}
 
   const projectGalleryCatalogs = {
     BRX: {items: brxGallery, initialCount: brxGallery.length, version:'brx-masonry-1'},
-    OMuseum: {items: omuseumGallery, initialCount:6, version:'omuseum-masonry-1'}
+    OMuseum: {items: omuseumGallery, initialCount:6, version:'omuseum-masonry-1'},
+    'Soul Lux': {items: soulLuxGallery, initialCount:soulLuxGallery.length, version:'soullux-masonry-1'}
   };
 
   let currentProjectName = '';
@@ -2439,8 +2461,11 @@ body.art-open{overflow:hidden}
   let projectGalleryFrame = 0;
   let projectGalleryLastWidth = 0;
 
-  function projectThumbUrl(full){
-    return full.replace(/\.webp$/i,'-thumb.webp');
+  function normalizeProjectGalleryItem(item){
+    if(typeof item === 'string'){
+      return {full:item,thumb:item.replace(/\.webp$/i,'-thumb.webp')};
+    }
+    return {full:item.full,thumb:item.thumb || item.full};
   }
 
   function layoutProjectGallery(){
@@ -2489,11 +2514,11 @@ body.art-open{overflow:hidden}
       return;
     }
 
-    projectGalleryItems = catalog.items.slice();
+    projectGalleryItems = catalog.items.map(normalizeProjectGalleryItem);
     const visibleCount = projectGalleryExpanded ? projectGalleryItems.length : Math.min(catalog.initialCount, projectGalleryItems.length);
     const fragment = document.createDocumentFragment();
 
-    projectGalleryItems.slice(0,visibleCount).forEach((full,index) => {
+    projectGalleryItems.slice(0,visibleCount).forEach((item,index) => {
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'project-gallery-card';
@@ -2506,12 +2531,12 @@ body.art-open{overflow:hidden}
       img.alt = '';
       img.decoding = 'async';
       img.loading = index < 6 ? 'eager' : 'lazy';
-      img.src = projectThumbUrl(full) + '?v=' + catalog.version;
+      img.src = item.thumb + '?v=' + catalog.version;
       img.onload = scheduleProjectGallery;
       img.onerror = () => {
         if(img.dataset.fallback) return;
         img.dataset.fallback = '1';
-        img.src = full + '?v=' + catalog.version;
+        img.src = item.full + '?v=' + catalog.version;
       };
 
       card.appendChild(img);
@@ -2626,7 +2651,7 @@ body.art-open{overflow:hidden}
     projectViewerPhoto.onerror = () => {
       projectViewerLoading.textContent = projectViewerText('Изображение не загрузилось.','Image could not load.');
     };
-    projectViewerPhoto.src = projectGalleryItems[projectViewerIndex] + '?v=project-full-1';
+    projectViewerPhoto.src = projectGalleryItems[projectViewerIndex].full + '?v=project-full-1';
     projectViewerPhoto.alt = '';
     updateProjectViewerLabels();
     if(starting) projectViewerClose.focus({preventScroll:true});
@@ -2913,9 +2938,9 @@ body.art-open{overflow:hidden}
         const isHolidays = projectName === 'Holidays';
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
-        projectModalTitle.hidden = isBrx || isOMuseum;
+        projectModalTitle.hidden = isBrx || isOMuseum || isSoulLux;
         projectGalleryExpanded = false;
-        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover');
+        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover');
         if(isBrx){
           projectModalImage.src = brxCover + '?v=brx-cover-2';
           projectModalImage.classList.add('is-brx-cover');
@@ -2923,6 +2948,10 @@ body.art-open{overflow:hidden}
         }else if(isOMuseum){
           projectModalImage.src = omuseumCover + '?v=omuseum-cover-1';
           projectModalImage.classList.add('is-omuseum-cover');
+          if(projectFilmHero) projectFilmHero.hidden = true;
+        }else if(isSoulLux){
+          projectModalImage.src = soulLuxCover + '?v=soullux-cover-1';
+          projectModalImage.classList.add('is-soullux-cover');
           if(projectFilmHero) projectFilmHero.hidden = true;
         }else{
           projectModalImage.src = button.dataset.image || '';
