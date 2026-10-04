@@ -51,7 +51,7 @@
     });
     grid.style.height = Math.max(0, Math.max(...heights) - gap) + 'px';
     if (!grid.classList.contains('is-masonry')) grid.classList.add('is-masonry');
-    updateButton(expanded, cards.length);
+    updateButton(expanded, Math.max(cards.length, (window.OMBEREG_PORTFOLIO || []).length));
   }
   function schedule() {
     if (!frame) frame = requestAnimationFrame(layout);
