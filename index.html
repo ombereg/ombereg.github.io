@@ -1187,6 +1187,16 @@ h1,h2,h3{
   filter:none;
   box-shadow:0 18px 50px rgba(0,0,0,.28)
 }
+.project-modal-planet.is-nadopen-cover{
+  width:100%;
+  max-width:52rem;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  margin:0 auto 18px;
+  border-radius:14px;
+  filter:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
 .project-gallery-more{
   display:flex;
   align-items:center;
@@ -2462,6 +2472,19 @@ body.art-open{overflow:hidden}
     {full:'assets/projects/12_seaversum_motorcycle_standing_web.jpg',thumb:'assets/projects/12_seaversum_motorcycle_standing_web.jpg'},
     {full:'assets/projects/13_seaversum_motorcycle_riding.png',thumb:'assets/projects/13_seaversum_motorcycle_riding_web.jpg'}
   ];
+  const nadopenCover = 'assets/projects/01-hero-nadopen-studio.webp';
+  const nadopenGallery = [
+    {full:'assets/projects/02-portal-dolphins-neon-lounge.webp',thumb:'assets/projects/02-portal-dolphins-neon-lounge.webp'},
+    {full:'assets/projects/03-waterfall-sea-luxury-living.webp',thumb:'assets/projects/03-waterfall-sea-luxury-living.webp'},
+    {full:'assets/projects/04-round-waterfall-halo.webp',thumb:'assets/projects/04-round-waterfall-halo.webp'},
+    {full:'assets/projects/05-nautilus-dining-room.webp',thumb:'assets/projects/05-nautilus-dining-room.webp'},
+    {full:'assets/projects/06-textured-coastal-relief.webp',thumb:'assets/projects/06-textured-coastal-relief.webp'},
+    {full:'assets/projects/07-mountain-waterfalls-living-room.webp',thumb:'assets/projects/07-mountain-waterfalls-living-room.webp'},
+    {full:'assets/projects/08-round-cosmic-blue.webp',thumb:'assets/projects/08-round-cosmic-blue.webp'},
+    {full:'assets/projects/09-dolphins-sunset-seascape.webp',thumb:'assets/projects/09-dolphins-sunset-seascape.webp'},
+    {full:'assets/projects/10-glowing-waterfall-entryway.webp',thumb:'assets/projects/10-glowing-waterfall-entryway.webp'},
+    {full:'assets/projects/11-cove-sunset-mediterranean.webp',thumb:'assets/projects/11-cove-sunset-mediterranean.webp'}
+  ];
   const omuseumGallery = [
     'assets/projects/omuseum-02.webp',
     'assets/projects/omuseum-03.webp',
@@ -2499,7 +2522,8 @@ body.art-open{overflow:hidden}
     BRX: {items: brxGallery, initialCount: brxGallery.length, version:'brx-masonry-1'},
     OMuseum: {items: omuseumGallery, initialCount:6, version:'omuseum-masonry-1'},
     'Soul Lux': {items: soulLuxGallery, initialCount:soulLuxGallery.length, version:'soullux-masonry-1'},
-    Seaversum: {items: seaversumGallery, initialCount:6, version:'seaversum-masonry-1'}
+    Seaversum: {items: seaversumGallery, initialCount:6, version:'seaversum-masonry-1'},
+    'Nadopen Arts': {items: nadopenGallery, initialCount:6, version:'nadopen-masonry-1'}
   };
 
   let currentProjectName = '';
@@ -2985,9 +3009,9 @@ body.art-open{overflow:hidden}
         const isHolidays = projectName === 'Holidays';
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
-        projectModalTitle.hidden = isBrx || isOMuseum || isSoulLux || isSeaversum;
+        projectModalTitle.hidden = isNadopen || isBrx || isOMuseum || isSoulLux || isSeaversum;
         projectGalleryExpanded = false;
-        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover','is-seaversum-cover');
+        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover','is-seaversum-cover','is-nadopen-cover');
         if(isBrx){
           projectModalImage.src = brxCover + '?v=brx-cover-2';
           projectModalImage.classList.add('is-brx-cover');
@@ -3003,6 +3027,10 @@ body.art-open{overflow:hidden}
         }else if(isSeaversum){
           projectModalImage.src = seaversumCover + '?v=seaversum-cover-1';
           projectModalImage.classList.add('is-seaversum-cover');
+          if(projectFilmHero) projectFilmHero.hidden = true;
+        }else if(isNadopen){
+          projectModalImage.src = nadopenCover + '?v=nadopen-cover-1';
+          projectModalImage.classList.add('is-nadopen-cover');
           if(projectFilmHero) projectFilmHero.hidden = true;
         }else{
           projectModalImage.src = button.dataset.image || '';
