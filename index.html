@@ -1207,6 +1207,16 @@ h1,h2,h3{
   filter:none;
   box-shadow:0 18px 50px rgba(0,0,0,.28)
 }
+.project-modal-planet.is-branding-cover{
+  width:100%;
+  max-width:52rem;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  margin:0 auto 18px;
+  border-radius:14px;
+  filter:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
 .project-gallery-more{
   display:flex;
   align-items:center;
@@ -2495,6 +2505,19 @@ body.art-open{overflow:hidden}
     {full:'assets/projects/10-glowing-waterfall-entryway.webp',thumb:'assets/projects/10-glowing-waterfall-entryway.webp'},
     {full:'assets/projects/11-cove-sunset-mediterranean.webp',thumb:'assets/projects/11-cove-sunset-mediterranean.webp'}
   ];
+  const brandingCover = 'assets/projects/branding-hero-your-best-brand.webp';
+  const brandingGallery = [
+    {full:'assets/projects/branding-01-id-yoga-lightkeeper.jpg',thumb:'assets/projects/branding-01-id-yoga-lightkeeper.webp'},
+    {full:'assets/projects/branding-02-koi-facelove.jpg',thumb:'assets/projects/branding-02-koi-facelove.webp'},
+    {full:'assets/projects/branding-03-scandi-nadopen.jpg',thumb:'assets/projects/branding-03-scandi-nadopen.webp'},
+    {full:'assets/projects/branding-04-id-yoga-school.jpg',thumb:'assets/projects/branding-04-id-yoga-school.webp'},
+    {full:'assets/projects/branding-05-omega-eco.jpg',thumb:'assets/projects/branding-05-omega-eco.webp'},
+    {full:'assets/projects/branding-06-atmosphera.jpg',thumb:'assets/projects/branding-06-atmosphera.webp'},
+    {full:'assets/projects/branding-07-creative-universe.jpg',thumb:'assets/projects/branding-07-creative-universe.webp'},
+    {full:'assets/projects/branding-08-scandi-house.jpg',thumb:'assets/projects/branding-08-scandi-house.webp'},
+    {full:'assets/projects/branding-09-ptica-sirin-motors.jpg',thumb:'assets/projects/branding-09-ptica-sirin-motors.webp'},
+    {full:'assets/projects/branding-10-nadopenarts.jpg',thumb:'assets/projects/branding-10-nadopenarts.webp'}
+  ];
   const holidaysCover = 'assets/00-hero-be-happy-holidays.jpg';
   const holidaysGallery = [
     {full:'assets/01-bird-console-mediterranean.jpg',thumb:'assets/01-bird-console-mediterranean.jpg'},
@@ -2556,6 +2579,7 @@ body.art-open{overflow:hidden}
     'Soul Lux': {items: soulLuxGallery, initialCount:soulLuxGallery.length, version:'soullux-masonry-1'},
     Seaversum: {items: seaversumGallery, initialCount:6, version:'seaversum-masonry-1'},
     'Nadopen Arts': {items: nadopenGallery, initialCount:6, version:'nadopen-masonry-1'},
+    Branding: {items: brandingGallery, initialCount:6, version:'branding-masonry-1'},
     Holidays: {items: holidaysGallery, initialCount:6, version:'holidays-masonry-1'}
   };
 
@@ -3042,9 +3066,9 @@ body.art-open{overflow:hidden}
         const isHolidays = projectName === 'Holidays';
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
-        projectModalTitle.hidden = isNadopen || isBrx || isOMuseum || isSoulLux || isSeaversum || isHolidays;
+        projectModalTitle.hidden = isNadopen || isBrx || isOMuseum || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectGalleryExpanded = false;
-        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover','is-seaversum-cover','is-nadopen-cover','is-holidays-cover');
+        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover','is-soullux-cover','is-seaversum-cover','is-nadopen-cover','is-holidays-cover','is-branding-cover');
         if(isBrx){
           projectModalImage.src = brxCover + '?v=brx-cover-2';
           projectModalImage.classList.add('is-brx-cover');
@@ -3064,6 +3088,10 @@ body.art-open{overflow:hidden}
         }else if(isNadopen){
           projectModalImage.src = nadopenCover + '?v=nadopen-cover-1';
           projectModalImage.classList.add('is-nadopen-cover');
+          if(projectFilmHero) projectFilmHero.hidden = true;
+        }else if(isBranding){
+          projectModalImage.src = brandingCover + '?v=branding-cover-1';
+          projectModalImage.classList.add('is-branding-cover');
           if(projectFilmHero) projectFilmHero.hidden = true;
         }else if(isHolidays){
           projectModalImage.src = holidaysCover + '?v=holidays-cover-1';
