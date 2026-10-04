@@ -1383,7 +1383,20 @@ body.project-open{overflow:hidden}
   padding:20px 18px 19px;
   background:linear-gradient(180deg,rgba(8,17,40,.46),rgba(4,10,27,.31));
   box-shadow:0 28px 80px rgba(0,4,16,.18);
-  backdrop-filter:blur(8px)
+  backdrop-filter:blur(8px);
+  cursor:pointer;
+  transition:transform .22s ease,border-color .22s ease,background .22s ease
+}
+.line-card:focus-visible{
+  outline:2px solid rgba(164,220,255,.82);
+  outline-offset:3px
+}
+@media(hover:hover){
+  .line-card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(184,220,255,.25);
+    background:linear-gradient(180deg,rgba(10,22,48,.56),rgba(5,12,31,.38))
+  }
 }
 .line-label{
   font-size:9px;
@@ -2119,7 +2132,7 @@ body.art-open{overflow:hidden}
       <div class="section-kicker" data-lang="en">CREATIVE LINES</div>
 
       <div class="lines-grid">
-        <article class="line-card">
+        <article class="line-card" role="button" tabindex="0" data-project-target="Nadopen Arts" aria-label="Открыть Nadopen Arts">
           <div class="line-label">01</div>
           <h3 class="line-title">Nadopen Arts</h3>
           <div class="line-type">art / visual / ai / video</div>
@@ -2134,7 +2147,7 @@ body.art-open{overflow:hidden}
           </div>
         </article>
 
-        <article class="line-card">
+        <article class="line-card" role="button" tabindex="0" data-project-target="Seaversum" aria-label="Открыть SeaVersum">
           <div class="line-label">02</div>
           <h3 class="line-title">SeaVersum</h3>
           <div class="line-type">fashion design / clothing</div>
@@ -2152,7 +2165,7 @@ body.art-open{overflow:hidden}
           <span class="dev-status" data-lang="en">In development</span>
         </article>
 
-        <article class="line-card">
+        <article class="line-card" role="button" tabindex="0" data-project-target="OMuseum" aria-label="Открыть OMuseum">
           <div class="line-label">03</div>
           <h3 class="line-title">OMuseum</h3>
           <div class="line-type">art space / painting / concept</div>
@@ -2170,7 +2183,7 @@ body.art-open{overflow:hidden}
           <span class="dev-status" data-lang="en">In development</span>
         </article>
 
-        <article class="line-card">
+        <article class="line-card" role="button" tabindex="0" data-project-target="Soul Lux" aria-label="Открыть SoulLux">
           <div class="line-label">04</div>
           <h3 class="line-title">SoulLux</h3>
           <div class="line-type">space / aesthetics / comfort</div>
@@ -3139,6 +3152,21 @@ body.art-open{overflow:hidden}
       });
     });
   }
+
+  document.querySelectorAll('.line-card[data-project-target]').forEach(card => {
+    const openMatchingProject = () => {
+      const target = card.dataset.projectTarget;
+      const planet = projectUniverse?.querySelector('.project-planet[data-project="' + CSS.escape(target) + '"]');
+      planet?.click();
+    };
+    card.addEventListener('click', openMatchingProject);
+    card.addEventListener('keydown', event => {
+      if(event.key === 'Enter' || event.key === ' '){
+        event.preventDefault();
+        openMatchingProject();
+      }
+    });
+  });
 
   function closeProjectModal(){
     closeProjectViewer();
