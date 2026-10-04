@@ -1157,6 +1157,40 @@ h1,h2,h3{
   filter:none;
   box-shadow:0 18px 50px rgba(0,0,0,.28)
 }
+.project-modal-planet.is-omuseum-cover{
+  width:100%;
+  max-width:36rem;
+  aspect-ratio:3/2;
+  object-fit:cover;
+  margin:0 auto 18px;
+  border-radius:14px;
+  filter:none;
+  box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
+.project-gallery-more{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:max-content;
+  margin:18px auto 2px;
+  padding:10px 15px;
+  border:1px solid rgba(184,220,255,.18);
+  border-radius:999px;
+  color:rgba(238,245,255,.88);
+  background:rgba(255,255,255,.035);
+  font:inherit;
+  font-size:11px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease
+}
+.project-gallery-more:hover{
+  transform:translateY(-1px);
+  border-color:rgba(184,220,255,.34);
+  background:rgba(255,255,255,.06)
+}
+.project-gallery-more[hidden]{display:none!important}
 .project-film-link--hero{
   display:flex;
   width:max-content;
@@ -2133,6 +2167,10 @@ body.art-open{overflow:hidden}
     <div class="project-modal-copy" id="project-modal-copy-ru" data-lang="ru">Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.</div>
     <div class="project-modal-copy" id="project-modal-copy-en" data-lang="en">This space will hold the project gallery and a short story. The structure is ready, so each planet can be updated independently.</div>
     <div class="project-story-gallery" id="project-story-gallery" hidden aria-label="Project gallery"></div>
+    <button class="project-gallery-more" id="project-gallery-more" type="button" hidden>
+      <span data-lang="ru">Смотреть ещё +</span>
+      <span data-lang="en">See more +</span>
+    </button>
     <span class="project-modal-status" id="project-modal-status-ru" data-lang="ru">ГАЛЕРЕЯ В РАЗРАБОТКЕ</span>
     <span class="project-modal-status" id="project-modal-status-en" data-lang="en">GALLERY IN DEVELOPMENT</span>
   </div>
@@ -2320,6 +2358,7 @@ body.art-open{overflow:hidden}
   const projectModalStatusRu = document.getElementById('project-modal-status-ru');
   const projectModalStatusEn = document.getElementById('project-modal-status-en');
   const projectStoryGallery = document.getElementById('project-story-gallery');
+  const projectGalleryMore = document.getElementById('project-gallery-more');
   const projectFilmHero = document.getElementById('project-film-hero');
   const brxCover = 'assets/projects/brx-01.webp';
   const brxGallery = [
@@ -2330,22 +2369,62 @@ body.art-open{overflow:hidden}
     'assets/projects/brx-06.webp',
     'assets/projects/brx-07.webp'
   ];
+  const omuseumCover = 'assets/projects/omuseum-01.webp';
+  const omuseumGallery = [
+    'assets/projects/omuseum-02.webp',
+    'assets/projects/omuseum-03.webp',
+    'assets/projects/omuseum-04.webp',
+    'assets/projects/omuseum-05.webp',
+    'assets/projects/omuseum-06.webp',
+    'assets/projects/omuseum-07.webp',
+    'assets/projects/omuseum-08.webp',
+    'assets/projects/omuseum-09.webp',
+    'assets/projects/omuseum-10.webp',
+    'assets/projects/omuseum-11.webp',
+    'assets/projects/omuseum-12.webp',
+    'assets/projects/omuseum-13.webp',
+    'assets/projects/omuseum-14.webp',
+    'assets/projects/omuseum-15.webp',
+    'assets/projects/omuseum-16.webp',
+    'assets/projects/omuseum-17.webp',
+    'assets/projects/omuseum-18.webp',
+    'assets/projects/omuseum-19.webp',
+    'assets/projects/omuseum-20.webp'
+  ];
+  let currentProjectName = '';
+  let projectGalleryExpanded = false;
 
   function renderProjectGallery(projectName){
     if(!projectStoryGallery) return;
+    currentProjectName = projectName;
     projectStoryGallery.replaceChildren();
-    if(projectName !== 'BRX'){
+
+    let gallery = [];
+    let visibleCount = 0;
+    let version = 'project-gallery-2';
+
+    if(projectName === 'BRX'){
+      gallery = brxGallery;
+      visibleCount = gallery.length;
+      version = 'brx-gallery-2';
+    }else if(projectName === 'OMuseum'){
+      gallery = omuseumGallery;
+      visibleCount = projectGalleryExpanded ? gallery.length : Math.min(6, gallery.length);
+      version = 'omuseum-gallery-1';
+    }else{
       projectStoryGallery.hidden = true;
+      if(projectGalleryMore) projectGalleryMore.hidden = true;
       return;
     }
-    brxGallery.forEach((src,index) => {
+
+    gallery.slice(0, visibleCount).forEach((src,index) => {
       const link = document.createElement('a');
       link.href = src;
       link.target = '_blank';
       link.rel = 'noopener';
-      link.setAttribute('aria-label', 'BRX ' + (index + 2));
+      link.setAttribute('aria-label', projectName + ' ' + (index + 2));
       const img = document.createElement('img');
-      img.src = src + '?v=brx-gallery-1';
+      img.src = src + '?v=' + version;
       img.alt = '';
       img.loading = 'lazy';
       img.decoding = 'async';
@@ -2353,8 +2432,18 @@ body.art-open{overflow:hidden}
       link.appendChild(img);
       projectStoryGallery.appendChild(link);
     });
+
     projectStoryGallery.hidden = false;
+    if(projectGalleryMore){
+      projectGalleryMore.hidden = !(projectName === 'OMuseum' && !projectGalleryExpanded && gallery.length > 6);
+    }
   }
+
+  projectGalleryMore?.addEventListener('click', () => {
+    if(currentProjectName !== 'OMuseum') return;
+    projectGalleryExpanded = true;
+    renderProjectGallery('OMuseum');
+  });
 
   const projectPlaceholders = {
     ru: 'Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.',
@@ -2524,13 +2613,18 @@ body.art-open{overflow:hidden}
         const hasStory = isNadopen || isOMuseum || isBrx || isSoulLux || isSeaversum || isBranding || isHolidays;
         projectModalTitle.textContent = projectName;
         projectModalTitle.hidden = isBrx;
+        projectGalleryExpanded = false;
+        projectModalImage.classList.remove('is-brx-cover','is-omuseum-cover');
         if(isBrx){
           projectModalImage.src = brxCover + '?v=brx-cover-2';
           projectModalImage.classList.add('is-brx-cover');
           if(projectFilmHero) projectFilmHero.hidden = false;
+        }else if(isOMuseum){
+          projectModalImage.src = omuseumCover + '?v=omuseum-cover-1';
+          projectModalImage.classList.add('is-omuseum-cover');
+          if(projectFilmHero) projectFilmHero.hidden = true;
         }else{
           projectModalImage.src = button.dataset.image || '';
-          projectModalImage.classList.remove('is-brx-cover');
           if(projectFilmHero) projectFilmHero.hidden = true;
         }
         renderProjectGallery(projectName);
@@ -2550,6 +2644,8 @@ body.art-open{overflow:hidden}
   }
 
   function closeProjectModal(){
+    projectGalleryExpanded = false;
+    if(projectGalleryMore) projectGalleryMore.hidden = true;
     projectModal?.classList.remove('is-open');
     projectModal?.setAttribute('aria-hidden','true');
     document.body.classList.remove('project-open');
