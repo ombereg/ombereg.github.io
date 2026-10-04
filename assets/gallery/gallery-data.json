@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-03-gallery-78",
+  "updated": "2026-10-04-swap-14-15",
   "initialCount": 8,
   "pageSize": 16,
   "featured": [
@@ -158,17 +158,6 @@
       "altEn": "Artwork 13"
     },
     {
-      "id": "art-014",
-      "number": 14,
-      "width": 984,
-      "height": 1229,
-      "thumb": "art-014-thumb-67eb66e1e2.webp",
-      "full": "art-014-full-4ff58dac61.webp",
-      "hidden": false,
-      "altRu": "Работа 14",
-      "altEn": "Artwork 14"
-    },
-    {
       "id": "art-015",
       "number": 15,
       "width": 1122,
@@ -178,6 +167,17 @@
       "hidden": false,
       "altRu": "Работа 15",
       "altEn": "Artwork 15"
+    },
+    {
+      "id": "art-014",
+      "number": 14,
+      "width": 984,
+      "height": 1229,
+      "thumb": "art-014-thumb-67eb66e1e2.webp",
+      "full": "art-014-full-4ff58dac61.webp",
+      "hidden": false,
+      "altRu": "Работа 14",
+      "altEn": "Artwork 14"
     },
     {
       "id": "art-016",
