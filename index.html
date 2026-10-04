@@ -1020,7 +1020,7 @@ h1,h2,h3{
 .project-modal.is-open{display:flex}
 .project-modal-card{
   position:relative;
-  width:min(92vw,620px);
+  width:min(94vw,920px);
   max-height:88svh;
   overflow:auto;
   padding:38px 26px 30px;
@@ -1207,28 +1207,51 @@ h1,h2,h3{
 }
 .youtube-mark svg{display:block;width:100%;height:100%}
 .project-story-gallery{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:6px;
-  margin:22px auto 2px;
-  max-width:36rem
-}
-.project-story-gallery[hidden]{display:none!important}
-.project-story-gallery a{
-  display:block;
-  overflow:hidden;
-  border-radius:10px;
-  background:rgba(255,255,255,.025)
-}
-.project-story-gallery img{
+  --project-gallery-cols:2;
+  position:relative;
   display:block;
   width:100%;
-  height:auto;
-  transition:transform .35s ease,filter .35s ease
+  max-width:52rem;
+  min-height:1px;
+  margin:22px auto 2px;
+  overflow:visible;
+  isolation:isolate
 }
-.project-story-gallery a:hover img{
-  transform:scale(1.015);
-  filter:brightness(1.04)
+.project-story-gallery[hidden]{display:none!important}
+.project-story-gallery .project-gallery-card{
+  position:absolute;
+  display:block;
+  padding:0;
+  margin:0;
+  border:0;
+  border-radius:0;
+  overflow:hidden;
+  background:rgba(13,22,44,.30);
+  cursor:zoom-in;
+  appearance:none;
+  -webkit-appearance:none;
+  line-height:0;
+  touch-action:manipulation
+}
+.project-story-gallery .project-gallery-card img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border:0;
+  transform:none;
+  transition:none
+}
+.project-story-gallery .project-gallery-card:focus-visible{
+  outline:2px solid #b4f2e8;
+  outline-offset:1px;
+  z-index:2
+}
+@media(min-width:760px){
+  .project-story-gallery{--project-gallery-cols:3}
+}
+@media(min-width:1100px){
+  .project-story-gallery{--project-gallery-cols:4}
 }
 body.project-open{overflow:hidden}
 
@@ -2360,6 +2383,7 @@ body.art-open{overflow:hidden}
   const projectStoryGallery = document.getElementById('project-story-gallery');
   const projectGalleryMore = document.getElementById('project-gallery-more');
   const projectFilmHero = document.getElementById('project-film-hero');
+
   const brxCover = 'assets/projects/brx-01.webp';
   const brxGallery = [
     'assets/projects/brx-02.webp',
@@ -2402,59 +2426,322 @@ body.art-open{overflow:hidden}
     'assets/projects/omuseum-30.webp',
     'assets/projects/omuseum-31.webp'
   ];
+
+  const projectGalleryCatalogs = {
+    BRX: {items: brxGallery, initialCount: brxGallery.length, version:'brx-masonry-1'},
+    OMuseum: {items: omuseumGallery, initialCount:6, version:'omuseum-masonry-1'}
+  };
+
   let currentProjectName = '';
   let projectGalleryExpanded = false;
+  let projectGalleryItems = [];
+  let projectGalleryFrame = 0;
+  let projectGalleryLastWidth = 0;
+
+  function projectThumbUrl(full){
+    return full.replace(/\.webp$/i,'-thumb.webp');
+  }
+
+  function layoutProjectGallery(){
+    projectGalleryFrame = 0;
+    if(!projectStoryGallery || projectStoryGallery.hidden) return;
+    const width = projectStoryGallery.getBoundingClientRect().width;
+    if(!width) return;
+    const columns = Math.max(1, parseInt(getComputedStyle(projectStoryGallery).getPropertyValue('--project-gallery-cols')) || 2);
+    const w = width / columns;
+    const heights = Array(columns).fill(0);
+    [...projectStoryGallery.children].forEach(card => {
+      const img = card.querySelector('img');
+      const iw = Number(img?.naturalWidth) || Number(card.dataset.width) || 1;
+      const ih = Number(img?.naturalHeight) || Number(card.dataset.height) || 1;
+      let col = 0;
+      for(let c=1;c<columns;c++) if(heights[c] < heights[col]) col = c;
+      const h = w * ih / iw;
+      Object.assign(card.style,{
+        width:w+'px',
+        height:h+'px',
+        left:(col*w)+'px',
+        top:heights[col]+'px'
+      });
+      heights[col] += h;
+    });
+    projectStoryGallery.style.height = Math.max(0,Math.max(...heights))+'px';
+  }
+
+  function scheduleProjectGallery(){
+    if(!projectGalleryFrame) projectGalleryFrame = requestAnimationFrame(layoutProjectGallery);
+  }
 
   function renderProjectGallery(projectName){
     if(!projectStoryGallery) return;
     currentProjectName = projectName;
     projectStoryGallery.replaceChildren();
 
-    let gallery = [];
-    let visibleCount = 0;
-    let version = 'project-gallery-2';
-
-    if(projectName === 'BRX'){
-      gallery = brxGallery;
-      visibleCount = gallery.length;
-      version = 'brx-gallery-2';
-    }else if(projectName === 'OMuseum'){
-      gallery = omuseumGallery;
-      visibleCount = projectGalleryExpanded ? gallery.length : Math.min(6, gallery.length);
-      version = 'omuseum-gallery-1';
-    }else{
+    const catalog = projectGalleryCatalogs[projectName];
+    if(!catalog){
+      projectGalleryItems = [];
       projectStoryGallery.hidden = true;
+      projectStoryGallery.style.height = '0px';
       if(projectGalleryMore) projectGalleryMore.hidden = true;
       return;
     }
 
-    gallery.slice(0, visibleCount).forEach((src,index) => {
-      const link = document.createElement('a');
-      link.href = src;
-      link.target = '_blank';
-      link.rel = 'noopener';
-      link.setAttribute('aria-label', projectName + ' ' + (index + 2));
+    projectGalleryItems = catalog.items.slice();
+    const visibleCount = projectGalleryExpanded ? projectGalleryItems.length : Math.min(catalog.initialCount, projectGalleryItems.length);
+    const fragment = document.createDocumentFragment();
+
+    projectGalleryItems.slice(0,visibleCount).forEach((full,index) => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'project-gallery-card';
+      card.dataset.projectIndex = String(index);
+      card.setAttribute('aria-haspopup','dialog');
+      card.setAttribute('aria-controls','project-art-viewer');
+      card.setAttribute('aria-label',(document.documentElement.lang==='en'?'Open artwork ':'Открыть работу ')+(index+1));
+
       const img = document.createElement('img');
-      img.src = src + '?v=' + version;
       img.alt = '';
-      img.loading = 'lazy';
       img.decoding = 'async';
-      img.onerror = () => link.remove();
-      link.appendChild(img);
-      projectStoryGallery.appendChild(link);
+      img.loading = index < 6 ? 'eager' : 'lazy';
+      img.src = projectThumbUrl(full) + '?v=' + catalog.version;
+      img.onload = scheduleProjectGallery;
+      img.onerror = () => {
+        if(img.dataset.fallback) return;
+        img.dataset.fallback = '1';
+        img.src = full + '?v=' + catalog.version;
+      };
+
+      card.appendChild(img);
+      card.addEventListener('click',()=>openProjectViewer(index));
+      fragment.appendChild(card);
     });
 
+    projectStoryGallery.appendChild(fragment);
     projectStoryGallery.hidden = false;
     if(projectGalleryMore){
-      projectGalleryMore.hidden = !(projectName === 'OMuseum' && !projectGalleryExpanded && gallery.length > 6);
+      projectGalleryMore.hidden = !(projectGalleryItems.length > catalog.initialCount && !projectGalleryExpanded);
+      projectGalleryMore.setAttribute('aria-expanded',String(projectGalleryExpanded));
     }
+    scheduleProjectGallery();
   }
 
   projectGalleryMore?.addEventListener('click', () => {
-    if(currentProjectName !== 'OMuseum') return;
+    if(!projectGalleryCatalogs[currentProjectName]) return;
     projectGalleryExpanded = true;
-    renderProjectGallery('OMuseum');
+    renderProjectGallery(currentProjectName);
   });
+
+  const projectViewer = document.createElement('div');
+  projectViewer.className = 'av2';
+  projectViewer.id = 'project-art-viewer';
+  projectViewer.hidden = true;
+  projectViewer.setAttribute('role','dialog');
+  projectViewer.setAttribute('aria-modal','true');
+  projectViewer.innerHTML = '<div class="av2-toolbar"><span class="av2-count" aria-live="polite"></span><button class="av2-minus" type="button">−</button><button class="av2-reset" type="button">100%</button><button class="av2-plus" type="button">+</button><button class="av2-close" type="button">×</button></div><div class="av2-viewport"><img class="av2-img" alt="" draggable="false"><span class="av2-loading"></span></div><button class="av2-nav av2-prev" type="button">‹</button><button class="av2-nav av2-next" type="button">›</button><div class="av2-hint"></div>';
+  document.body.appendChild(projectViewer);
+
+  const projectViewerViewport = projectViewer.querySelector('.av2-viewport');
+  const projectViewerPhoto = projectViewer.querySelector('.av2-img');
+  const projectViewerCount = projectViewer.querySelector('.av2-count');
+  const projectViewerReset = projectViewer.querySelector('.av2-reset');
+  const projectViewerLoading = projectViewer.querySelector('.av2-loading');
+  const projectViewerClose = projectViewer.querySelector('.av2-close');
+  let projectViewerIndex = -1;
+  let projectViewerPreviousFocus = null;
+  let projectViewerZoom = 1;
+  let projectViewerX = 0;
+  let projectViewerY = 0;
+  let projectViewerFitW = 1;
+  let projectViewerFitH = 1;
+
+  function projectViewerText(ru,en){
+    return document.documentElement.lang === 'en' ? en : ru;
+  }
+
+  function updateProjectViewerLabels(){
+    projectViewer.setAttribute('aria-label',projectViewerText('Просмотр работы','Artwork viewer'));
+    const labels = {
+      '.av2-minus':['Уменьшить','Zoom out'],
+      '.av2-plus':['Приблизить','Zoom in'],
+      '.av2-reset':['Показать целиком','Fit to screen'],
+      '.av2-close':['Закрыть','Close'],
+      '.av2-prev':['Предыдущая работа','Previous artwork'],
+      '.av2-next':['Следующая работа','Next artwork']
+    };
+    for(const [selector,pair] of Object.entries(labels)){
+      projectViewer.querySelector(selector)?.setAttribute('aria-label',projectViewerText(pair[0],pair[1]));
+    }
+    projectViewer.querySelector('.av2-hint').textContent = projectViewerText('Два пальца или + для приближения · свайп для перелистывания','Pinch or + to zoom · swipe to browse');
+  }
+
+  function transformProjectViewer(){
+    const w = projectViewerViewport.clientWidth;
+    const h = projectViewerViewport.clientHeight;
+    projectViewerX = Math.max(-Math.max(0,(projectViewerFitW*projectViewerZoom-w)/2),Math.min(Math.max(0,(projectViewerFitW*projectViewerZoom-w)/2),projectViewerX));
+    projectViewerY = Math.max(-Math.max(0,(projectViewerFitH*projectViewerZoom-h)/2),Math.min(Math.max(0,(projectViewerFitH*projectViewerZoom-h)/2),projectViewerY));
+    projectViewerPhoto.style.transform = `translate(calc(-50% + ${projectViewerX}px), calc(-50% + ${projectViewerY}px)) scale(${projectViewerZoom})`;
+    projectViewerReset.textContent = Math.round(projectViewerZoom*100)+'%';
+  }
+
+  function fitProjectViewer(){
+    if(projectViewerIndex < 0 || !projectViewerPhoto.naturalWidth) return;
+    const scale = Math.min(projectViewerViewport.clientWidth/projectViewerPhoto.naturalWidth,projectViewerViewport.clientHeight/projectViewerPhoto.naturalHeight);
+    projectViewerFitW = projectViewerPhoto.naturalWidth*scale;
+    projectViewerFitH = projectViewerPhoto.naturalHeight*scale;
+    projectViewerPhoto.style.width = projectViewerFitW+'px';
+    projectViewerPhoto.style.height = projectViewerFitH+'px';
+    transformProjectViewer();
+  }
+
+  function setProjectViewerZoom(value){
+    projectViewerZoom = Math.max(1,Math.min(4,value));
+    if(projectViewerZoom === 1){ projectViewerX = 0; projectViewerY = 0; }
+    transformProjectViewer();
+  }
+
+  function openProjectViewer(index){
+    if(!projectGalleryItems.length) return;
+    const starting = projectViewer.hidden;
+    projectViewerIndex = (index + projectGalleryItems.length) % projectGalleryItems.length;
+    if(starting){
+      projectViewerPreviousFocus = document.activeElement;
+      projectModal?.setAttribute('inert','');
+    }
+    projectViewer.hidden = false;
+    projectViewerZoom = 1;
+    projectViewerX = 0;
+    projectViewerY = 0;
+    projectViewerCount.textContent = `${projectViewerIndex+1} / ${projectGalleryItems.length}`;
+    projectViewerLoading.textContent = projectViewerText('Загрузка…','Loading…');
+    projectViewerLoading.hidden = false;
+    projectViewerPhoto.style.visibility = 'hidden';
+    projectViewerPhoto.onload = () => {
+      projectViewerLoading.hidden = true;
+      projectViewerPhoto.style.visibility = 'visible';
+      fitProjectViewer();
+    };
+    projectViewerPhoto.onerror = () => {
+      projectViewerLoading.textContent = projectViewerText('Изображение не загрузилось.','Image could not load.');
+    };
+    projectViewerPhoto.src = projectGalleryItems[projectViewerIndex] + '?v=project-full-1';
+    projectViewerPhoto.alt = '';
+    updateProjectViewerLabels();
+    if(starting) projectViewerClose.focus({preventScroll:true});
+  }
+
+  function closeProjectViewer(){
+    if(projectViewer.hidden) return;
+    projectViewer.hidden = true;
+    projectViewerIndex = -1;
+    projectViewerPhoto.removeAttribute('src');
+    projectModal?.removeAttribute('inert');
+    projectViewerPreviousFocus?.focus({preventScroll:true});
+    projectViewerPointers.clear();
+  }
+
+  function stepProjectViewer(direction){
+    if(!projectViewer.hidden) openProjectViewer(projectViewerIndex + direction);
+  }
+
+  const projectViewerPointers = new Map();
+  let projectViewerGesture = null;
+  let projectViewerHadPinch = false;
+  const projectViewerDistance = points => Math.hypot(points[0].x-points[1].x,points[0].y-points[1].y);
+
+  projectViewerViewport.addEventListener('pointerdown',event => {
+    projectViewerPointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+    projectViewerViewport.setPointerCapture(event.pointerId);
+    if(projectViewerPointers.size===1){
+      projectViewerHadPinch = false;
+      projectViewerGesture = {startX:event.clientX,startY:event.clientY,lastX:event.clientX,lastY:event.clientY};
+    }
+    if(projectViewerPointers.size===2){
+      projectViewerHadPinch = true;
+      projectViewerGesture = {dist:projectViewerDistance([...projectViewerPointers.values()]),zoom:projectViewerZoom};
+    }
+  });
+
+  projectViewerViewport.addEventListener('pointermove',event => {
+    if(!projectViewerPointers.has(event.pointerId)) return;
+    projectViewerPointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+    if(projectViewerPointers.size===2 && projectViewerGesture?.dist){
+      setProjectViewerZoom(projectViewerGesture.zoom*projectViewerDistance([...projectViewerPointers.values()])/Math.max(1,projectViewerGesture.dist));
+    }else if(projectViewerPointers.size===1 && projectViewerZoom>1 && projectViewerGesture?.lastX!==undefined){
+      projectViewerX += event.clientX-projectViewerGesture.lastX;
+      projectViewerY += event.clientY-projectViewerGesture.lastY;
+      projectViewerGesture.lastX = event.clientX;
+      projectViewerGesture.lastY = event.clientY;
+      transformProjectViewer();
+    }
+  });
+
+  projectViewerViewport.addEventListener('pointerup',event => {
+    if(!projectViewerHadPinch && projectViewerZoom===1 && projectViewerGesture?.startX!==undefined){
+      const dx = event.clientX-projectViewerGesture.startX;
+      const dy = event.clientY-projectViewerGesture.startY;
+      if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.5) stepProjectViewer(dx<0?1:-1);
+    }
+    projectViewerPointers.delete(event.pointerId);
+    if(projectViewerPointers.size===1){
+      const point = [...projectViewerPointers.values()][0];
+      projectViewerGesture = {lastX:point.x,lastY:point.y};
+    }else{
+      projectViewerGesture = null;
+    }
+  });
+  projectViewerViewport.addEventListener('pointercancel',()=>{projectViewerPointers.clear();projectViewerGesture=null;});
+  projectViewerViewport.addEventListener('dblclick',event=>{event.preventDefault();setProjectViewerZoom(projectViewerZoom===1?2:1);});
+  projectViewerViewport.addEventListener('wheel',event=>{event.preventDefault();setProjectViewerZoom(projectViewerZoom*(event.deltaY<0?1.12:1/1.12));},{passive:false});
+  projectViewerClose.addEventListener('click',closeProjectViewer);
+  projectViewer.querySelector('.av2-prev').addEventListener('click',()=>stepProjectViewer(-1));
+  projectViewer.querySelector('.av2-next').addEventListener('click',()=>stepProjectViewer(1));
+  projectViewer.querySelector('.av2-minus').addEventListener('click',()=>setProjectViewerZoom(projectViewerZoom/1.5));
+  projectViewer.querySelector('.av2-plus').addEventListener('click',()=>setProjectViewerZoom(projectViewerZoom*1.5));
+  projectViewerReset.addEventListener('click',()=>setProjectViewerZoom(1));
+
+  document.addEventListener('keydown',event => {
+    if(projectViewer.hidden) return;
+    if(event.key==='Escape'){
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      closeProjectViewer();
+    }else if(event.key==='ArrowLeft'){
+      event.preventDefault();
+      stepProjectViewer(-1);
+    }else if(event.key==='ArrowRight'){
+      event.preventDefault();
+      stepProjectViewer(1);
+    }else if(event.key==='+' || event.key==='='){
+      event.preventDefault();
+      setProjectViewerZoom(projectViewerZoom*1.5);
+    }else if(event.key==='-'){
+      event.preventDefault();
+      setProjectViewerZoom(projectViewerZoom/1.5);
+    }
+  },true);
+
+  window.addEventListener('resize',()=>{
+    scheduleProjectGallery();
+    fitProjectViewer();
+  },{passive:true});
+
+  if('ResizeObserver' in window && projectStoryGallery){
+    new ResizeObserver(entries => {
+      const width = entries[0].contentRect.width;
+      if(Math.abs(width-projectGalleryLastWidth)>.1){
+        projectGalleryLastWidth = width;
+        scheduleProjectGallery();
+      }
+    }).observe(projectStoryGallery);
+  }
+
+  new MutationObserver(()=>{
+    updateProjectViewerLabels();
+    projectStoryGallery?.querySelectorAll('.project-gallery-card').forEach((card,index)=>{
+      card.setAttribute('aria-label',(document.documentElement.lang==='en'?'Open artwork ':'Открыть работу ')+(index+1));
+    });
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+
 
   const projectPlaceholders = {
     ru: 'Здесь будет галерея работ и короткая история проекта. Структура уже готова — содержание можно добавлять и менять отдельно для каждой планеты.',
@@ -2650,11 +2937,13 @@ body.art-open{overflow:hidden}
         projectModal?.classList.add('is-open');
         projectModal?.setAttribute('aria-hidden','false');
         document.body.classList.add('project-open');
+        requestAnimationFrame(scheduleProjectGallery);
       });
     });
   }
 
   function closeProjectModal(){
+    closeProjectViewer();
     projectGalleryExpanded = false;
     if(projectGalleryMore) projectGalleryMore.hidden = true;
     projectModal?.classList.remove('is-open');
