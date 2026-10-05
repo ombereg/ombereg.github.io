@@ -200,6 +200,15 @@ body.project-open main { overflow: hidden; }
   .project-universe .planet-branding { --planet-size: 88px; }
   .project-universe .project-planet-name { font-size: calc(13px * var(--composition-scale)); }
 }
+@media (min-width: 1100px) {
+  .about-visual.project-universe {
+    --composition-scale: 1.25;
+    width: min(calc(100% * var(--composition-scale)), calc(368px * var(--composition-scale)));
+    margin-top: clamp(31px, 4vh, 38px);
+    margin-bottom: 0;
+  }
+}
+
 @media (min-width: 760px) and (max-width: 1099px) {
   .about-visual.project-universe {
     --composition-scale: 1.25;
