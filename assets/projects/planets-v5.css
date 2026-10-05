@@ -204,7 +204,8 @@ body.project-open main { overflow: hidden; }
   .about-visual.project-universe {
     --composition-scale: 1.25;
     width: min(calc(100% * var(--composition-scale)), calc(368px * var(--composition-scale)));
-    margin-top: clamp(31px, 4vh, 38px);
+    align-self: start;
+    margin-top: 32px;
     margin-bottom: 0;
   }
 }
@@ -213,7 +214,8 @@ body.project-open main { overflow: hidden; }
   .about-visual.project-universe {
     --composition-scale: 1.25;
     width: min(calc(100% * var(--composition-scale)), calc(368px * var(--composition-scale)));
-    margin-top: clamp(31px, 4vh, 38px);
+    align-self: start;
+    margin-top: 32px;
     margin-bottom: 0;
   }
 }
