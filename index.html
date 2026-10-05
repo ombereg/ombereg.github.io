@@ -1900,10 +1900,23 @@ html[lang="en"] [data-lang="en"]{display:revert}
   .shooting-star:nth-child(n+6){display:none}
 }
 @media(min-width:900px){
+  :root{
+    --display-font:"Helvetica Neue","Arial Nova",Arial,sans-serif
+  }
+  body,
+  button{
+    font-family:"Helvetica Neue","Arial Nova",Arial,sans-serif
+  }
   .hero-title,
   .hero-title::before,
-  .hero-title .om-glyph{
-    animation:none!important
+  .hero-title .o-mark,
+  .hero-title .o-mark::before,
+  .hero-title .om-glyph,
+  .hero-title .m-letter,
+  .hero-title .b-letter,
+  .hero-title .ereg{
+    animation:none!important;
+    transition:none!important
   }
   .hero-title{
     transform:none!important;
@@ -1913,9 +1926,22 @@ html[lang="en"] [data-lang="en"]{display:revert}
     transform:scale(1)!important;
     opacity:.62!important
   }
+  .hero-title .o-mark{
+    transform:none!important
+  }
+  .hero-title .o-mark::before{
+    transform:none!important;
+    filter:none!important
+  }
   .hero-title .om-glyph{
+    transform:translate(-50%,-50%)!important;
     background-position:50% 50%!important;
-    filter:drop-shadow(0 0 6px rgba(112,204,229,.12))
+    filter:none!important
+  }
+  .hero-title .m-letter,
+  .hero-title .b-letter,
+  .hero-title .ereg{
+    background-position:50% 50%!important
   }
 }
 @keyframes wideSparkleA{
