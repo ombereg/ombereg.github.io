@@ -1040,7 +1040,8 @@ h1,h2,h3{
     rgba(5,9,25,.72);
   box-shadow:0 30px 100px rgba(0,0,0,.34)
 }
-.project-modal-close{
+.project-modal-close,
+.project-modal-back{
   position:absolute;
   top:12px;
   right:14px;
@@ -1053,6 +1054,10 @@ h1,h2,h3{
   font-size:21px;
   font-weight:200;
   cursor:pointer
+}
+.project-modal-back{
+  left:14px;
+  right:auto
 }
 .project-modal-planet{
   width:min(58vw,260px);
@@ -1573,7 +1578,8 @@ body.project-open{overflow:hidden}
   height:auto;
   object-fit:contain
 }
-.portfolio-modal-close{
+.portfolio-modal-close,
+.portfolio-modal-back{
   position:fixed;
   top:max(18px,env(safe-area-inset-top));
   right:18px;
@@ -1587,6 +1593,10 @@ body.project-open{overflow:hidden}
   font-size:25px;
   font-weight:200;
   cursor:pointer
+}
+.portfolio-modal-back{
+  left:18px;
+  right:auto
 }
 .portfolio-modal-nav{
   position:fixed;
@@ -1954,7 +1964,7 @@ body.art-open{overflow:hidden}
 }
 
 </style>
-<link rel="stylesheet" href="assets/projects/planets-v5.css?v=desktop-20261005-1">
+<link rel="stylesheet" href="assets/projects/planets-v5.css?v=align-title-20261005-2">
 <script src="assets/projects/planets-v4.js" defer></script>
 <link rel="stylesheet" href="assets/portfolio/video-preview-v2.css?v=c0d152e4289b">
 <link rel="stylesheet" href="assets/portfolio/video-masonry-v1.css?v=faa1be44c5b0">
@@ -2329,6 +2339,7 @@ body.art-open{overflow:hidden}
 </main>
 
 <div class="portfolio-modal" id="portfolio-modal" role="dialog" aria-modal="true" aria-labelledby="portfolio-modal-title" aria-hidden="true">
+  <button class="portfolio-modal-back" id="portfolio-modal-back" type="button" aria-label="Назад">←</button>
   <button class="portfolio-modal-close" id="portfolio-modal-close" type="button" aria-label="Close">×</button>
   <button class="portfolio-modal-nav portfolio-modal-prev" id="portfolio-prev" type="button" aria-label="Previous">‹</button>
   <div class="portfolio-modal-inner">
@@ -2343,6 +2354,7 @@ body.art-open{overflow:hidden}
 
 <div class="project-modal" id="project-modal" aria-hidden="true">
   <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+    <button class="project-modal-back" id="project-modal-back" type="button" aria-label="Назад">←</button>
     <button class="project-modal-close" id="project-modal-close" type="button" aria-label="Close">×</button>
     <img class="project-modal-planet" id="project-modal-image" alt="">
     <a class="project-film-link project-film-link--hero" id="project-film-hero" href="https://youtu.be/SfEyYkarWz4?si=mRVcLZLZI-uTrCuW" target="_blank" rel="noopener" hidden>
@@ -2494,6 +2506,7 @@ body.art-open{overflow:hidden}
     portfolioMore.querySelector('[data-lang="ru"]').textContent = showing ? 'СКРЫТЬ −' : 'ЕЩЁ РАБОТЫ +';
     portfolioMore.querySelector('[data-lang="en"]').textContent = showing ? 'HIDE −' : 'MORE WORK +';
   });
+  document.getElementById('portfolio-modal-back')?.addEventListener('click', closePortfolio);
   document.getElementById('portfolio-modal-close')?.addEventListener('click', closePortfolio);
   document.getElementById('portfolio-prev')?.addEventListener('click', () => stepPortfolio(-1));
   document.getElementById('portfolio-next')?.addEventListener('click', () => stepPortfolio(1));
@@ -2806,7 +2819,7 @@ body.art-open{overflow:hidden}
   projectViewer.hidden = true;
   projectViewer.setAttribute('role','dialog');
   projectViewer.setAttribute('aria-modal','true');
-  projectViewer.innerHTML = '<div class="av2-toolbar"><span class="av2-count" aria-live="polite"></span><button class="av2-minus" type="button">−</button><button class="av2-reset" type="button">100%</button><button class="av2-plus" type="button">+</button><button class="av2-close" type="button">×</button></div><div class="av2-viewport"><img class="av2-img" alt="" draggable="false"><span class="av2-loading"></span></div><button class="av2-nav av2-prev" type="button">‹</button><button class="av2-nav av2-next" type="button">›</button><div class="av2-hint"></div>';
+  projectViewer.innerHTML = '<div class="av2-toolbar"><button class="av2-back" type="button">←</button><span class="av2-count" aria-live="polite"></span><button class="av2-minus" type="button">−</button><button class="av2-reset" type="button">100%</button><button class="av2-plus" type="button">+</button><button class="av2-close" type="button">×</button></div><div class="av2-viewport"><img class="av2-img" alt="" draggable="false"><span class="av2-loading"></span></div><button class="av2-nav av2-prev" type="button">‹</button><button class="av2-nav av2-next" type="button">›</button><div class="av2-hint"></div>';
   document.body.appendChild(projectViewer);
 
   const projectViewerViewport = projectViewer.querySelector('.av2-viewport');
@@ -2815,6 +2828,7 @@ body.art-open{overflow:hidden}
   const projectViewerReset = projectViewer.querySelector('.av2-reset');
   const projectViewerLoading = projectViewer.querySelector('.av2-loading');
   const projectViewerClose = projectViewer.querySelector('.av2-close');
+  const projectViewerBack = projectViewer.querySelector('.av2-back');
   let projectViewerIndex = -1;
   let projectViewerPreviousFocus = null;
   let projectViewerZoom = 1;
@@ -2830,6 +2844,7 @@ body.art-open{overflow:hidden}
   function updateProjectViewerLabels(){
     projectViewer.setAttribute('aria-label',projectViewerText('Просмотр работы','Artwork viewer'));
     const labels = {
+      '.av2-back':['Назад','Back'],
       '.av2-minus':['Уменьшить','Zoom out'],
       '.av2-plus':['Приблизить','Zoom in'],
       '.av2-reset':['Показать целиком','Fit to screen'],
@@ -2895,7 +2910,7 @@ body.art-open{overflow:hidden}
     projectViewerPhoto.src = projectGalleryItems[projectViewerIndex].full + '?v=project-full-1';
     projectViewerPhoto.alt = '';
     updateProjectViewerLabels();
-    if(starting) projectViewerClose.focus({preventScroll:true});
+    if(starting) projectViewerBack?.focus({preventScroll:true});
   }
 
   function closeProjectViewer(){
@@ -2961,6 +2976,7 @@ body.art-open{overflow:hidden}
   projectViewerViewport.addEventListener('pointercancel',()=>{projectViewerPointers.clear();projectViewerGesture=null;});
   projectViewerViewport.addEventListener('dblclick',event=>{event.preventDefault();setProjectViewerZoom(projectViewerZoom===1?2:1);});
   projectViewerViewport.addEventListener('wheel',event=>{event.preventDefault();setProjectViewerZoom(projectViewerZoom*(event.deltaY<0?1.12:1/1.12));},{passive:false});
+  projectViewerBack?.addEventListener('click',closeProjectViewer);
   projectViewerClose.addEventListener('click',closeProjectViewer);
   projectViewer.querySelector('.av2-prev').addEventListener('click',()=>stepProjectViewer(-1));
   projectViewer.querySelector('.av2-next').addEventListener('click',()=>stepProjectViewer(1));
@@ -3276,6 +3292,7 @@ body.art-open{overflow:hidden}
     projectModal?.setAttribute('aria-hidden','true');
     document.body.classList.remove('project-open');
   }
+  document.getElementById('project-modal-back')?.addEventListener('click', closeProjectModal);
   document.getElementById('project-modal-close')?.addEventListener('click', closeProjectModal);
   projectModal?.addEventListener('click', event => {
     if(event.target === projectModal) closeProjectModal();
