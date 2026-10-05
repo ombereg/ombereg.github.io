@@ -225,20 +225,16 @@ body.project-open main { overflow: hidden; }
   .project-universe .project-planet-art::before { animation: none !important; transition: none !important; transform: none !important; }
 }
 
-/* Project modal: keep scrolling, hide the native desktop scrollbar */
-.project-modal,
-.project-modal-card,
-.project-modal-copy,
-.project-story-gallery {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none;
-}
-.project-modal::-webkit-scrollbar,
-.project-modal-card::-webkit-scrollbar,
-.project-modal-copy::-webkit-scrollbar,
-.project-story-gallery::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
-  display: none !important;
-  background: transparent !important;
+/* Phones keep the native track out of sight; tablet/desktop use the styled dark scrollbar from index.html. */
+@media (max-width: 759px) {
+  .project-modal-card {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none;
+  }
+  .project-modal-card::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+    background: transparent !important;
+  }
 }
