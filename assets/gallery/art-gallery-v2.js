@@ -16,17 +16,18 @@
   const dialog = document.createElement('div');
   dialog.className = 'av2'; dialog.id = 'art-viewer-v2'; dialog.hidden = true;
   dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');
-  dialog.innerHTML = '<div class="av2-toolbar"><span class="av2-count" aria-live="polite"></span><button class="av2-minus" type="button">−</button><button class="av2-reset" type="button">100%</button><button class="av2-plus" type="button">+</button><button class="av2-close" type="button">×</button></div><div class="av2-viewport"><img class="av2-img" alt="" draggable="false"><span class="av2-loading"></span></div><button class="av2-nav av2-prev" type="button">‹</button><button class="av2-nav av2-next" type="button">›</button><div class="av2-hint"></div>';
+  dialog.innerHTML = '<div class="av2-toolbar"><button class="av2-back" type="button">←</button><span class="av2-count" aria-live="polite"></span><button class="av2-minus" type="button">−</button><button class="av2-reset" type="button">100%</button><button class="av2-plus" type="button">+</button><button class="av2-close" type="button">×</button></div><div class="av2-viewport"><img class="av2-img" alt="" draggable="false"><span class="av2-loading"></span></div><button class="av2-nav av2-prev" type="button">‹</button><button class="av2-nav av2-next" type="button">›</button><div class="av2-hint"></div>';
   document.body.appendChild(dialog);
   const view = dialog.querySelector('.av2-viewport'), photo=dialog.querySelector('.av2-img');
   const count=dialog.querySelector('.av2-count'), reset=dialog.querySelector('.av2-reset');
   const loading=dialog.querySelector('.av2-loading');
   const closeButton=dialog.querySelector('.av2-close');
+  const backButton=dialog.querySelector('.av2-back');
   function labels(){
     more.textContent = visible >= items.length ? text('Свернуть −','Show less −') : text('Смотреть ещё +','See more +');
     more.setAttribute('aria-expanded', String(visible > (catalog?.initialCount || 8)));
     dialog.setAttribute('aria-label',text('Просмотр работы','Artwork viewer'));
-    const labels={'.av2-minus':['Уменьшить','Zoom out'],'.av2-plus':['Приблизить','Zoom in'],'.av2-reset':['Показать целиком','Fit to screen'],'.av2-close':['Закрыть','Close'],'.av2-prev':['Предыдущая работа','Previous artwork'],'.av2-next':['Следующая работа','Next artwork']};
+    const labels={'.av2-back':['Назад','Back'],'.av2-minus':['Уменьшить','Zoom out'],'.av2-plus':['Приблизить','Zoom in'],'.av2-reset':['Показать целиком','Fit to screen'],'.av2-close':['Закрыть','Close'],'.av2-prev':['Предыдущая работа','Previous artwork'],'.av2-next':['Следующая работа','Next artwork']};
     for(const [sel,v] of Object.entries(labels))dialog.querySelector(sel).setAttribute('aria-label',text(...v));
     dialog.querySelector('.av2-hint').textContent=text('Два пальца или + для приближения · свайп для перелистывания','Pinch or + to zoom · swipe to browse');
     grid.querySelectorAll('[data-art-id]').forEach(card => { const it=items.find(v=>v.id===card.dataset.artId); if(it)card.setAttribute('aria-label',text('Открыть работу ','Open artwork ')+String(it.number).padStart(2,'0')); });
@@ -85,7 +86,7 @@
     photo.onload=()=>{loading.hidden=true;photo.style.visibility='visible';fit();};
     photo.onerror=()=>{loading.textContent=text('Изображение не загрузилось. Попробуйте открыть его ещё раз.','Image could not load. Please reopen it.');};
     photo.src=asset(item.full);photo.alt=item[lang()==='ru'?'altRu':'altEn']||'';
-    labels();fit();if(starting)closeButton.focus({preventScroll:true});
+    labels();fit();if(starting)backButton?.focus({preventScroll:true});
   }
   function close(){
     if(dialog.hidden)return;dialog.hidden=true;openIndex=-1;photo.removeAttribute('src');
@@ -115,6 +116,7 @@
   view.addEventListener('pointercancel',()=>{pointers.clear();gesture=null;});
   view.addEventListener('dblclick',e=>{e.preventDefault();setZoom(zoom===1?2:1);});
   view.addEventListener('wheel',e=>{e.preventDefault();setZoom(zoom*(e.deltaY<0?1.12:1/1.12));},{passive:false});
+  backButton?.addEventListener('click',close);
   closeButton.addEventListener('click',close);
   dialog.querySelector('.av2-prev').addEventListener('click',()=>step(-1));
   dialog.querySelector('.av2-next').addEventListener('click',()=>step(1));
