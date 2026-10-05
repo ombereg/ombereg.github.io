@@ -205,7 +205,7 @@ body.project-open main { overflow: hidden; }
     --composition-scale: 1.25;
     width: min(calc(100% * var(--composition-scale)), calc(368px * var(--composition-scale)));
     align-self: start;
-    margin-top: 32px;
+    margin-top: 56px;
     margin-bottom: 0;
   }
 }
@@ -215,7 +215,7 @@ body.project-open main { overflow: hidden; }
     --composition-scale: 1.25;
     width: min(calc(100% * var(--composition-scale)), calc(368px * var(--composition-scale)));
     align-self: start;
-    margin-top: 32px;
+    margin-top: 56px;
     margin-bottom: 0;
   }
 }
