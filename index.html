@@ -1726,6 +1726,29 @@ html[lang="en"] [data-lang="en"]{display:revert}
 }
 
 /* iPad / tablet orientation refinements */
+@media (min-width:760px) and (max-width:1099px){
+  .practice-screen,
+  .creative-lines-screen{
+    min-height:auto;
+    justify-content:flex-start;
+    gap:clamp(20px,3vh,30px);
+    padding-top:max(30px,env(safe-area-inset-top));
+    padding-bottom:clamp(48px,7vh,74px)
+  }
+  .practice-screen .skills{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    column-gap:clamp(24px,4vw,38px);
+    row-gap:clamp(52px,7vh,68px);
+    margin-top:clamp(34px,5vh,50px)
+  }
+  .practice-screen .creative-quote--portfolio{
+    margin-top:clamp(70px,9vh,92px)
+  }
+  .creative-lines-screen .lines-grid{
+    margin-top:clamp(22px,3vh,30px)
+  }
+}
+
 @media (min-width:760px) and (max-width:1099px) and (orientation:portrait){
   .hero-screen{
     min-height:auto;
@@ -1743,29 +1766,11 @@ html[lang="en"] [data-lang="en"]{display:revert}
     justify-self:end
   }
   .hero-screen .scroll{margin-top:2px}
-
-  .practice-screen,
-  .creative-lines-screen{
-    min-height:auto;
-    justify-content:flex-start;
-    gap:24px;
-    padding-bottom:56px
-  }
-  .practice-screen .skills{
-    grid-template-columns:repeat(2,minmax(0,1fr))
-  }
-  .practice-screen .creative-quote--portfolio{
-    margin-top:72px
-  }
-  .creative-lines-screen .lines-grid{
-    margin-top:24px
-  }
 }
 
-@media (min-width:760px) and (orientation:landscape){
+@media (min-width:760px) and (max-width:1099px) and (orientation:landscape){
   .practice-screen .skills{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:36px 28px
+    row-gap:clamp(42px,6vh,58px)
   }
 }
 
@@ -2150,7 +2155,7 @@ body.art-open{overflow:hidden}
 
       <div class="creative-quote creative-quote--portfolio" data-lang="ru">
         <span class="quote-mark" aria-hidden="true"></span>
-        Будущее творчества — не человек или технология, а пространство, которое они создают вместе.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        Будущее творчества — не человек или технология, а&nbsp;пространство, которое они создают вместе.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
       <div class="creative-quote creative-quote--portfolio" data-lang="en">
         <span class="quote-mark" aria-hidden="true"></span>
