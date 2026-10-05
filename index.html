@@ -1725,6 +1725,16 @@ html[lang="en"] [data-lang="en"]{display:revert}
   to{background-position:100% 50%}
 }
 
+/* Desktop directions */
+@media (min-width:1100px){
+  .practice-screen .skills{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:clamp(24px,4vw,38px);
+    row-gap:clamp(52px,7vh,68px);
+    margin-top:clamp(34px,5vh,50px)
+  }
+}
+
 /* iPad / tablet orientation refinements */
 @media (min-width:760px) and (max-width:1099px){
   .screen{
