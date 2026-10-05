@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#040514">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
-<link rel="shortcut icon" href="/favicon.svg?v=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=ombereg-brand-20261005-2">
+<link rel="shortcut icon" href="/favicon.svg?v=ombereg-brand-20261005-2">
 <meta name="description" content="OM BEREG — visual art, AI, fashion, motion and creative direction.">
 <link rel="canonical" href="https://ombereg.art/">
-<meta name="ombereg-build" content="desktop-aum-mukta-20261005-15">
+<meta name="ombereg-build" content="vector-om-brand-favicon-20261005-16">
 <title>OM BEREG — Visual Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500&family=Inter:opsz,wght@14..32,200..700&family=Mukta:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;500&family=Noto+Serif+Devanagari:wght@300;400;500&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200..700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#040514;
@@ -600,35 +600,28 @@ main::-webkit-scrollbar{display:none}
   display:inline-grid;
   place-items:center;
   flex:0 0 auto;
-  width:.76em;
-  height:.76em;
+  width:.92em;
+  height:.92em;
   border-radius:50%;
-  background:transparent
+  overflow:hidden;
+  background:#9191bd;
+  box-shadow:
+    0 0 5px rgba(145,145,189,.18),
+    0 0 12px rgba(145,145,189,.10)
 }
 .mini-o::before{
   content:"";
   position:absolute;
-  inset:0;
-  border-radius:50%;
-  padding:.045em;
-  background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude
-}
-.mini-o::after{
-  content:"";
-  position:absolute;
   left:50%;
   top:50%;
-  width:.15em;
-  height:.15em;
-  border-radius:50%;
+  width:68%;
+  height:68%;
+  transform:translate(-50%,-50%);
   background:#fff;
-  transform:translate(-50%,-50%)
+  -webkit-mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat;
+  mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat
 }
+.mini-o::after{content:none}
 .wordmark .m-letter,
 .wordmark .bereg{
   font-family:var(--display-font);
@@ -725,16 +718,11 @@ main::-webkit-scrollbar{display:none}
   top:58%;
   transform:translate(-50%,-50%);
   display:block;
-  font-family:"Devanagari Sangam MN","Kohinoor Devanagari","Noto Sans Devanagari",serif;
-  font-size:.52em;
-  line-height:1;
-  text-align:center;
+  width:.50em;
+  height:.50em;
   background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
-  background-size:180% 180%;
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  animation:omGlow 6s ease-in-out infinite alternate
+  -webkit-mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat;
+  mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat
 }
 .hero-title .m-letter{
   grid-column:2;
@@ -2009,9 +1997,8 @@ html[lang="en"] [data-lang="en"]{display:revert}
   /* Desktop optical tuning: keep the Apple-like proportions while slightly enlarging the Aum glyph
      and tightening BEREG by about 2px at full hero size. */
   .hero-title .om-glyph{
-    font-size:.50em!important;
-    font-family:"Mukta","Noto Sans Devanagari",sans-serif!important;
-    font-weight:400!important
+    width:.50em!important;
+    height:.50em!important
   }
   .hero-title .b-letter{
     letter-spacing:0!important
@@ -2285,7 +2272,7 @@ body.art-open{overflow:hidden}
     <div class="inner hero-grid">
       <div>
         <div class="kicker">ART / AI / FASHION / MOTION</div>
-        <h1 class="hero-title" aria-label="OMBEREG"><span class="o-mark" aria-hidden="true"><span class="om-glyph">ॐ</span></span><span class="m-letter">M</span><span class="b-letter">B</span><span class="ereg">EREG</span></h1>
+        <h1 class="hero-title" aria-label="OMBEREG"><span class="o-mark" aria-hidden="true"><span class="om-glyph"></span></span><span class="m-letter">M</span><span class="b-letter">B</span><span class="ereg">EREG</span></h1>
 
         <div class="hero-copy" data-lang="ru">
           <span class="text-line">Создаю визуальные концепции,</span>
