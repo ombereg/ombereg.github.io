@@ -7,6 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
 <link rel="shortcut icon" href="/favicon.svg?v=1">
 <meta name="description" content="OM BEREG — visual art, AI, fashion, motion and creative direction.">
+<meta name="ombereg-build" content="desktop-match-mobile-fonts-static-mark-20261005-2">
 <title>OM BEREG — Visual Portfolio</title>
 <style>
 :root{
@@ -1899,14 +1900,7 @@ html[lang="en"] [data-lang="en"]{display:revert}
   .wide-stars{display:none}
   .shooting-star:nth-child(n+6){display:none}
 }
-@media(min-width:900px){
-  :root{
-    --display-font:"Helvetica Neue","Arial Nova",Arial,sans-serif
-  }
-  body,
-  button{
-    font-family:"Helvetica Neue","Arial Nova",Arial,sans-serif
-  }
+@media (hover:hover) and (pointer:fine){
   .hero-title,
   .hero-title::before,
   .hero-title .o-mark,
@@ -1923,17 +1917,23 @@ html[lang="en"] [data-lang="en"]{display:revert}
     filter:drop-shadow(0 0 10px rgba(108,205,229,.12))
   }
   .hero-title::before{
+    animation:none!important;
     transform:scale(1)!important;
     opacity:.62!important
   }
   .hero-title .o-mark{
+    animation:none!important;
     transform:none!important
   }
   .hero-title .o-mark::before{
+    animation:none!important;
     transform:none!important;
     filter:none!important
   }
   .hero-title .om-glyph{
+    animation:none!important;
+    left:50%!important;
+    top:58%!important;
     transform:translate(-50%,-50%)!important;
     background-position:50% 50%!important;
     filter:none!important
