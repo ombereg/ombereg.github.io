@@ -1986,7 +1986,7 @@ body.art-open{overflow:hidden}
 }
 
 </style>
-<link rel="stylesheet" href="assets/projects/planets-v5.css?v=lower-planets-20261005-3">
+<link rel="stylesheet" href="assets/projects/planets-v5.css?v=hide-scrollbar-20261005-4">
 <script src="assets/projects/planets-v4.js" defer></script>
 <link rel="stylesheet" href="assets/portfolio/video-preview-v2.css?v=c0d152e4289b">
 <link rel="stylesheet" href="assets/portfolio/video-masonry-v1.css?v=faa1be44c5b0">
@@ -2552,10 +2552,27 @@ body.art-open{overflow:hidden}
   const targets = document.querySelectorAll('[data-lang]');
   const storageKey = 'ombereg_lang';
 
+  function fixRussianHangingWords(root=document){
+    const selector = '.creative-quote[data-lang="ru"], .project-modal-copy[data-lang="ru"] .lumina-quote';
+    const nodes = root === document ? [...document.querySelectorAll(selector)] : [...root.querySelectorAll('.lumina-quote')];
+    const shortWords = /(^|[\\s(«„"—–-])((?:[АаИиВвКкСсУуОо]|[Вв]о|[Кк]о|[Сс]о|[Нн]а|[Пп]о|[Дд]о|[Зз]а|[Ии]з|[Оо]т|[Оо]б|[Нн]е|[Нн]и|[Нн]ад|[Пп]од|[Пп]ри|[Дд]ля))\\s+(?=[А-Яа-яЁё])/g;
+    nodes.forEach(el => {
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      while(walker.nextNode()) textNodes.push(walker.currentNode);
+      textNodes.forEach(node => {
+        let next = node.nodeValue;
+        for(let i=0;i<3;i++) next = next.replace(shortWords, '$1$2\\u00A0');
+        node.nodeValue = next;
+      });
+    });
+  }
+
   function setLang(lang){
     targets.forEach(el => el.classList.toggle('active', el.dataset.lang === lang));
     buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.setLang === lang));
     document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
+    fixRussianHangingWords(document);
     portfolioGrid?.querySelectorAll('.portfolio-card').forEach((card, i) => {
       const item = portfolioItems[i];
       card.setAttribute('aria-label', (item.video ? (lang === 'en' ? 'Play video: ' : 'Смотреть видео: ') : '') + itemTitle(item));
@@ -3258,6 +3275,7 @@ body.art-open{overflow:hidden}
           projectModalCopyEn.classList.toggle('is-rich', hasStory);
           projectModalCopyRu.innerHTML = isNadopen ? nadopenLumina.ru : (isOMuseum ? omuseumStory.ru : (isBrx ? brxStory.ru : (isSoulLux ? soulLuxStory.ru : (isSeaversum ? seaversumStory.ru : (isBranding ? brandingStory.ru : (isHolidays ? holidaysStory.ru : projectPlaceholders.ru))))));
           projectModalCopyEn.innerHTML = isNadopen ? nadopenLumina.en : (isOMuseum ? omuseumStory.en : (isBrx ? brxStory.en : (isSoulLux ? soulLuxStory.en : (isSeaversum ? seaversumStory.en : (isBranding ? brandingStory.en : (isHolidays ? holidaysStory.en : projectPlaceholders.en))))));
+          fixRussianHangingWords(projectModalCopyRu);
         }
         if(projectModalStatusRu) projectModalStatusRu.hidden = hasStory;
         if(projectModalStatusEn) projectModalStatusEn.hidden = hasStory;
