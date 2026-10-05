@@ -2555,14 +2555,14 @@ body.art-open{overflow:hidden}
   function fixRussianHangingWords(root=document){
     const selector = '.creative-quote[data-lang="ru"], .project-modal-copy[data-lang="ru"] .lumina-quote';
     const nodes = root === document ? [...document.querySelectorAll(selector)] : [...root.querySelectorAll('.lumina-quote')];
-    const shortWords = /(^|[\\s(«„"—–-])((?:[АаИиВвКкСсУуОо]|[Вв]о|[Кк]о|[Сс]о|[Нн]а|[Пп]о|[Дд]о|[Зз]а|[Ии]з|[Оо]т|[Оо]б|[Нн]е|[Нн]и|[Нн]ад|[Пп]од|[Пп]ри|[Дд]ля))\\s+(?=[А-Яа-яЁё])/g;
+    const shortWords = /(^|[\s(«„"—–-])((?:[АаИиВвКкСсУуОо]|[Вв]о|[Кк]о|[Сс]о|[Нн]а|[Пп]о|[Дд]о|[Зз]а|[Ии]з|[Оо]т|[Оо]б|[Нн]е|[Нн]и|[Нн]ад|[Пп]од|[Пп]ри|[Дд]ля))\s+(?=[А-Яа-яЁё])/g;
     nodes.forEach(el => {
       const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
       const textNodes = [];
       while(walker.nextNode()) textNodes.push(walker.currentNode);
       textNodes.forEach(node => {
         let next = node.nodeValue;
-        for(let i=0;i<3;i++) next = next.replace(shortWords, '$1$2\\u00A0');
+        for(let i=0;i<3;i++) next = next.replace(shortWords, '$1$2\u00A0');
         node.nodeValue = next;
       });
     });
