@@ -7,9 +7,11 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
 <link rel="shortcut icon" href="/favicon.svg?v=1">
 <meta name="description" content="OM BEREG — visual art, AI, fashion, motion and creative direction.">
-<meta name="ombereg-build" content="contact-shell-glow-20261005-1">
+<meta name="ombereg-build" content="desktop-inter-shell-scrollbar-20261005-2">
 <title>OM BEREG — Visual Portfolio</title>
-<link rel="stylesheet" href="/assets/contact/contact-shell-art.css?v=contact-shell-20261005-1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200..700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#040514;
@@ -23,7 +25,8 @@
   --aqua:#5be8da;
   --pad:clamp(22px,6vw,52px);
   --maxw:1120px;
-  --display-font:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+  --display-font:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue","Segoe UI",Arial,sans-serif;
+  --body-font:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue","Segoe UI",Arial,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{
@@ -31,7 +34,7 @@ html,body{
   min-height:100%;
   background:var(--bg);
   color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif
+  font-family:var(--body-font)
 }
 body{overflow-x:hidden}
 a,button{-webkit-tap-highlight-color:transparent}
@@ -816,7 +819,8 @@ main::-webkit-scrollbar{display:none}
 h1,h2,h3,p{margin:0}
 h1,h2,h3{
   font-family:var(--display-font);
-  font-weight:200
+  font-weight:200;
+  font-optical-sizing:auto
 }
 
 
@@ -936,7 +940,7 @@ h1,h2,h3{
   max-width:36rem;
   padding:10px 16px 10px 38px;
   color:rgba(235,236,255,.78);
-  font-family:"Avenir Next","Helvetica Neue",Arial,sans-serif;
+  font-family:"Avenir Next",-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;
   font-size:clamp(17px,4.4vw,22px);
   line-height:1.58;
   font-style:italic;
@@ -1700,6 +1704,10 @@ body.portfolio-open{overflow:hidden}
   position:relative;
   isolation:isolate
 }
+.contact-heading-stage{
+  position:relative;
+  width:100%
+}
 .contact .section-kicker,
 .contact .section-title,
 .contact-copy,
@@ -1711,10 +1719,10 @@ body.portfolio-open{overflow:hidden}
 }
 .contact-shell-wrap{
   position:absolute;
-  top:clamp(18px,2.4vw,34px);
-  right:clamp(-16px,1vw,14px);
+  top:0;
+  right:clamp(60px,8vw,110px);
   z-index:1;
-  width:clamp(220px,27vw,300px);
+  width:clamp(240px,27vw,320px);
   aspect-ratio:1;
   display:grid;
   place-items:center;
@@ -1723,11 +1731,11 @@ body.portfolio-open{overflow:hidden}
 .contact-shell-wrap::before{
   content:"";
   position:absolute;
-  inset:10%;
+  inset:8%;
   border-radius:50%;
   background:
-    radial-gradient(circle at 50% 54%,rgba(105,231,225,.26) 0%,rgba(128,183,255,.18) 30%,rgba(182,153,255,.13) 52%,rgba(197,175,255,.04) 66%,transparent 76%);
-  filter:blur(24px);
+    radial-gradient(circle at 50% 54%,rgba(105,231,225,.27) 0%,rgba(128,183,255,.19) 30%,rgba(182,153,255,.14) 52%,rgba(197,175,255,.045) 66%,transparent 76%);
+  filter:blur(25px);
   opacity:.72;
   transform:scale(.96);
   animation:contactShellAura 6.8s ease-in-out infinite alternate;
@@ -1738,10 +1746,8 @@ body.portfolio-open{overflow:hidden}
   z-index:1;
   display:block;
   width:100%;
-  aspect-ratio:1;
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:contain;
+  height:auto;
+  object-fit:contain;
   filter:
     drop-shadow(0 0 10px rgba(112,231,226,.24))
     drop-shadow(0 0 23px rgba(151,130,255,.22))
@@ -1772,12 +1778,12 @@ body.portfolio-open{overflow:hidden}
 }
 @media(max-width:759px){
   .contact-shell-wrap{
-    top:clamp(54px,14vw,72px);
+    top:0;
     right:clamp(-12px,-2vw,-5px);
     width:clamp(108px,31vw,136px)
   }
   .contact-shell-wrap::before{
-    inset:7%;
+    inset:6%;
     filter:blur(17px)
   }
   .contact-shell-art{
@@ -1786,6 +1792,13 @@ body.portfolio-open{overflow:hidden}
       drop-shadow(0 0 18px rgba(151,130,255,.19))
   }
 }
+@media(min-width:1100px){
+  .contact-shell-wrap{
+    right:clamp(105px,12vw,180px);
+    width:clamp(270px,24vw,350px)
+  }
+}
+
 .contact-copy{
   margin-top:22px;
   max-width:36rem;
@@ -2210,7 +2223,7 @@ body.art-open{overflow:hidden}
 }
 
 </style>
-<link rel="stylesheet" href="assets/projects/planets-v5.css?v=hide-scrollbar-20261005-4">
+<link rel="stylesheet" href="assets/projects/planets-v5.css?v=restore-dark-scrollbar-20261005-5">
 <script src="assets/projects/planets-v4.js" defer></script>
 <link rel="stylesheet" href="assets/portfolio/video-preview-v2.css?v=c0d152e4289b">
 <link rel="stylesheet" href="assets/portfolio/video-masonry-v1.css?v=faa1be44c5b0">
@@ -2555,10 +2568,13 @@ body.art-open{overflow:hidden}
       <div class="section-kicker" data-lang="ru">ЕСТЬ ИДЕЯ?</div>
       <div class="section-kicker" data-lang="en">HAVE AN IDEA?</div>
 
-      <h2 class="section-title" data-lang="ru">ХОЧЕШЬ<br>ЧТО-ТО<br>СТОЯЩЕЕ?</h2>
-      <h2 class="section-title" data-lang="en">WANT<br>SOMETHING<br>WORTHWHILE?</h2>
-
-      <div class="contact-shell-wrap" aria-hidden="true"><span class="contact-shell-art"></span></div>
+      <div class="contact-heading-stage">
+        <h2 class="section-title" data-lang="ru">ХОЧЕШЬ<br>ЧТО-ТО<br>СТОЯЩЕЕ?</h2>
+        <h2 class="section-title" data-lang="en">WANT<br>SOMETHING<br>WORTHWHILE?</h2>
+        <div class="contact-shell-wrap" aria-hidden="true">
+          <img class="contact-shell-art" src="/assets/contact/ChatGPT%20Image%205%20%D0%BE%D0%BA%D1%82.%202026%20%D0%B3.%2C%2012_29_29.png?v=20261005-2" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
 
       <div class="contact-copy" data-lang="ru">
         <span class="text-line">Если вам близка моя эстетика</span>
