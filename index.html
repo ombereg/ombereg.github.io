@@ -716,13 +716,11 @@ main::-webkit-scrollbar{display:none}
 .hero-title .om-glyph{
   position:absolute;
   left:50%;
-  top:56%;
+  top:58%;
   transform:translate(-50%,-50%);
   display:block;
-  font-family:"Noto Sans Devanagari","Devanagari Sangam MN","Kohinoor Devanagari",sans-serif;
-  font-size:.50em;
-  font-weight:500;
-  font-synthesis:none;
+  font-family:"Devanagari Sangam MN","Kohinoor Devanagari","Noto Sans Devanagari",serif;
+  font-size:.52em;
   line-height:1;
   text-align:center;
   background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
@@ -984,7 +982,7 @@ h1,h2,h3{
     bottom:auto;
     width:30px;
     height:24px;
-    margin-left:2px;
+    margin-left:8px;
     vertical-align:baseline;
     transform:rotate(180deg)
   }
@@ -1862,69 +1860,69 @@ html[lang="en"] [data-lang="en"]{display:revert}
 
 
 
-/* Tablet and desktop: richer stars; desktop OM glyph stays still */
+/* Tablet and desktop: richer stars; desktop hero mark stays still */
 @media(min-width:760px){
-  .stars::before,
-  .stars::after{
-    content:"";
-    position:absolute;
+  .wide-stars{
+    display:block;
+    position:fixed;
     inset:0;
+    z-index:1;
     pointer-events:none;
-    mix-blend-mode:screen
-  }
-  .stars::before{
+    mix-blend-mode:screen;
     background:
-      radial-gradient(circle at 19% 12%,rgba(255,255,255,.95) 0 .75px,transparent 1.7px),
-      radial-gradient(circle at 34% 21%,rgba(168,225,255,.90) 0 .65px,transparent 1.6px),
-      radial-gradient(circle at 47% 9%,rgba(255,238,178,.86) 0 .7px,transparent 1.65px),
-      radial-gradient(circle at 63% 18%,rgba(233,248,255,.94) 0 .85px,transparent 1.8px),
-      radial-gradient(circle at 74% 33%,rgba(164,223,255,.88) 0 .6px,transparent 1.55px),
-      radial-gradient(circle at 82% 11%,rgba(255,255,255,.92) 0 .7px,transparent 1.65px),
-      radial-gradient(circle at 27% 46%,rgba(255,233,157,.82) 0 .7px,transparent 1.65px),
-      radial-gradient(circle at 56% 52%,rgba(235,250,255,.92) 0 .65px,transparent 1.6px),
-      radial-gradient(circle at 71% 61%,rgba(170,229,255,.90) 0 .8px,transparent 1.75px),
-      radial-gradient(circle at 38% 72%,rgba(255,255,255,.91) 0 .7px,transparent 1.65px),
-      radial-gradient(circle at 17% 84%,rgba(166,224,255,.86) 0 .65px,transparent 1.55px),
-      radial-gradient(circle at 61% 88%,rgba(255,235,166,.84) 0 .7px,transparent 1.65px),
-      radial-gradient(circle at 84% 79%,rgba(241,251,255,.94) 0 .8px,transparent 1.8px);
+      radial-gradient(circle at 19% 12%,rgba(255,255,255,.92) 0 .75px,transparent 1.7px),
+      radial-gradient(circle at 34% 21%,rgba(168,225,255,.86) 0 .65px,transparent 1.6px),
+      radial-gradient(circle at 47% 9%,rgba(255,238,178,.82) 0 .7px,transparent 1.65px),
+      radial-gradient(circle at 63% 18%,rgba(233,248,255,.90) 0 .85px,transparent 1.8px),
+      radial-gradient(circle at 74% 33%,rgba(164,223,255,.84) 0 .6px,transparent 1.55px),
+      radial-gradient(circle at 82% 11%,rgba(255,255,255,.88) 0 .7px,transparent 1.65px),
+      radial-gradient(circle at 27% 46%,rgba(255,233,157,.78) 0 .7px,transparent 1.65px),
+      radial-gradient(circle at 56% 52%,rgba(235,250,255,.88) 0 .65px,transparent 1.6px),
+      radial-gradient(circle at 71% 61%,rgba(170,229,255,.86) 0 .8px,transparent 1.75px),
+      radial-gradient(circle at 38% 72%,rgba(255,255,255,.87) 0 .7px,transparent 1.65px),
+      radial-gradient(circle at 17% 84%,rgba(166,224,255,.82) 0 .65px,transparent 1.55px),
+      radial-gradient(circle at 61% 88%,rgba(255,235,166,.80) 0 .7px,transparent 1.65px),
+      radial-gradient(circle at 84% 79%,rgba(241,251,255,.90) 0 .8px,transparent 1.8px),
+      radial-gradient(circle at 12% 55%,rgba(255,255,255,.82) 0 .55px,transparent 1.45px),
+      radial-gradient(circle at 91% 46%,rgba(167,225,255,.82) 0 .7px,transparent 1.6px),
+      radial-gradient(circle at 52% 74%,rgba(255,230,148,.74) 0 .65px,transparent 1.55px);
+    opacity:.24;
     animation:wideSparkleA 7.8s ease-in-out infinite
   }
-  .stars::after{
-    background:
-      radial-gradient(circle at 23% 31%,rgba(214,241,255,.92) 0 .55px,transparent 1.45px),
-      radial-gradient(circle at 42% 37%,rgba(255,255,255,.96) 0 .8px,transparent 1.8px),
-      radial-gradient(circle at 52% 26%,rgba(255,225,138,.82) 0 .65px,transparent 1.6px),
-      radial-gradient(circle at 69% 42%,rgba(173,228,255,.88) 0 .75px,transparent 1.7px),
-      radial-gradient(circle at 79% 54%,rgba(250,254,255,.92) 0 .6px,transparent 1.5px),
-      radial-gradient(circle at 31% 63%,rgba(170,227,255,.90) 0 .7px,transparent 1.65px),
-      radial-gradient(circle at 48% 82%,rgba(255,238,173,.82) 0 .65px,transparent 1.55px),
-      radial-gradient(circle at 73% 91%,rgba(238,251,255,.93) 0 .75px,transparent 1.7px);
-    animation:wideSparkleB 10.2s ease-in-out infinite 1.4s
-  }
-  .shooting-star:nth-child(6){top:10%;left:31%;animation:shootingStarB 26s linear infinite 3s}
-  .shooting-star:nth-child(7){top:38%;right:31%;animation:shootingStarD 33s linear infinite 9s}
-  .shooting-star:nth-child(8){top:52%;left:42%;animation:shootingStarA 29s linear infinite 13s}
-  .shooting-star:nth-child(9){top:72%;left:36%;animation:shootingStarC 37s linear infinite 5s}
-  .shooting-star:nth-child(10){top:22%;right:42%;animation:shootingStarE 31s linear infinite 18s}
+  .shooting-star:nth-child(6){top:10%;left:31%;animation:shootingStarB 24s linear infinite 3s}
+  .shooting-star:nth-child(7){top:38%;right:31%;animation:shootingStarD 28s linear infinite 9s}
+  .shooting-star:nth-child(8){top:52%;left:42%;animation:shootingStarA 26s linear infinite 13s}
+  .shooting-star:nth-child(9){top:72%;left:36%;animation:shootingStarC 31s linear infinite 5s}
+  .shooting-star:nth-child(10){top:22%;right:42%;animation:shootingStarE 27s linear infinite 18s}
 }
-@media(min-width:1100px){
+@media(max-width:759px){
+  .wide-stars{display:none}
+  .shooting-star:nth-child(n+6){display:none}
+}
+@media(min-width:900px){
+  .hero-title,
+  .hero-title::before,
   .hero-title .om-glyph{
-    animation:none!important;
+    animation:none!important
+  }
+  .hero-title{
+    transform:none!important;
+    filter:drop-shadow(0 0 10px rgba(108,205,229,.12))
+  }
+  .hero-title::before{
+    transform:scale(1)!important;
+    opacity:.62!important
+  }
+  .hero-title .om-glyph{
     background-position:50% 50%!important;
     filter:drop-shadow(0 0 6px rgba(112,204,229,.12))
   }
 }
 @keyframes wideSparkleA{
-  0%,100%{opacity:.10;filter:drop-shadow(0 0 1px rgba(220,244,255,.18))}
-  30%{opacity:.29;filter:drop-shadow(0 0 3px rgba(220,244,255,.44))}
-  62%{opacity:.16}
-  82%{opacity:.34;filter:drop-shadow(0 0 4px rgba(226,247,255,.50))}
-}
-@keyframes wideSparkleB{
-  0%,100%{opacity:.08;filter:drop-shadow(0 0 1px rgba(255,224,155,.15))}
-  24%{opacity:.23}
-  55%{opacity:.12}
-  78%{opacity:.28;filter:drop-shadow(0 0 4px rgba(255,231,169,.35))}
+  0%,100%{opacity:.13;filter:drop-shadow(0 0 1px rgba(220,244,255,.18))}
+  30%{opacity:.34;filter:drop-shadow(0 0 3px rgba(220,244,255,.44))}
+  62%{opacity:.18}
+  82%{opacity:.40;filter:drop-shadow(0 0 4px rgba(226,247,255,.50))}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -2113,6 +2111,7 @@ body.art-open{overflow:hidden}
 <div class="motion-light motion-light-a"></div>
 <div class="motion-light motion-light-b"></div>
 <div class="stars"></div>
+<div class="wide-stars" aria-hidden="true"></div>
 <div class="shooting-stars" aria-hidden="true">
   <span class="shooting-star"></span>
   <span class="shooting-star"></span>
