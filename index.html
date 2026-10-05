@@ -1032,6 +1032,8 @@ h1,h2,h3{
   width:min(94vw,920px);
   max-height:88svh;
   overflow:auto;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(91,232,218,.72) rgba(7,17,39,.42);
   padding:38px 26px 30px;
   border:1px solid rgba(211,222,255,.11);
   border-radius:28px;
@@ -1039,6 +1041,22 @@ h1,h2,h3{
     radial-gradient(circle at 50% 16%,rgba(92,196,224,.09),transparent 34%),
     rgba(5,9,25,.72);
   box-shadow:0 30px 100px rgba(0,0,0,.34)
+}
+
+.project-modal-card::-webkit-scrollbar{
+  width:8px
+}
+.project-modal-card::-webkit-scrollbar-track{
+  background:rgba(7,17,39,.42);
+  border-radius:999px
+}
+.project-modal-card::-webkit-scrollbar-thumb{
+  border:2px solid rgba(4,5,20,.72);
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(199,184,255,.82),rgba(147,207,255,.78) 48%,rgba(91,232,218,.82))
+}
+.project-modal-card::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg,rgba(215,202,255,.95),rgba(163,218,255,.90) 48%,rgba(104,239,224,.94))
 }
 .project-modal-close,
 .project-modal-back{
@@ -2109,7 +2127,7 @@ body.art-open{overflow:hidden}
     <div class="inner quote-wrap quote-wrap--about">
       <div class="creative-quote" data-lang="ru">
         <span class="quote-mark" aria-hidden="true"></span>
-        Новые миры появляются там, где воображение человека встречается с возможностями технологий.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        Новые миры появляются там, где воображение человека встречается с&nbsp;возможностями технологий.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
       <div class="creative-quote" data-lang="en">
         <span class="quote-mark" aria-hidden="true"></span>
@@ -2181,7 +2199,7 @@ body.art-open{overflow:hidden}
 
       <div class="creative-quote creative-quote--portfolio" data-lang="ru">
         <span class="quote-mark" aria-hidden="true"></span>
-        Будущее творчества — не человек или технология, а&nbsp;пространство, которое они создают вместе.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        Будущее творчества — не&nbsp;человек или&nbsp;технология, а&nbsp;пространство, которое они создают вместе.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
       <div class="creative-quote creative-quote--portfolio" data-lang="en">
         <span class="quote-mark" aria-hidden="true"></span>
@@ -3047,7 +3065,7 @@ body.art-open{overflow:hidden}
       <p><strong>Lumina</strong> — свет как живая материя, источник сознания и&nbsp;внутренней силы.</p>
       <p><strong>Косморомантизм</strong> — соединение человеческих чувств, природы, океана и&nbsp;бесконечного космоса в&nbsp;одном эмоциональном пространстве.</p>
       <p class="lumina-transition">Переход из&nbsp;обычной реальности в&nbsp;состояние внутреннего света.</p>
-      <p class="lumina-quote"><strong><em>Я создаю миры, в&nbsp;которых океан вспоминает, что он был космосом, зритель узнаёт в&nbsp;себе свет, а&nbsp;природа становится порталом к&nbsp;внутренней целостности. </em></strong></p>
+      <p class="lumina-quote"><strong><em>Я создаю миры, в&nbsp;которых океан вспоминает, что он&nbsp;был космосом, зритель узнаёт в&nbsp;себе свет, а&nbsp;природа становится порталом к&nbsp;внутренней целостности. </em></strong></p>
     `,
     en: `
       <p class="lumina-name"><strong>NADOPEN ARTS</strong></p>
@@ -3066,7 +3084,7 @@ body.art-open{overflow:hidden}
     ru: `
       <p class="lumina-lead">Некоторые картины украшают стены. Другие меняют пространство вокруг вас. </p>
       <p><strong>OMuseum — это музей, где картины не висят на&nbsp;стенах. Они становятся порталами в&nbsp;другие состояния.</strong></p>
-      <p class="lumina-quote">Место, где искусство можно не только увидеть, но и&nbsp;прожить. И&nbsp;однажды этот мир станет реальностью. </p>
+      <p class="lumina-quote">Место, где искусство можно не&nbsp;только увидеть, но&nbsp;и&nbsp;прожить. И&nbsp;однажды этот мир станет реальностью. </p>
     `,
     en: `
       <p class="lumina-lead">Some paintings decorate walls. Others change the space around you. </p>
@@ -3105,7 +3123,7 @@ body.art-open{overflow:hidden}
       <p><strong>Трансформация</strong> (огонь) — всё, что сгорает в&nbsp;тебе, не потеря. Это старая форма, освобождающая место для&nbsp;того, кем ты уже стал. </p>
       <p><strong>Растворение</strong> (вода) — не найти себя. А&nbsp;перестать держаться — и&nbsp;позволить себе стать частью того, что больше тебя. </p>
       <p><strong>Просветление</strong> (земля) — момент, когда свет перестаёт приходить извне. Он рождается внутри — и&nbsp;путь заканчивается там же, где начинался. </p>
-      <p class="lumina-quote"><strong>Единство</strong> (эфир) — не часть пути. Это то, из&nbsp;чего рождается сам путь. </p>
+      <p class="lumina-quote"><strong>Единство</strong> (эфир) — не&nbsp;часть пути. Это то, из&nbsp;чего рождается сам путь. </p>
     `,
     en: `
       <p class="lumina-lead">The path to yourself does not begin with light. It begins with silence — the moment you first feel what is drawing you upward.</p>
