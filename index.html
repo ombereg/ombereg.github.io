@@ -1727,13 +1727,20 @@ html[lang="en"] [data-lang="en"]{display:revert}
 
 /* iPad / tablet orientation refinements */
 @media (min-width:760px) and (max-width:1099px){
+  .screen{
+    min-height:auto;
+    justify-content:flex-start;
+    gap:clamp(24px,3.2vh,34px);
+    padding-top:max(clamp(32px,4.2vh,46px),env(safe-area-inset-top));
+    padding-bottom:max(clamp(32px,4.2vh,46px),env(safe-area-inset-bottom))
+  }
+  .screen > div:last-child:empty{
+    display:none
+  }
   .practice-screen,
   .creative-lines-screen{
     min-height:auto;
-    justify-content:flex-start;
-    gap:clamp(20px,3vh,30px);
-    padding-top:max(30px,env(safe-area-inset-top));
-    padding-bottom:clamp(48px,7vh,74px)
+    justify-content:flex-start
   }
   .practice-screen .skills{
     grid-template-columns:repeat(2,minmax(0,1fr));
@@ -1750,12 +1757,6 @@ html[lang="en"] [data-lang="en"]{display:revert}
 }
 
 @media (min-width:760px) and (max-width:1099px) and (orientation:portrait){
-  .hero-screen{
-    min-height:auto;
-    justify-content:flex-start;
-    gap:22px;
-    padding-bottom:38px
-  }
   .hero-screen .hero-grid{
     grid-template-columns:1.08fr .92fr;
     padding:2.4vh 0 .6vh
