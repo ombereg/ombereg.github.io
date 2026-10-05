@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#040514">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=ombereg-dark-turquoise-20261005-3">
-<link rel="shortcut icon" href="/favicon.svg?v=ombereg-dark-turquoise-20261005-3">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=ombereg-brand-dark-20261005-3">
+<link rel="shortcut icon" href="/favicon.svg?v=ombereg-brand-dark-20261005-3">
 <meta name="description" content="OM BEREG — visual art, AI, fashion, motion and creative direction.">
 <link rel="canonical" href="https://ombereg.art/">
-<meta name="ombereg-build" content="om-large-unified-dark-favicon-20261005-19">
+<meta name="ombereg-build" content="om-unified-large-dark-mini-20261005-19">
 <title>OM BEREG — Visual Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -604,7 +604,7 @@ main::-webkit-scrollbar{display:none}
   height:.92em;
   border-radius:50%;
   overflow:hidden;
-  background:#9191bd;
+  background:#040514;
   box-shadow:
     0 0 5px rgba(145,145,189,.18),
     0 0 12px rgba(145,145,189,.10)
@@ -613,15 +613,28 @@ main::-webkit-scrollbar{display:none}
   content:"";
   position:absolute;
   left:50%;
-  top:50%;
-  width:78%;
-  height:78%;
+  top:47%;
+  width:84%;
+  height:84%;
   transform:translate(-50%,-50%);
   background:#fff;
-  -webkit-mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat;
-  mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat
+  -webkit-mask:url("/assets/brand/om_symbol_white.svg?v=20261005-3") center/contain no-repeat;
+  mask:url("/assets/brand/om_symbol_white.svg?v=20261005-3") center/contain no-repeat
 }
-.mini-o::after{content:none}
+.mini-o::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  padding:.055em;
+  background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none
+}
 .wordmark .m-letter,
 .wordmark .bereg{
   font-family:var(--display-font);
@@ -715,14 +728,14 @@ main::-webkit-scrollbar{display:none}
 .hero-title .om-glyph{
   position:absolute;
   left:50%;
-  top:45%;
+  top:43%;
   transform:translate(-50%,-50%);
   display:block;
-  width:.69em;
-  height:.69em;
+  width:.68em;
+  height:.68em;
   background:linear-gradient(145deg,#756fd3 0%,#9fcfff 54%,#6de5df 100%);
-  -webkit-mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat;
-  mask:url("/assets/brand/om_symbol_white.svg?v=20261005-2") center/contain no-repeat
+  -webkit-mask:url("/assets/brand/om_symbol_white.svg?v=20261005-3") center/contain no-repeat;
+  mask:url("/assets/brand/om_symbol_white.svg?v=20261005-3") center/contain no-repeat
 }
 .hero-title .m-letter{
   grid-column:2;
@@ -1996,12 +2009,16 @@ html[lang="en"] [data-lang="en"]{display:revert}
 @media (hover:hover) and (pointer:fine){
   /* Desktop optical tuning: keep the Apple-like proportions while slightly enlarging the Aum glyph
      and tightening BEREG by about 2px at full hero size. */
+  .hero-title .m-letter,
+  .hero-title .b-letter{
+    transform:translateX(-.04em)!important
+  }
   .hero-title .b-letter{
     letter-spacing:0!important
   }
   .hero-title .ereg{
     letter-spacing:.018em!important;
-    transform:translateX(-.202em)!important
+    transform:translateX(-.242em)!important
   }
 
   .hero-title,
@@ -2037,7 +2054,7 @@ html[lang="en"] [data-lang="en"]{display:revert}
   .hero-title .om-glyph{
     animation:none!important;
     left:50%!important;
-    top:45%!important;
+    top:43%!important;
     transform:translate(-50%,-50%)!important;
     background-position:50% 50%!important;
     filter:none!important
