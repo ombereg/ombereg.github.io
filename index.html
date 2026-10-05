@@ -962,6 +962,17 @@ h1,h2,h3{
   margin-top:52px;
   margin-bottom:8px
 }
+.quote-wide-break{display:none}
+@media(min-width:760px){
+  .creative-quote{
+    width:100%;
+    max-width:48rem;
+    font-size:clamp(18px,1.55vw,22px)
+  }
+  .quote-wide-break{
+    display:block
+  }
+}
 .quote-mark{
   position:absolute;
   left:-4px;
@@ -2140,11 +2151,11 @@ body.art-open{overflow:hidden}
     <div class="inner quote-wrap quote-wrap--about">
       <div class="creative-quote" data-lang="ru">
         <span class="quote-mark" aria-hidden="true"></span>
-        Новые миры появляются там, где воображение человека встречается с&nbsp;возможностями технологий.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        Новые миры появляются там, где воображение человека<span class="quote-wide-break"></span> встречается с&nbsp;возможностями технологий.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
       <div class="creative-quote" data-lang="en">
         <span class="quote-mark" aria-hidden="true"></span>
-        New worlds emerge where human imagination meets the possibilities of technology.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        New worlds emerge where human imagination<span class="quote-wide-break"></span> meets the possibilities of technology.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
     </div>
     <div></div>
@@ -2212,11 +2223,11 @@ body.art-open{overflow:hidden}
 
       <div class="creative-quote creative-quote--portfolio" data-lang="ru">
         <span class="quote-mark" aria-hidden="true"></span>
-        Будущее творчества — не&nbsp;человек или&nbsp;технология, а&nbsp;пространство, которое они создают вместе.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        Будущее творчества — не&nbsp;человек или&nbsp;технология,<span class="quote-wide-break"></span> а&nbsp;пространство, которое они создают вместе.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
       <div class="creative-quote creative-quote--portfolio" data-lang="en">
         <span class="quote-mark" aria-hidden="true"></span>
-        The future of creativity is not human or technology, but the space they create together.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
+        The future of creativity is not human or technology,<span class="quote-wide-break"></span> but the space they create together.<span class="quote-mark quote-mark--end" aria-hidden="true"></span>
       </div>
 
       <div id="portfolio-anchor" aria-hidden="true"></div>
