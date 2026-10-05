@@ -1616,6 +1616,19 @@ body.project-open{overflow:hidden}
   left:18px;
   right:auto
 }
+/* Back chevrons: tablet/desktop only */
+.portfolio-modal-back,
+.project-modal-back{
+  font-size:30px;
+  line-height:1
+}
+@media(max-width:759px){
+  .portfolio-modal-back,
+  .project-modal-back{
+    display:none!important
+  }
+}
+
 .portfolio-modal-nav{
   position:fixed;
   top:50%;
@@ -1991,7 +2004,7 @@ body.art-open{overflow:hidden}
 <link rel="stylesheet" href="assets/portfolio/video-preview-v2.css?v=c0d152e4289b">
 <link rel="stylesheet" href="assets/portfolio/video-masonry-v1.css?v=faa1be44c5b0">
 <script src="assets/portfolio/video-masonry-v1.js?v=20261004-speed2" defer></script>
-<link rel="stylesheet" href="assets/gallery/art-gallery-v2.css?v=fba60961ba">
+<link rel="stylesheet" href="assets/gallery/art-gallery-v2.css?v=tablet-back-chevron-20261005-1">
 </head>
 <body>
 <div class="cosmic-bg"></div>
@@ -2361,7 +2374,7 @@ body.art-open{overflow:hidden}
 </main>
 
 <div class="portfolio-modal" id="portfolio-modal" role="dialog" aria-modal="true" aria-labelledby="portfolio-modal-title" aria-hidden="true">
-  <button class="portfolio-modal-back" id="portfolio-modal-back" type="button" aria-label="Назад">←</button>
+  <button class="portfolio-modal-back" id="portfolio-modal-back" type="button" aria-label="Назад">‹</button>
   <button class="portfolio-modal-close" id="portfolio-modal-close" type="button" aria-label="Close">×</button>
   <button class="portfolio-modal-nav portfolio-modal-prev" id="portfolio-prev" type="button" aria-label="Previous">‹</button>
   <div class="portfolio-modal-inner">
@@ -2376,7 +2389,7 @@ body.art-open{overflow:hidden}
 
 <div class="project-modal" id="project-modal" aria-hidden="true">
   <div class="project-modal-card" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
-    <button class="project-modal-back" id="project-modal-back" type="button" aria-label="Назад">←</button>
+    <button class="project-modal-back" id="project-modal-back" type="button" aria-label="Назад">‹</button>
     <button class="project-modal-close" id="project-modal-close" type="button" aria-label="Close">×</button>
     <img class="project-modal-planet" id="project-modal-image" alt="">
     <a class="project-film-link project-film-link--hero" id="project-film-hero" href="https://youtu.be/SfEyYkarWz4?si=mRVcLZLZI-uTrCuW" target="_blank" rel="noopener" hidden>
@@ -2858,7 +2871,7 @@ body.art-open{overflow:hidden}
   projectViewer.hidden = true;
   projectViewer.setAttribute('role','dialog');
   projectViewer.setAttribute('aria-modal','true');
-  projectViewer.innerHTML = '<div class="av2-toolbar"><button class="av2-back" type="button">←</button><span class="av2-count" aria-live="polite"></span><button class="av2-minus" type="button">−</button><button class="av2-reset" type="button">100%</button><button class="av2-plus" type="button">+</button><button class="av2-close" type="button">×</button></div><div class="av2-viewport"><img class="av2-img" alt="" draggable="false"><span class="av2-loading"></span></div><button class="av2-nav av2-prev" type="button">‹</button><button class="av2-nav av2-next" type="button">›</button><div class="av2-hint"></div>';
+  projectViewer.innerHTML = '<div class="av2-toolbar"><button class="av2-back" type="button">‹</button><span class="av2-count" aria-live="polite"></span><button class="av2-minus" type="button">−</button><button class="av2-reset" type="button">100%</button><button class="av2-plus" type="button">+</button><button class="av2-close" type="button">×</button></div><div class="av2-viewport"><img class="av2-img" alt="" draggable="false"><span class="av2-loading"></span></div><button class="av2-nav av2-prev" type="button">‹</button><button class="av2-nav av2-next" type="button">›</button><div class="av2-hint"></div>';
   document.body.appendChild(projectViewer);
 
   const projectViewerViewport = projectViewer.querySelector('.av2-viewport');
@@ -3344,7 +3357,7 @@ body.art-open{overflow:hidden}
 })();
 </script>
 
-<script src="assets/gallery/art-gallery-v2.js?v=back-nav-20261005-1"></script>
+<script src="assets/gallery/art-gallery-v2.js?v=tablet-back-chevron-20261005-1"></script>
 
 </body>
 </html>
