@@ -951,6 +951,13 @@ h1,h2,h3{
   margin-top:5vh;
   margin-bottom:2vh
 }
+.quote-wrap--about .creative-quote{
+  padding-right:48px
+}
+.quote-wrap--about .quote-mark--end{
+  right:6px;
+  bottom:-9px
+}
 .creative-quote--portfolio{
   margin-top:52px;
   margin-bottom:8px
@@ -1717,6 +1724,51 @@ html[lang="en"] [data-lang="en"]{display:revert}
   from{background-position:0% 50%}
   to{background-position:100% 50%}
 }
+
+/* iPad / tablet orientation refinements */
+@media (min-width:760px) and (max-width:1099px) and (orientation:portrait){
+  .hero-screen{
+    min-height:auto;
+    justify-content:flex-start;
+    gap:22px;
+    padding-bottom:38px
+  }
+  .hero-screen .hero-grid{
+    grid-template-columns:1.08fr .92fr;
+    padding:2.4vh 0 .6vh
+  }
+  .hero-screen .hero-visual{
+    width:min(34vw,330px);
+    margin:0 18px 0 auto;
+    justify-self:end
+  }
+  .hero-screen .scroll{margin-top:2px}
+
+  .practice-screen,
+  .creative-lines-screen{
+    min-height:auto;
+    justify-content:flex-start;
+    gap:24px;
+    padding-bottom:56px
+  }
+  .practice-screen .skills{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+  .practice-screen .creative-quote--portfolio{
+    margin-top:72px
+  }
+  .creative-lines-screen .lines-grid{
+    margin-top:24px
+  }
+}
+
+@media (min-width:760px) and (orientation:landscape){
+  .practice-screen .skills{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:36px 28px
+  }
+}
+
 @media(prefers-reduced-motion:reduce){
   .cosmic-bg,.edge-stars,.accent-stars,.fluid-ribbon,.fluid-ribbon-2,.motion-light,.stars,.shooting-star,.hero-title,.hero-visual,.hero-visual::before,.hero-visual::after,.hero-visual img,.skill-icon,.screen-index,.quote-mark,.cta{
     animation:none!important
@@ -1913,7 +1965,7 @@ body.art-open{overflow:hidden}
 <div class="noise"></div>
 
 <main>
-  <section class="screen">
+  <section class="screen hero-screen">
     <div class="top">
       <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <div class="lang-switch" aria-label="Language switcher">
@@ -2059,7 +2111,7 @@ body.art-open{overflow:hidden}
   
   
 
-<section class="screen">
+<section class="screen practice-screen">
     <div class="top">
       <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span class="screen-index" aria-hidden="true"></span>
@@ -2130,7 +2182,7 @@ body.art-open{overflow:hidden}
     </button>
   </section>
 
-  <section class="screen">
+  <section class="screen creative-lines-screen">
     <div class="top">
       <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span class="screen-index" aria-hidden="true"></span>
