@@ -1,4 +1,4 @@
-name: Try HTTPS enforce
+name: Repeated DNS reliability test
 
 on:
   push:
@@ -7,24 +7,40 @@ on:
 
 permissions:
   contents: read
-  pages: write
 
 jobs:
-  enforce:
+  dns:
     runs-on: ubuntu-latest
     steps:
-      - name: Attempt to enable HTTPS through Pages API
+      - name: Repeated authoritative DNS tests
         shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          set +x
-          echo "=== current Pages state ==="
-          curl -sS             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
-          echo
-          echo "=== attempt https_enforced=true ==="
-          curl -i -sS -X PUT             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"             -d '{"https_enforced":true}'
-          echo
-          echo "=== state after attempt ==="
-          curl -sS             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
-          echo
+          set -u
+          fail=0
+          for ns in ns1.reg.ru ns2.reg.ru; do
+            echo "=== $ns UDP CAA x20 ==="
+            for i in $(seq 1 20); do
+              if ! timeout 6 dig +time=3 +tries=1 +short CAA ombereg.art @"$ns" >/tmp/out 2>/tmp/err; then
+                echo "FAIL $ns UDP CAA iteration $i"
+                cat /tmp/err || true
+                fail=$((fail+1))
+              else
+                echo "OK $ns UDP CAA $i"
+              fi
+            done
+            echo "=== $ns TCP CAA x20 ==="
+            for i in $(seq 1 20); do
+              if ! timeout 6 dig +tcp +time=3 +tries=1 +short CAA ombereg.art @"$ns" >/tmp/out 2>/tmp/err; then
+                echo "FAIL $ns TCP CAA iteration $i"
+                cat /tmp/err || true
+                fail=$((fail+1))
+              else
+                echo "OK $ns TCP CAA $i"
+              fi
+            done
+            echo "=== $ns EDNS 4096 A/CAA ==="
+            dig +bufsize=4096 +time=3 +tries=1 A ombereg.art @"$ns" || true
+            dig +bufsize=4096 +time=3 +tries=1 CAA ombereg.art @"$ns" || true
+          done
+          echo "TOTAL_FAILURES=$fail"
+          exit 0
