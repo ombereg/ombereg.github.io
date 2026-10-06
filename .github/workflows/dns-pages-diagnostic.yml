@@ -1,4 +1,4 @@
-name: Check default GitHub Pages URL
+name: Current HTTPS status
 
 on:
   push:
@@ -7,15 +7,23 @@ on:
 
 permissions:
   contents: read
+  pages: read
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check secure fallback URL
+      - name: Check GitHub Pages state and live certificate
         shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          echo "=== https://ombereg.github.io ==="
-          curl -sS -I --max-redirs 0 --max-time 15 https://ombereg.github.io || true
-          echo "=== follow redirects ==="
-          curl -sS -I -L --max-redirs 5 --max-time 20 https://ombereg.github.io || true
+          set +x
+          echo "=== Pages API ==="
+          curl -sS             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
+          echo
+          echo "=== HTTPS HEAD ==="
+          curl -Iv --max-time 15 https://ombereg.art || true
+          echo
+          echo "=== CERT ==="
+          echo | openssl s_client -connect ombereg.art:443 -servername ombereg.art 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName || true
