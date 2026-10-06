@@ -1,4 +1,4 @@
-name: DNS and Pages diagnostic
+name: Try HTTPS enforce
 
 on:
   push:
@@ -7,52 +7,24 @@ on:
 
 permissions:
   contents: read
-  pages: read
+  pages: write
 
 jobs:
-  diagnose:
+  enforce:
     runs-on: ubuntu-latest
     steps:
-      - name: DNS checks
-        shell: bash
-        run: |
-          set -x
-          echo "=== authoritative A ns1 ==="
-          dig +time=5 +tries=1 A ombereg.art @ns1.reg.ru || true
-          echo "=== authoritative A ns2 ==="
-          dig +time=5 +tries=1 A ombereg.art @ns2.reg.ru || true
-          echo "=== authoritative CAA ns1 ==="
-          dig +time=5 +tries=1 CAA ombereg.art @ns1.reg.ru || true
-          echo "=== authoritative CAA ns2 ==="
-          dig +time=5 +tries=1 CAA ombereg.art @ns2.reg.ru || true
-          echo "=== authoritative SOA ns1 ==="
-          dig +time=5 +tries=1 SOA ombereg.art @ns1.reg.ru || true
-          echo "=== authoritative SOA ns2 ==="
-          dig +time=5 +tries=1 SOA ombereg.art @ns2.reg.ru || true
-          echo "=== public A ==="
-          dig +time=5 +tries=1 A ombereg.art @8.8.8.8 || true
-          echo "=== public CAA ==="
-          dig +time=5 +tries=1 CAA ombereg.art @8.8.8.8 || true
-          echo "=== DNSSEC ==="
-          dig +dnssec +time=5 +tries=1 A ombereg.art @8.8.8.8 || true
-          echo "=== www CNAME ==="
-          dig +time=5 +tries=1 CNAME www.ombereg.art @8.8.8.8 || true
-          echo "=== HTTP HEAD ==="
-          curl -I --max-time 15 http://ombereg.art || true
-          echo "=== HTTPS verbose ==="
-          curl -Iv --max-time 15 https://ombereg.art || true
-          echo "=== served certificate ==="
-          echo | openssl s_client -connect ombereg.art:443 -servername ombereg.art 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName || true
-
-      - name: GitHub Pages API
+      - name: Attempt to enable HTTPS through Pages API
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set +x
-          echo "=== /pages ==="
-          curl -sS             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages" || true
+          echo "=== current Pages state ==="
+          curl -sS             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
           echo
-          echo "=== /pages/health ==="
-          curl -sS             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/health" || true
+          echo "=== attempt https_enforced=true ==="
+          curl -i -sS -X PUT             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"             -d '{"https_enforced":true}'
+          echo
+          echo "=== state after attempt ==="
+          curl -sS             -H "Accept: application/vnd.github+json"             -H "Authorization: Bearer $GH_TOKEN"             -H "X-GitHub-Api-Version: 2022-11-28"             "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
           echo
