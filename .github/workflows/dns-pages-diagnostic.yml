@@ -1,4 +1,4 @@
-name: Repeated DNS reliability test
+name: Check default GitHub Pages URL
 
 on:
   push:
@@ -9,38 +9,13 @@ permissions:
   contents: read
 
 jobs:
-  dns:
+  check:
     runs-on: ubuntu-latest
     steps:
-      - name: Repeated authoritative DNS tests
+      - name: Check secure fallback URL
         shell: bash
         run: |
-          set -u
-          fail=0
-          for ns in ns1.reg.ru ns2.reg.ru; do
-            echo "=== $ns UDP CAA x20 ==="
-            for i in $(seq 1 20); do
-              if ! timeout 6 dig +time=3 +tries=1 +short CAA ombereg.art @"$ns" >/tmp/out 2>/tmp/err; then
-                echo "FAIL $ns UDP CAA iteration $i"
-                cat /tmp/err || true
-                fail=$((fail+1))
-              else
-                echo "OK $ns UDP CAA $i"
-              fi
-            done
-            echo "=== $ns TCP CAA x20 ==="
-            for i in $(seq 1 20); do
-              if ! timeout 6 dig +tcp +time=3 +tries=1 +short CAA ombereg.art @"$ns" >/tmp/out 2>/tmp/err; then
-                echo "FAIL $ns TCP CAA iteration $i"
-                cat /tmp/err || true
-                fail=$((fail+1))
-              else
-                echo "OK $ns TCP CAA $i"
-              fi
-            done
-            echo "=== $ns EDNS 4096 A/CAA ==="
-            dig +bufsize=4096 +time=3 +tries=1 A ombereg.art @"$ns" || true
-            dig +bufsize=4096 +time=3 +tries=1 CAA ombereg.art @"$ns" || true
-          done
-          echo "TOTAL_FAILURES=$fail"
-          exit 0
+          echo "=== https://ombereg.github.io ==="
+          curl -sS -I --max-redirs 0 --max-time 15 https://ombereg.github.io || true
+          echo "=== follow redirects ==="
+          curl -sS -I -L --max-redirs 5 --max-time 20 https://ombereg.github.io || true
