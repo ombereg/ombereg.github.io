@@ -14,25 +14,30 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Read public and authoritative DNS
+      - name: Verify parent delegation and prepared Cloudflare zone
         shell: bash
         run: |
           set +e
           date -u '+Checked at %Y-%m-%dT%H:%M:%SZ'
-          for resolver in 8.8.8.8 1.1.1.1 ns1.reg.ru ns2.reg.ru; do
+          echo '=== Current parent registry delegation (not recursive cache) ==='
+          parents=$(dig +time=3 +tries=1 +short @8.8.8.8 art NS | sort | head -n 2)
+          for parent in $parents; do
+            echo "Parent: $parent"
+            dig +time=3 +tries=1 +norecurse +noall +answer +authority @"$parent" ombereg.art NS
+            dig +time=3 +tries=1 +norecurse +noall +answer +authority @"$parent" ombereg.art DS
+          done
+          for resolver in 8.8.8.8 1.1.1.1 leia.ns.cloudflare.com rory.ns.cloudflare.com; do
             echo "=== Resolver: $resolver ==="
             for type in NS A AAAA MX TXT CAA; do
               echo "--- ombereg.art $type ---"
-              dig +time=3 +tries=1 +noall +comments +answer +authority @"$resolver" ombereg.art "$type"
+              dig +time=3 +tries=1 +noall +answer +authority @"$resolver" ombereg.art "$type"
             done
-            echo '--- www.ombereg.art CNAME ---'
-            dig +time=3 +tries=1 +noall +comments +answer +authority @"$resolver" www.ombereg.art CNAME
+            echo '--- www CNAME ---'
+            dig +time=3 +tries=1 +noall +answer +authority @"$resolver" www.ombereg.art CNAME
             echo '--- GitHub ownership TXT ---'
-            dig +time=3 +tries=1 +noall +comments +answer +authority @"$resolver" _github-pages-challenge-ombereg.ombereg.art TXT
+            dig +time=3 +tries=1 +noall +answer +authority @"$resolver" _github-pages-challenge-ombereg.ombereg.art TXT
           done
-          echo '=== Parent-side DNSSEC DS through public resolvers ==='
-          dig +time=3 +tries=1 +noall +comments +answer +authority @8.8.8.8 ombereg.art DS
-          dig +time=3 +tries=1 +noall +comments +answer +authority @1.1.1.1 ombereg.art DS
+          exit 0
       - name: Read current Pages state
         env:
           GH_TOKEN: ${{ github.token }}
@@ -50,6 +55,8 @@ jobs:
           set +e
           for url in http://ombereg.art/ https://ombereg.art/ http://www.ombereg.art/ https://www.ombereg.art/; do
             echo "=== $url ==="
-            curl --silent --show-error --head --max-time 15 "$url"
-            echo "curl_exit=$?"
+            curl --silent --show-error --head --max-time 15 "$url" | grep -Ei '^(HTTP/|location:|server:|date:|content-type:|last-modified:|strict-transport-security:)'
+            result=${PIPESTATUS[0]}
+            echo "curl_exit=$result"
           done
+          exit 0
