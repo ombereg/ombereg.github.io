@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#040514">
 <meta name="robots" content="noindex,follow">
-<title>Политика конфиденциальности — OMBEREG</title>
-<meta name="description" content="Политика OMBEREG в отношении обработки персональных данных.">
-
+<meta name="referrer" content="no-referrer">
+<title>Конфиденциальность и правовая информация — OMBEREG</title>
+<meta name="description" content="Персональные данные, настройки языка, внешние сервисы и контакты владельца сайта OMBEREG.">
+<link rel="canonical" href="https://ombereg.art/privacy.html">
 <style>
 @font-face{
   font-family:"Inter";
@@ -16,85 +17,185 @@
   font-weight:100 900;
   font-display:swap
 }
-:root{--bg:#040514;--ink:#f5f7ff;--muted:rgba(231,237,255,.72);--soft:rgba(226,234,255,.5);--line:rgba(225,236,255,.12);--violet:#c7b8ff;--blue:#93cfff;--aqua:#5be8da}
+:root{--ink:#f5f7ff;--muted:rgba(231,237,255,.82);--soft:rgba(226,234,255,.7);--line:rgba(225,236,255,.16)}
 *{box-sizing:border-box}
-html,body{margin:0;background:radial-gradient(circle at 20% 0%,rgba(120,93,210,.14),transparent 35%),linear-gradient(180deg,#040514,#071127);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue","Segoe UI",Arial,sans-serif}
+html{scroll-padding-top:24px}
+html,body{margin:0;background:radial-gradient(circle at 20% 0%,rgba(120,93,210,.14),transparent 35%),linear-gradient(180deg,#040514,#071127);color:var(--ink);font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif}
 body{min-height:100vh}
 .wrap{width:min(860px,calc(100% - 40px));margin:0 auto;padding:36px 0 72px}
+.page-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px}
 .back{display:inline-flex;align-items:center;gap:8px;color:var(--soft);text-decoration:none;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
-h1{font-size:clamp(34px,7vw,64px);line-height:.98;font-weight:260;letter-spacing:-.035em;margin:54px 0 16px;background:linear-gradient(110deg,#d7c6ff,#9fd5ff 45%,#67e6dc);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{font-size:16px;line-height:1.7;color:var(--muted);max-width:720px;margin-bottom:42px}
+.languages{display:flex;flex-wrap:wrap;gap:16px;font-size:14px}
+h1,.english-title{font-size:clamp(34px,7vw,64px);line-height:1.08;font-weight:300;letter-spacing:-.035em;margin:54px 0 16px;color:#c4d8ff;text-wrap:balance}
+.lead{font-size:16px;line-height:1.75;color:var(--muted);max-width:740px;margin-bottom:36px}
 section{padding:24px 0;border-top:1px solid var(--line)}
-h2{margin:0 0 12px;font-size:17px;font-weight:560;letter-spacing:.01em}
-p,li{font-size:14px;line-height:1.75;color:var(--muted)}
-ul{padding-left:20px}
-a{color:#a9d7ff}
-.meta{margin-top:42px;font-size:11px;color:var(--soft);letter-spacing:.06em}
-.lang{margin-top:58px;padding-top:30px;border-top:1px solid rgba(225,236,255,.2)}
-.brand{margin-top:60px;font-size:10px;letter-spacing:.2em;color:rgba(230,237,255,.34);text-transform:uppercase}
+h2,h3{margin:0 0 12px;font-size:18px;line-height:1.4;font-weight:560;letter-spacing:.01em}
+p,li{font-size:15px;line-height:1.8;color:var(--muted);overflow-wrap:anywhere}
+p:last-child{margin-bottom:0}
+ul{padding-left:22px}
+li+li{margin-top:8px}
+a{color:#a9d7ff;text-underline-offset:.2em;overflow-wrap:anywhere}
+a:hover{text-decoration-thickness:2px}
+a:focus-visible{outline:2px solid #a9d7ff;outline-offset:5px;border-radius:2px}
+.meta{margin:24px 0 0;font-size:13px;color:var(--soft)}
+.english{margin-top:58px;padding-top:8px;border-top:1px solid rgba(225,236,255,.3)}
+.brand{margin-top:60px;font-size:12px;letter-spacing:.16em;color:var(--soft);text-transform:uppercase}
+@media(max-width:480px){.wrap{width:calc(100% - 32px);padding-top:24px}h1,.english-title{margin-top:40px}}
 </style>
 </head>
 <body>
 <main class="wrap">
+<nav class="page-nav" aria-label="Навигация по странице">
 <a class="back" href="/">← OMBEREG</a>
-<h1>Политика конфиденциальности</h1>
-<p class="lead">Настоящая политика описывает, как владелец сайта OMBEREG обращается с персональными данными посетителей и людей, которые самостоятельно связываются через Telegram или VK.</p>
+<div class="languages"><a href="#privacy" lang="ru">Русский</a><a href="#privacy-en" lang="en">English</a></div>
+</nav>
+<h1 id="privacy">Политика конфиденциальности</h1>
+<p class="lead">Эта политика относится к сайту <a href="https://ombereg.art/">ombereg.art</a> и обращениям к его владельцу. Она объясняет, какие данные нужны для работы сайта и переписки, зачем они обрабатываются и как направить запрос о своих данных.</p>
 
-<section>
-<h2>1. Оператор</h2>
-<p><strong>Кувшинникова Катя</strong>, физическое лицо, Российская Федерация.</p>
-<p>Контакты по вопросам персональных данных: <a href="https://t.me/ombereg" target="_blank" rel="noopener noreferrer">Telegram · @ombereg</a> и <a href="https://vk.ru/ombereg" target="_blank" rel="noopener noreferrer">VK · Ombereg</a>.</p>
+<section aria-labelledby="operator-title">
+<h2 id="operator-title">1. Владелец сайта и контакт</h2>
+<p><strong>Кувшинникова Катя</strong>, физическое лицо, Российская Федерация, является владельцем OMBEREG и оператором персональных данных, получаемых при обращениях к владельцу.</p>
+<p>По вопросам персональных данных, содержания сайта и прав на материалы: <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a>.</p>
+<p>Другие способы связи: <a href="https://t.me/ombereg" target="_blank" rel="noopener noreferrer">Telegram · @ombereg</a> и <a href="https://vk.ru/ombereg" target="_blank" rel="noopener noreferrer">VK · Ombereg</a>.</p>
 </section>
 
-<section>
-<h2>2. Что собирает сам сайт</h2>
-<p>На сайте нет регистрационных форм, формы обратной связи, рекламной аналитики и маркетинговых трекеров. Сайт не устанавливает собственные рекламные или аналитические cookies.</p>
-<p>Для технической доставки сайта хостинговая инфраструктура может автоматически обрабатывать обычные сетевые данные, необходимые для передачи страницы посетителю, например IP-адрес, сведения о браузере и время запроса. Владелец сайта не использует эти данные для профилирования посетителей.</p>
+<section aria-labelledby="site-data-title">
+<h2 id="site-data-title">2. Посещение сайта</h2>
+<p>OMBEREG — статическое творческое портфолио. На сайте нет регистрации, форм сбора обращений, оплаты, рекламных пикселей, сторонней веб-аналитики и маркетинговых трекеров. Сайт не устанавливает собственные рекламные или аналитические cookies и не создаёт рекламные профили посетителей.</p>
+<p>Сайт размещён на GitHub Pages. При открытии страниц GitHub обрабатывает сетевые запросы и, согласно <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" target="_blank" rel="noopener noreferrer">документации GitHub Pages</a>, регистрирует и хранит IP-адрес посетителя для обеспечения безопасности, в том числе если у посетителя нет учётной записи GitHub. Обработка данных инфраструктурой GitHub описана в <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">политике конфиденциальности GitHub</a>.</p>
+<p>Владелец OMBEREG не подключает эти технические данные к рекламным системам. Шрифт Inter размещён на домене сайта и не загружается из Google Fonts.</p>
 </section>
 
-<section>
-<h2>3. Обращения через Telegram и VK</h2>
-<p>Если человек по собственной инициативе пишет владельцу OMBEREG через Telegram или VK, могут обрабатываться только данные, которые он добровольно сообщает: имя или username, контактные данные, содержание сообщения, приложенные изображения, документы или другие материалы.</p>
-<p>Цели такой обработки: ответ на запрос, обсуждение идеи или сотрудничества, подготовка и исполнение договорённостей, а также защита законных интересов и соблюдение требований закона.</p>
-<p>Не следует отправлять через социальные сети паспортные данные, реквизиты банковских карт, медицинские сведения и иные чувствительные данные, если это специально не согласовано и не требуется для конкретной законной цели.</p>
+<section aria-labelledby="language-title">
+<h2 id="language-title">3. Сохранение выбранного языка</h2>
+<p>После того как вы сами выбираете русский или английский язык на главной странице, сайт сохраняет только этот выбор в локальном хранилище вашего браузера — localStorage. Это нужно, чтобы при следующем посещении показать выбранный язык. При первом посещении без выбора новая настройка не записывается.</p>
+<p>В этой настройке нет имени, контактов или уникального идентификатора посетителя. Сайт не отправляет её владельцу и не использует для аналитики или рекламы. Выбор хранится в этом браузере, пока вы не измените его или не удалите данные сайта; браузер также может удалить сохранённые данные по своим правилам. Если хранилище недоступно, переключение языка продолжает работать в открытой странице.</p>
 </section>
 
-<section>
-<h2>4. Основания, срок хранения и удаление</h2>
-<p>Данные обрабатываются в объёме, необходимом для ответа на добровольное обращение и последующего взаимодействия по инициативе пользователя. Данные хранятся не дольше, чем это необходимо для соответствующей цели, либо дольше, если срок хранения требуется законом или необходим для защиты прав и законных интересов.</p>
-<p>Пользователь может обратиться через Telegram или VK с просьбой уточнить, ограничить или удалить данные, если их дальнейшее хранение не требуется по закону.</p>
+<section aria-labelledby="messages-title">
+<h2 id="messages-title">4. Обращения по почте, в Telegram и VK</h2>
+<p>Вы сами решаете, переходить ли во внешний сервис и отправлять ли сообщение. Обычный просмотр портфолио не отправляет владельцу письмо или сообщение и не подписывает вас на рассылку.</p>
+<p>При обращении владелец получает сведения, которые вы сообщаете или которые ваш сервис показывает вместе с сообщением: имя или псевдоним, имя пользователя, адрес электронной почты и другие указанные вами контакты, содержание переписки и приложенные материалы. Это могут быть данные автора обращения, потенциального заказчика, представителя организации или правообладателя.</p>
+<p>Данные используются для ответа на вопрос, обсуждения проекта, подготовки и исполнения договорённостей, рассмотрения запросов о персональных данных и правах на материалы, а также исполнения предусмотренных законом обязанностей и защиты прав. Для этих целей владелец может получать, просматривать, систематизировать, хранить, уточнять и удалять переписку и необходимые контактные сведения.</p>
+<p>Для первого обращения достаточно описать вопрос и указать удобный способ ответа. Не направляйте лишние документы, платёжные реквизиты, сведения о здоровье и другие чувствительные данные. Передавая сведения о других людях, убедитесь, что у вас есть законное основание для такой передачи.</p>
 </section>
 
-<section>
-<h2>5. Сторонние сервисы</h2>
-<p>Telegram и VK являются самостоятельными внешними сервисами. При переходе по ссылке пользователь покидает ombereg.art, а дальнейшая обработка данных соответствующим сервисом регулируется его собственными правилами и политиками.</p>
+<section aria-labelledby="grounds-title">
+<h2 id="grounds-title">5. Правовые основания</h2>
+<p>В зависимости от цели обращения обработка опирается на основания, предусмотренные Федеральным законом № 152-ФЗ «О персональных данных»: необходимость заключения договора по вашей инициативе или исполнения договора; исполнение обязанностей, установленных законом; осуществление прав и законных интересов владельца или третьих лиц при условии соблюдения ваших прав и свобод.</p>
+<p>Когда для конкретной обработки требуется согласие, оно должно быть получено отдельно для соответствующей цели. Посещение сайта, чтение этой политики и сам факт отправки сообщения не являются согласием на рекламу, публикацию переписки или любое последующее использование данных.</p>
 </section>
 
-<section>
-<h2>6. Технические и организационные меры</h2>
-<p>OMBEREG минимизирует сбор данных: на сайте отсутствуют формы сбора персональных данных, рекламные пиксели и сторонняя веб-аналитика; шрифт Inter размещён локально на ombereg.art; внешние ссылки открываются без передачи referrer там, где это технически применимо.</p>
+<section aria-labelledby="retention-title">
+<h2 id="retention-title">6. Хранение и удаление</h2>
+<p>Срок зависит от цели переписки. Данные нужны на время рассмотрения обращения и связанного с ним взаимодействия. Если заключается договор, необходимые сведения сохраняются на срок его исполнения и обязательного хранения документов. Отдельные данные могут сохраняться дольше, когда это требуется законом или необходимо для рассмотрения конкретного спора и защиты прав.</p>
+<p>После достижения цели данные подлежат удалению или обезличиванию, если для дальнейшего хранения нет другого законного основания. Удаление переписки у владельца не означает автоматического удаления вашей собственной копии или данных, которые внешний сервис хранит по своим правилам.</p>
 </section>
 
-<section>
-<h2>7. Изменения политики</h2>
-<p>При добавлении на сайт форм, аналитики, рекламных технологий или иных способов сбора данных эта политика и техническая конфигурация должны быть обновлены до запуска таких функций.</p>
+<section aria-labelledby="rights-title">
+<h2 id="rights-title">7. Ваши права и обращения</h2>
+<p>Вы вправе запросить сведения об обработке своих персональных данных, потребовать уточнить неточные сведения, а в предусмотренных законом случаях — заблокировать данные, прекратить их обработку или удалить. Если обработка основана на согласии, вы можете его отозвать. Отзыв не отменяет обработку, для которой сохраняется самостоятельное законное основание.</p>
+<p>Напишите на <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a> и опишите, какое обращение или данные имеются в виду и какой результат вы запрашиваете. Для защиты чужих данных владелец может уточнить сведения, необходимые для установления вашей связи с обращением. Не прикладывайте копию паспорта к обычному вопросу по собственной инициативе; для формального запроса могут потребоваться реквизиты, предусмотренные законом.</p>
+<p>Запрос рассматривается в сроки и порядке, установленные применимым законодательством. Если вы считаете, что ваши права нарушены, вы можете обратиться в <a href="https://rkn.gov.ru/" target="_blank" rel="noopener noreferrer">Роскомнадзор</a> или в суд.</p>
 </section>
 
-<section id="legal">
-<h2>8. Правовая информация</h2>
-<p><strong>Владелец сайта:</strong> Кувшинникова Катя, физическое лицо, Российская Федерация.</p>
-<p>ombereg.art является творческим портфолио и информационным сайтом. Публикация описаний проектов, возможных услуг или приглашения обсудить сотрудничество сама по себе не является публичной офертой; конкретные условия согласовываются отдельно.</p>
-<p>Если прямо не указано иное, оригинальные тексты, визуальные материалы, дизайн, изображения, видео и иные авторские элементы сайта охраняются законодательством об интеллектуальной собственности. Их воспроизведение, распространение, переработка или коммерческое использование допускаются только с разрешения правообладателя либо в случаях, прямо разрешённых законом.</p>
-<p>Права на сторонние товарные знаки, названия, шрифты, программные компоненты и иные материалы принадлежат соответствующим правообладателям и используются на условиях применимых лицензий.</p>
-<p>Контакты владельца: <a href="https://t.me/ombereg" target="_blank" rel="noopener noreferrer">Telegram · @ombereg</a> и <a href="https://vk.ru/ombereg" target="_blank" rel="noopener noreferrer">VK · Ombereg</a>.</p>
+<section aria-labelledby="external-title">
+<h2 id="external-title">8. Внешние сервисы и защита данных</h2>
+<p>Ссылки на Telegram, VK, YouTube и другие внешние страницы открывают самостоятельные сервисы. Ссылка на электронную почту открывает вашу почтовую программу. Внешние страницы не загружаются как встроенные формы или проигрыватели при обычном чтении сайта.</p>
+<p>При использовании внешнего сервиса его владелец обрабатывает данные по собственным правилам. Переписка по указанному адресу электронной почты проходит через Gmail, а переписка в Telegram и VK — через соответствующие платформы. Их собственная обработка, инфраструктура и сроки хранения находятся вне управления владельца OMBEREG. За дальнейшее использование полученных им данных отвечает сам владелец OMBEREG; использование внешнего сервиса не отменяет этой обязанности.</p>
+<p>На сайте ограничен сбор данных: отсутствуют формы и рекламные системы, для показа портфолио не требуется учётная запись, внешние ссылки используют ограничение передачи адреса исходной страницы. Не отправляйте через общедоступные комментарии сведения, которые должны остаться в личной переписке.</p>
 </section>
 
-<p class="meta">Версия от 5 октября 2026 года.</p>
+<section aria-labelledby="changes-title">
+<h2 id="changes-title">9. Изменения политики</h2>
+<p>Актуальная версия опубликована на этой странице. При изменении способов или целей обработки, подключении форм, аналитики либо новых сервисов политика подлежит обновлению с учётом фактических изменений. Дата редакции указана ниже.</p>
+</section>
 
-<div class="lang">
-<h2>Privacy summary in English</h2>
-<p>OMBEREG is operated by <strong>Кувшинникова Катя</strong>, an individual in the Russian Federation. The website itself currently has no contact forms, advertising analytics or marketing trackers. If you voluntarily contact OMBEREG through Telegram or VK, the information you choose to send may be used to respond to your request, discuss collaboration and manage related arrangements. Telegram and VK are independent third-party services governed by their own privacy terms.</p>
-<p>Privacy contact: <a href="https://t.me/ombereg" target="_blank" rel="noopener noreferrer">Telegram · @ombereg</a> or <a href="https://vk.ru/ombereg" target="_blank" rel="noopener noreferrer">VK · Ombereg</a>.</p>
+<section id="legal" aria-labelledby="legal-title">
+<h2 id="legal-title">10. Правовая информация и обращения правообладателей</h2>
+<p><strong>Владелец сайта:</strong> Кувшинникова Катя, физическое лицо, Российская Федерация. <strong>Электронная почта:</strong> <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a>.</p>
+<p>Сайт представляет творческое портфолио и сведения о проектах. Описания работ и приглашение обсудить сотрудничество не устанавливают все условия будущего договора. Стоимость, сроки, объём работ и передаваемые права стороны согласовывают отдельно.</p>
+<p>Публикация материалов в портфолио не предоставляет посетителю лицензию на их воспроизведение, распространение, переработку или коммерческое использование. Использование охраняемых материалов допускается с разрешения соответствующего правообладателя либо в случаях, прямо предусмотренных законом.</p>
+<p>Права на произведения и обозначения третьих лиц сохраняются за соответствующими правообладателями. Указание автора, названия проекта или применение инструментов искусственного интеллекта само по себе не заменяет разрешения на использование охраняемого материала.</p>
+<p>Если вы считаете, что материал нарушает ваши права, направьте обращение на <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a>. Укажите ссылку на материал, какие права затронуты, основание вашего обращения и контакт для ответа. Для заявления, направляемого в порядке статьи 15.7 Федерального закона № 149-ФЗ «Об информации, информационных технологиях и о защите информации», применяются требования этой статьи.</p>
+</section>
+
+<p class="meta">Редакция от <time datetime="2026-10-10">10 октября 2026 года</time>.</p>
+
+<div class="english" lang="en">
+<h2 class="english-title" id="privacy-en">Privacy policy</h2>
+<p class="lead">This policy covers <a href="https://ombereg.art/">ombereg.art</a> and messages sent to its owner. It explains the data used to deliver the website and handle correspondence, the purposes of processing and how to make a request about your data.</p>
+
+<section aria-labelledby="operator-title-en">
+<h3 id="operator-title-en">1. Website owner and contact</h3>
+<p><strong>Кувшинникова Катя</strong>, an individual in the Russian Federation, owns OMBEREG and is responsible for processing personal data received in messages to the owner.</p>
+<p>For privacy questions, website content and rights in published materials, email <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a>.</p>
+<p>You can also contact the owner through <a href="https://t.me/ombereg" target="_blank" rel="noopener noreferrer">Telegram · @ombereg</a> or <a href="https://vk.ru/ombereg" target="_blank" rel="noopener noreferrer">VK · Ombereg</a>.</p>
+</section>
+
+<section aria-labelledby="site-data-title-en">
+<h3 id="site-data-title-en">2. Visiting the website</h3>
+<p>OMBEREG is a static creative portfolio. It has no registration, enquiry forms, payments, advertising pixels, third-party web analytics or marketing trackers. The website does not set its own advertising or analytics cookies or create advertising profiles of visitors.</p>
+<p>The website is hosted on GitHub Pages. GitHub processes network requests and, as explained in the <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" target="_blank" rel="noopener noreferrer">GitHub Pages documentation</a>, logs and stores visitors’ IP addresses for security, even when a visitor has no GitHub account. GitHub’s infrastructure processing is covered by its <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">privacy statement</a>.</p>
+<p>The OMBEREG owner does not connect this technical data to advertising systems. The Inter font is hosted on the website’s own domain and is not loaded from Google Fonts.</p>
+</section>
+
+<section aria-labelledby="language-title-en">
+<h3 id="language-title-en">3. Remembering your language choice</h3>
+<p>After you choose Russian or English on the home page, the website saves only that choice in your browser’s local storage, known as localStorage, so that it can use the same language on your next visit. A new preference is not written on a first visit without a language choice.</p>
+<p>This preference contains no name, contact details or unique visitor identifier. The website does not send it to the owner or use it for analytics or advertising. It remains in that browser until you change it or clear the website’s data; the browser may also remove stored data under its own rules. If storage is unavailable, language switching still works on the open page.</p>
+</section>
+
+<section aria-labelledby="messages-title-en">
+<h3 id="messages-title-en">4. Email, Telegram and VK messages</h3>
+<p>You decide whether to open an external service and send a message. Browsing the portfolio does not send the owner a message or subscribe you to a mailing list.</p>
+<p>When you make contact, the owner receives the information you send or that your service displays with your message: your name or alias, username, email address and other contact details you provide, the correspondence and any attachments. This may concern an enquirer, potential client, organisation’s representative or rights holder.</p>
+<p>This information is used to answer questions, discuss projects, prepare and carry out agreements, handle privacy and rights requests, meet legal obligations and protect rights. For these purposes the owner may receive, read, organise, store, correct and delete correspondence and necessary contact details.</p>
+<p>For an initial enquiry, a description of your question and a way to reply are sufficient. Avoid sending unnecessary documents, payment details, health information or other sensitive data. If you send information about someone else, ensure that you have a lawful basis to do so.</p>
+</section>
+
+<section aria-labelledby="grounds-title-en">
+<h3 id="grounds-title-en">5. Legal grounds</h3>
+<p>Depending on the purpose of your enquiry, processing relies on grounds provided by Russian Federal Law No. 152-FZ on personal data: entering into a contract at your request or performing a contract; complying with legal obligations; or exercising the rights and legitimate interests of the owner or third parties, subject to respecting your rights and freedoms.</p>
+<p>Where a particular use requires consent, that consent must be obtained separately for the relevant purpose. Visiting the website, reading this policy or sending a message does not give consent to advertising, publication of correspondence or any unrestricted subsequent use of your data.</p>
+</section>
+
+<section aria-labelledby="retention-title-en">
+<h3 id="retention-title-en">6. Retention and deletion</h3>
+<p>Retention depends on the purpose of the correspondence. Data is needed while an enquiry and related communication are being handled. If a contract is agreed, necessary records are retained for its performance and any legally required record-keeping period. Particular information may be retained longer where required by law or necessary for a specific dispute and the protection of rights.</p>
+<p>Once the purpose has been fulfilled, data is to be deleted or anonymised unless another lawful reason for retaining it applies. The owner’s deletion of correspondence does not automatically delete your copy or information retained by an external service under its own rules.</p>
+</section>
+
+<section aria-labelledby="rights-title-en">
+<h3 id="rights-title-en">7. Your rights and requests</h3>
+<p>You may request information about the processing of your personal data and correction of inaccurate information. Where the law provides, you may request restriction, cessation of processing or deletion. If processing is based on consent, you may withdraw that consent; an independent lawful basis may still allow certain processing to continue.</p>
+<p>Email <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a>, describe the correspondence or data concerned and explain what you are requesting. To protect other people’s data, the owner may ask for information needed to establish your connection to the enquiry. Do not attach a passport copy to an ordinary question on your own initiative; a formal statutory request may require details specified by law.</p>
+<p>Requests are handled within the procedures and deadlines set by applicable law. If you believe your rights have been infringed, you may contact <a href="https://rkn.gov.ru/" target="_blank" rel="noopener noreferrer">Roskomnadzor</a>, the Russian supervisory authority, or a court.</p>
+</section>
+
+<section aria-labelledby="external-title-en">
+<h3 id="external-title-en">8. External services and data protection</h3>
+<p>Links to Telegram, VK, YouTube and other external pages open independent services. An email link opens your email application. External pages are not loaded as embedded enquiry forms or video players during ordinary browsing.</p>
+<p>When you use an external service, its operator processes data under its own terms. Correspondence sent to the published email address passes through Gmail; Telegram and VK messages pass through their respective platforms. Their own processing, infrastructure and retention periods are outside the OMBEREG owner’s control. The OMBEREG owner remains responsible for the owner’s subsequent use of received data; using an external service does not remove that responsibility.</p>
+<p>The website limits data collection: it has no enquiry forms or advertising systems, the portfolio requires no account, and external links restrict disclosure of the referring page. Do not post information intended for private correspondence in public comments.</p>
+</section>
+
+<section aria-labelledby="changes-title-en">
+<h3 id="changes-title-en">9. Policy updates</h3>
+<p>The current version is published on this page. Changes to processing methods or purposes, including the introduction of forms, analytics or new services, require a corresponding policy update. The revision date appears below.</p>
+</section>
+
+<section id="legal-en" aria-labelledby="legal-title-en">
+<h3 id="legal-title-en">10. Legal information and rights enquiries</h3>
+<p><strong>Website owner:</strong> Кувшинникова Катя, an individual in the Russian Federation. <strong>Email:</strong> <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a>.</p>
+<p>The website presents a creative portfolio and project information. Descriptions of work and invitations to discuss collaboration do not set all the terms of a future contract. Price, timing, scope and rights to be transferred are agreed separately.</p>
+<p>Displaying materials in the portfolio does not grant visitors a licence to reproduce, distribute, adapt or commercially use them. Protected materials may be used with the relevant rights holder’s permission or where expressly allowed by law.</p>
+<p>Rights in third-party works and names remain with their respective rights holders. Naming an author or project, or using artificial intelligence tools, does not itself replace permission to use protected material.</p>
+<p>If you believe a material infringes your rights, email <a href="mailto:sky21mouse@gmail.com">sky21mouse@gmail.com</a> with its URL, the rights concerned, the basis for your request and a way to reply. Notices submitted under Article 15.7 of Russian Federal Law No. 149-FZ on information, information technologies and information protection are subject to that article’s requirements.</p>
+</section>
+
+<p class="meta">Revised <time datetime="2026-10-10">10 October 2026</time>.</p>
+<p><a href="#privacy" lang="ru">К русской версии</a> · <a href="/">Back to OMBEREG</a></p>
 </div>
 <div class="brand">OMBEREG · 2026</div>
 </main>

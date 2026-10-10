@@ -11,6 +11,8 @@
     button.setAttribute('aria-haspopup', 'dialog');
     button.setAttribute('aria-controls', 'project-modal');
   });
+  // The shared manager is present in current pages; retain the fallback for cached HTML.
+  if (window.OMBEREG_MODAL_FOCUS) return;
   let wasOpen = false;
   let returnFocus = null;
   let previousInert = false;
@@ -41,3 +43,4 @@
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
 })();
+

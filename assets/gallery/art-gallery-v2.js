@@ -6,12 +6,16 @@
   const grid = document.getElementById('art-grid-v2');
   const more = document.getElementById('art-more');
   if (!grid || !more) return;
+  const modalFocus = window.OMBEREG_MODAL_FOCUS;
   const lang = () => document.documentElement.lang === 'en' ? 'en' : 'ru';
   const text = (ru, en) => lang() === 'ru' ? ru : en;
+  const description = item => item[lang() === 'ru' ? 'altRu' : 'altEn'] || text('Работа ', 'Artwork ') + item.number;
   const asset = name => new URL(name, base).href;
   const validName = s => typeof s === 'string' && /^[a-zA-Z0-9_.-]+\.(webp|jpg|jpeg|png)$/.test(s);
   let catalog, items = [], visible = 0, frame = 0, lastWidth = 0;
-  let openIndex = -1, previousFocus = null, scrollY = 0, bodyStyle = null;
+  let openIndex = -1, scrollY = 0, bodyStyle = null;
+  // Keep a cached older index.html usable while the new deployment propagates.
+  let legacyFocus = null, legacyMainInert = false;
   let zoom = 1, x = 0, y = 0, fitW = 1, fitH = 1;
   const dialog = document.createElement('div');
   dialog.className = 'av2'; dialog.id = 'art-viewer-v2'; dialog.hidden = true;
@@ -30,8 +34,8 @@
     const labels={'.av2-back':['Назад','Back'],'.av2-minus':['Уменьшить','Zoom out'],'.av2-plus':['Приблизить','Zoom in'],'.av2-reset':['Показать целиком','Fit to screen'],'.av2-close':['Закрыть','Close'],'.av2-prev':['Предыдущая работа','Previous artwork'],'.av2-next':['Следующая работа','Next artwork']};
     for(const [sel,v] of Object.entries(labels))dialog.querySelector(sel).setAttribute('aria-label',text(...v));
     dialog.querySelector('.av2-hint').textContent=text('Два пальца или + для приближения · свайп для перелистывания','Pinch or + to zoom · swipe to browse');
-    grid.querySelectorAll('[data-art-id]').forEach(card => { const it=items.find(v=>v.id===card.dataset.artId); if(it)card.setAttribute('aria-label',text('Открыть работу ','Open artwork ')+String(it.number).padStart(2,'0')); });
-    if(openIndex>=0)photo.alt=items[openIndex][lang()==='ru'?'altRu':'altEn']||'';
+    grid.querySelectorAll('[data-art-id]').forEach(card => { const it=items.find(v=>v.id===card.dataset.artId); if(it)card.setAttribute('aria-label',text('Открыть: ','Open: ')+description(it)); });
+    if(openIndex>=0)photo.alt=description(items[openIndex]);
   }
   function layout(){
     frame=0;const width=grid.getBoundingClientRect().width;if(!width)return;
@@ -75,24 +79,38 @@
   function open(i){
     const starting=dialog.hidden;openIndex=(i+items.length)%items.length;
     if(starting){
-      previousFocus=document.activeElement;scrollY=window.scrollY;
+      scrollY=window.scrollY;
       bodyStyle={position:document.body.style.position,top:document.body.style.top,width:document.body.style.width,overflow:document.body.style.overflow};
       Object.assign(document.body.style,{position:'fixed',top:-scrollY+'px',width:'100%',overflow:'hidden'});
-      document.querySelector('main')?.setAttribute('inert','');
+      if(!modalFocus){
+        legacyFocus=document.activeElement;
+        const main=document.querySelector('main');
+        legacyMainInert=Boolean(main?.inert);
+        if(main)main.inert=true;
+      }
     }
     dialog.hidden=false;zoom=1;x=y=0;
     const item=items[openIndex];count.textContent=`${openIndex+1} / ${items.length}`;
     loading.textContent=text('Загрузка…','Loading…');loading.hidden=false;photo.style.visibility='hidden';
     photo.onload=()=>{loading.hidden=true;photo.style.visibility='visible';fit();};
     photo.onerror=()=>{loading.textContent=text('Изображение не загрузилось. Попробуйте открыть его ещё раз.','Image could not load. Please reopen it.');};
-    photo.src=asset(item.full);photo.alt=item[lang()==='ru'?'altRu':'altEn']||'';
-    labels();fit();if(starting)backButton?.focus({preventScroll:true});
+    photo.src=asset(item.full);photo.alt=description(item);
+    labels();fit();
+    if(starting){
+      if(modalFocus)modalFocus.open(dialog,close,closeButton);
+      else closeButton.focus({preventScroll:true});
+    }
   }
   function close(){
     if(dialog.hidden)return;dialog.hidden=true;openIndex=-1;photo.removeAttribute('src');
-    document.querySelector('main')?.removeAttribute('inert');
     if(bodyStyle)Object.assign(document.body.style,bodyStyle);
-    window.scrollTo(0,scrollY);previousFocus?.focus({preventScroll:true});
+    window.scrollTo(0,scrollY);
+    if(modalFocus)modalFocus.close(dialog);
+    else{
+      const main=document.querySelector('main');
+      if(main)main.inert=legacyMainInert;
+      legacyFocus?.focus({preventScroll:true});
+    }
     pointers.clear();
   }
   function step(d){if(!dialog.hidden)open(openIndex+d);}
@@ -124,16 +142,17 @@
   dialog.querySelector('.av2-plus').addEventListener('click',()=>setZoom(zoom*1.5));
   reset.addEventListener('click',()=>setZoom(1));
   document.addEventListener('keydown',e=>{
-    if(dialog.hidden)return;
-    if(e.key==='Escape'){e.preventDefault();close();}
+    if(dialog.hidden||(modalFocus&&!modalFocus.isTop(dialog)))return;
+    if(!modalFocus&&e.key==='Escape'){e.preventDefault();close();}
     else if(e.key==='ArrowLeft'){e.preventDefault();step(-1);}
     else if(e.key==='ArrowRight'){e.preventDefault();step(1);}
     else if(e.key==='+'||e.key==='='){e.preventDefault();setZoom(zoom*1.5);}
     else if(e.key==='-'){e.preventDefault();setZoom(zoom/1.5);}
-    else if(e.key==='Tab'){
-      const nodes=[...dialog.querySelectorAll('button')];const first=nodes[0],last=nodes.at(-1);
-      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
-      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    else if(!modalFocus&&e.key==='Tab'){
+      const nodes=[...dialog.querySelectorAll('button')].filter(button=>!button.disabled&&button.getClientRects().length);
+      const first=nodes[0],last=nodes[nodes.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus({preventScroll:true});}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus({preventScroll:true});}
     }
   });
   more.addEventListener('click',()=>{
@@ -157,3 +176,4 @@
     console.error('Art gallery:',error);const p=document.createElement('p');p.className='art-gallery-error';p.textContent=text('Галерея временно не загрузилась. Обновите страницу.','The gallery could not load. Please refresh the page.');grid.replaceChildren(p);grid.style.height='auto';more.hidden=true;
   });
 })();
+
