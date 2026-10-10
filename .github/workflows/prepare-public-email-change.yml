@@ -1,0 +1,108 @@
+name: Prepare public email update
+
+on:
+  push:
+    branches: [dns-diagnostic-2026-10-06]
+    paths: [.github/workflows/prepare-public-email-change.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Prepare and validate two-file email change
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64, difflib, json, os, urllib.request
+          from html.parser import HTMLParser
+
+          repo = os.environ['GITHUB_REPOSITORY']
+          expected_head = 'f0f82818d5b3e194eef225281cb1e5efa8d2f328'
+          old = 'sky21mouse@gmail.com'
+          new = 'nadopen@icloud.com'
+          expected_blobs = {
+              'index.html': '23ef4c7bfc3b3ff053b7fdd9004df9f4174eb703',
+              'privacy.html': '6e5137cdfbce59e93a7b328e1e439feb54a273b3',
+          }
+          def api(path, payload=None):
+              request = urllib.request.Request(
+                  'https://api.github.com/repos/' + repo + '/' + path,
+                  data=None if payload is None else json.dumps(payload).encode(),
+                  headers={
+                      'Accept': 'application/vnd.github+json',
+                      'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+                      'X-GitHub-Api-Version': '2022-11-28',
+                      'Content-Type': 'application/json',
+                  },
+                  method='GET' if payload is None else 'POST',
+              )
+              with urllib.request.urlopen(request, timeout=20) as response:
+                  return json.load(response)
+
+          head = api('git/ref/heads/main')['object']['sha']
+          if head != expected_head:
+              raise RuntimeError('Main changed; stop and re-read before preparing an update.')
+          base_tree = api('git/commits/' + head)['tree']['sha']
+          entries = []
+          total_links = 0
+          class MailLinks(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.links = []
+              def handle_starttag(self, tag, attrs):
+                  if tag == 'a':
+                      href = dict(attrs).get('href', '')
+                      if href.lower().startswith('mailto:'):
+                          self.links.append(href)
+
+          for path, expected_blob in expected_blobs.items():
+              source = api('contents/' + path + '?ref=' + head)
+              if source['sha'] != expected_blob or source['encoding'] != 'base64':
+                  raise RuntimeError('Unexpected source file: ' + path)
+              text = base64.b64decode(source['content']).decode('utf-8')
+              count = text.count(old)
+              if not count or new in text:
+                  raise RuntimeError('Unexpected email state in ' + path)
+              updated = text.replace(old, new)
+              if path == 'privacy.html':
+                  if text.count('через Gmail') != 1 or text.count('through Gmail') != 1:
+                      raise RuntimeError('Unexpected mail-provider wording in policy.')
+                  updated = updated.replace('через Gmail', 'через iCloud Mail (Apple)')
+                  updated = updated.replace('through Gmail', 'through iCloud Mail (Apple)')
+                  if 'Gmail' in updated or 'Кувшинникова Екатерина Григорьевна' not in updated:
+                      raise RuntimeError('Policy consistency check failed.')
+              if old in updated:
+                  raise RuntimeError('Old email remains in ' + path)
+              parser = MailLinks()
+              parser.feed(updated)
+              if not parser.links or any(href != 'mailto:' + new for href in parser.links):
+                  raise RuntimeError('Unexpected email link target in ' + path)
+              total_links += len(parser.links)
+              print(path + ': replaced ' + str(count) + ' occurrences; validated ' + str(len(parser.links)) + ' mailto links')
+              for line in difflib.unified_diff(text.splitlines(), updated.splitlines(), fromfile=path, tofile=path, n=1):
+                  print(line)
+              blob = api('git/blobs', {'content': updated, 'encoding': 'utf-8'})
+              entries.append({'path': path, 'mode': '100644', 'type': 'blob', 'sha': blob['sha']})
+          tree = api('git/trees', {'base_tree': base_tree, 'tree': entries})
+          commit = api('git/commits', {
+              'message': 'Update public website and privacy contact to nadopen@icloud.com\n\nReplace email text and mailto links in both pages and update RU/EN policy mail-provider wording to iCloud Mail. No DNS, login, design or media changes.',
+              'tree': tree['sha'],
+              'parents': [head],
+          })
+          comparison = api('compare/' + head + '...' + commit['sha'])
+          files = comparison.get('files', [])
+          if {item['filename'] for item in files} != set(expected_blobs):
+              raise RuntimeError('Prepared commit contains unexpected file changes.')
+          if any(item['status'] != 'modified' for item in files):
+              raise RuntimeError('Prepared commit added or removed files.')
+          print('PREPARED_COMMIT=' + commit['sha'])
+          print('EXPECTED_MAIN=' + head)
+          print('VALIDATED_MAILTO_LINKS=' + str(total_links))
+          print('No branch refs changed. Publish only after reviewing this validated diff.')
+          PY
