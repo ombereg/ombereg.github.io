@@ -1,4 +1,4 @@
-name: Verify GitHub Pages domain TXT
+name: Check Ombereg DNS migration and HTTPS
 
 on:
   push:
@@ -10,19 +10,46 @@ permissions:
   pages: read
 
 jobs:
-  verify:
+  audit:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Check verification TXT
+      - name: Read public and authoritative DNS
         shell: bash
         run: |
-          echo "=== default resolver ==="
-          dig +short TXT _github-pages-challenge-ombereg.ombereg.art
-          echo "=== Google DNS ==="
-          dig +short TXT _github-pages-challenge-ombereg.ombereg.art @8.8.8.8
-          echo "=== Cloudflare DNS ==="
-          dig +short TXT _github-pages-challenge-ombereg.ombereg.art @1.1.1.1
-          echo "=== authoritative ns1.reg.ru ==="
-          dig +short TXT _github-pages-challenge-ombereg.ombereg.art @ns1.reg.ru
-          echo "=== authoritative ns2.reg.ru ==="
-          dig +short TXT _github-pages-challenge-ombereg.ombereg.art @ns2.reg.ru
+          set +e
+          date -u '+Checked at %Y-%m-%dT%H:%M:%SZ'
+          for resolver in 8.8.8.8 1.1.1.1 ns1.reg.ru ns2.reg.ru; do
+            echo "=== Resolver: $resolver ==="
+            for type in NS A AAAA MX TXT CAA; do
+              echo "--- ombereg.art $type ---"
+              dig +time=3 +tries=1 +noall +comments +answer +authority @"$resolver" ombereg.art "$type"
+            done
+            echo '--- www.ombereg.art CNAME ---'
+            dig +time=3 +tries=1 +noall +comments +answer +authority @"$resolver" www.ombereg.art CNAME
+            echo '--- GitHub ownership TXT ---'
+            dig +time=3 +tries=1 +noall +comments +answer +authority @"$resolver" _github-pages-challenge-ombereg.ombereg.art TXT
+          done
+          echo '=== Parent-side DNSSEC DS through public resolvers ==='
+          dig +time=3 +tries=1 +noall +comments +answer +authority @8.8.8.8 ombereg.art DS
+          dig +time=3 +tries=1 +noall +comments +answer +authority @1.1.1.1 ombereg.art DS
+      - name: Read current Pages state
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          curl --silent --show-error --fail --max-time 20 \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages" \
+            | jq '{status,cname,html_url,source,protected_domain_state,https_certificate,https_enforced}'
+      - name: Check HTTP and certificate-validated HTTPS
+        shell: bash
+        run: |
+          set +e
+          for url in http://ombereg.art/ https://ombereg.art/ http://www.ombereg.art/ https://www.ombereg.art/; do
+            echo "=== $url ==="
+            curl --silent --show-error --head --max-time 15 "$url"
+            echo "curl_exit=$?"
+          done
