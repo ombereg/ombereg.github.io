@@ -11,9 +11,9 @@
     try { safeStore?.setItem(pathKey(), JSON.stringify({ y: Math.max(0, window.scrollY || 0), t: Date.now() })); }
     catch (_) { /* Storage may be unavailable in private browsing. */ }
   };
-  // Tie short Russian prepositions, conjunctions and particles to the next word.
+  // Tie Russian prepositions, short conjunctions, adverbs such as «как», and particles to the next word.
   // Only user-visible text nodes are changed; URLs and SEO metadata are untouched.
-  const shortWord = /(^|[\s(«„"“'—–-])(из-под|из-за|перед|через|между|около|обо|ото|надо|подо|без|для|над|под|при|про|об|от|из|до|за|на|по|во|ко|со|не|ни|но|бы|же|ли|да|в|к|с|у|о|и|а)([ \t]+)(?=[А-Яа-яЁёA-Za-z0-9«„"“])/giu;
+  const shortWord = /(^|[\s(«„"“'—–-])(из-под|из-за|перед|через|между|около|обо|ото|надо|подо|ведь|если|лишь|ещё|уже|что|как|или|где|кто|чем|это|так|тут|там|вот|нам|вам|без|для|над|под|при|про|об|от|из|до|за|на|по|во|ко|со|не|ни|но|бы|же|ли|да|в|к|с|у|о|и|а)([ \t]+)(?=[А-Яа-яЁёA-Za-z0-9«„"“])/giu;
   const excluded = 'script,style,textarea,pre,code,noscript,svg,math,select,option,[contenteditable],[data-no-typography]';
   const adjustText = node => {
     if (!node || node.nodeType !== Node.TEXT_NODE || !node.parentElement?.closest || node.parentElement.closest(excluded) || !/[А-Яа-яЁё]/.test(node.nodeValue || '')) return;
