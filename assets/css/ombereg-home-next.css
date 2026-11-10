@@ -1,0 +1,26 @@
+
+/* OMBEREG / NEXT: homepage services & media discovery.
+   Keep existing cosmic visuals, typography, and translation machinery. */
+#services .inner,#media-discovery .inner{width:min(100%,930px);max-width:930px}
+#services .section-title,#media-discovery .section-title{font-weight:300;letter-spacing:-.06em;line-height:1.01}
+#services .section-title .title-line,#media-discovery .section-title .title-line{display:block}
+#services .seo-services-intro,#media-discovery .seo-services-intro{max-width:680px;color:rgba(232,240,255,.73);font-size:clamp(15px,1.8vw,19px);line-height:1.75}
+#services .seo-service-links,#media-discovery .seo-service-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(11px,1.7vw,20px);width:100%;margin-top:clamp(28px,4.5vh,47px)}
+#services .seo-service-links[data-lang],#media-discovery .seo-service-links[data-lang]{display:none!important}
+html[lang="ru"] #services .seo-service-links[data-lang="ru"],
+html[lang="en"] #services .seo-service-links[data-lang="en"],
+html[lang="ru"] #media-discovery .seo-service-links[data-lang="ru"],
+html[lang="en"] #media-discovery .seo-service-links[data-lang="en"]{display:grid!important}
+#services .seo-service-links a,#media-discovery .seo-service-links a{display:flex;justify-content:space-between;align-items:center;gap:9px;min-width:0;min-height:clamp(80px,11vh,108px);padding:clamp(16px,2.1vw,24px);border:1px solid transparent;border-radius:14px;background:linear-gradient(#05091c,#05091c) padding-box,linear-gradient(120deg,rgba(193,176,255,.75),rgba(131,207,247,.72),rgba(83,225,209,.76)) border-box!important;color:#ebf2ff;text-decoration:none;font-size:clamp(13px,1.6vw,19px);font-weight:400;letter-spacing:.012em;line-height:1.4;transition:filter .2s,transform .2s,box-shadow .2s}
+#services .seo-service-links a:hover,#media-discovery .seo-service-links a:hover{transform:translateY(-3px);filter:brightness(1.17);box-shadow:0 10px 28px rgba(34,79,133,.17)}
+#services .seo-service-links a::after,#media-discovery .seo-service-links a::after{content:"↗";color:#82e7df;font-size:25px;font-weight:240;line-height:1;padding-left:10px;flex-shrink:0}
+#services .seo-services-foot{margin-top:25px;max-width:700px;color:rgba(230,237,255,.55);letter-spacing:.02em}
+#media-discovery .seo-services-foot{display:none}
+@media(max-width:600px){
+#services .inner,#media-discovery .inner{width:100%}
+#services .seo-service-links,#media-discovery .seo-service-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#services .seo-service-links a,#media-discovery .seo-service-links a{min-height:105px;padding:14px 12px;font-size:clamp(11px,3vw,15px);line-height:1.37;letter-spacing:-.006em;border-radius:11px}
+#services .seo-service-links a::after,#media-discovery .seo-service-links a::after{font-size:18px;padding-left:0}
+}
+@media(max-width:340px){#services .seo-service-links a,#media-discovery .seo-service-links a{font-size:11px;padding:12px 9px}}
+@media(prefers-reduced-motion:reduce){#services .seo-service-links a,#media-discovery .seo-service-links a{transition:none!important}}
