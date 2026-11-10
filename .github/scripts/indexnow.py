@@ -71,19 +71,29 @@ def main():
         print("IndexNow key is not publicly available, skipping.", file=sys.stderr)
         sys.exit(1)
 
-    # The changed page must actually be publicly available before notifying.
+    # Avoid racing GitHub Pages deployment: all changed URLs must be live.
+    # Never submit an old subset when new pages still return 404/503.
     available = []
-    for url in urls:
-        try:
-            code, body = read_url(url)
-            if code == 200 and len(body) > 50:
-                available.append(url)
-            else:
-                print(f"Skipping {url}: HTTP {code}")
-        except (urllib.error.URLError, TimeoutError) as exc:
-            print(f"Skipping {url}: {exc}")
-    if not available:
-        print("No changed pages are publicly available yet.", file=sys.stderr)
+    for attempt in range(20):
+        available = []
+        missing = []
+        for url in urls:
+            try:
+                code, body = read_url(url)
+                if code == 200 and len(body) > 50:
+                    available.append(url)
+                else:
+                    missing.append(f"{url}: HTTP {code}")
+            except (urllib.error.URLError, TimeoutError) as exc:
+                missing.append(f"{url}: {exc}")
+        if not missing:
+            break
+        print(f"Deployment not complete (attempt {attempt + 1}/20): {len(missing)} pending URLs")
+        time.sleep(12)
+    if missing:
+        print("No IndexNow request sent: these URLs are not published yet:", file=sys.stderr)
+        for item in missing:
+            print(item, file=sys.stderr)
         sys.exit(1)
 
     payload = json.dumps({
