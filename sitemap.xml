@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ombereg.art/</loc>
-    <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://ombereg.art/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/privacy.html</loc><lastmod>2026-10-10</lastmod></url>
+  <url><loc>https://ombereg.art/services/ai-video/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/services/ai-art/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/services/ai-advertising/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/services/graphic-design/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/services/custom-art/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/services/ai-video/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/services/ai-art/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/services/ai-advertising/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/services/graphic-design/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/services/custom-art/</loc><lastmod>2026-11-10</lastmod></url>
 </urlset>
