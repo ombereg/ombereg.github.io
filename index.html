@@ -2380,6 +2380,12 @@ body.art-open{overflow:hidden}
 .seo-services-screen .inner{margin-top:clamp(20px,4vh,65px)}
 .seo-services-intro{max-width:710px;color:var(--muted);font-size:clamp(15px,2.1vw,20px);line-height:1.7;margin-top:clamp(24px,4vh,38px)}
 .seo-service-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:clamp(28px,5vh,48px)}
+/* Language-filtered navigation: override generic [data-lang] and grid display.
+   Keep both sets of links in static HTML for SEO, but show only the selected
+   language and remove the other set from layout and keyboard navigation. */
+.seo-service-links[data-lang]{display:none}
+html[lang="ru"] .seo-service-links[data-lang="ru"],
+html[lang="en"] .seo-service-links[data-lang="en"]{display:grid}
 .seo-service-links a{display:flex;align-items:center;min-height:84px;padding:18px 22px;border:1px solid rgba(198,213,255,.21);border-radius:14px;background:rgba(18,26,58,.45);text-decoration:none;color:rgba(241,247,255,.93);font-size:clamp(15px,1.7vw,19px);line-height:1.35;transition:border-color .2s,background .2s,transform .2s}
 .seo-service-links a::after{content:"↗";margin-left:auto;padding-left:18px;color:#9ee6e3;font-size:20px}
 .seo-service-links a:hover{border-color:rgba(139,226,223,.66);background:rgba(23,39,67,.78);transform:translateY(-2px)}
@@ -2725,7 +2731,7 @@ body.art-open{overflow:hidden}
 
 
   <!-- Indexable RU/EN service links, matching the site's existing language switch -->
-  <section class="screen seo-services-screen" id="services" aria-labelledby="seo-services-heading">
+  <section class="screen seo-services-screen" id="services" aria-label="Услуги OMBEREG" data-aria-label-ru="Услуги OMBEREG" data-aria-label-en="OMBEREG creative services">
     <div class="top">
       <div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div>
       <span class="screen-index" aria-hidden="true"></span>
@@ -2733,7 +2739,7 @@ body.art-open{overflow:hidden}
     <div class="inner">
       <div class="section-kicker" data-lang="ru">УСЛУГИ / АВТОРСКИЙ ДИЗАЙН</div>
       <div class="section-kicker" data-lang="en">CREATIVE SERVICES</div>
-      <h2 class="section-title" id="seo-services-heading" data-lang="ru">ИДЕИ В ОБРАЗАХ</h2>
+      <h2 class="section-title" data-lang="ru">ИДЕИ В ОБРАЗАХ</h2>
       <h2 class="section-title" data-lang="en">IDEAS INTO ART</h2>
       <p class="seo-services-intro" data-lang="ru">AI-художник, графический дизайнер и автор нейровидео. Создаю художественные миры, видеоконтент, рекламные визуалы, фирменный стиль и цифровое искусство на заказ — с вниманием к смыслу, атмосфере и деталям.</p>
       <p class="seo-services-intro" data-lang="en">Independent AI artist and graphic designer creating cinematic AI video, generative artwork, advertising visuals, visual identities and commissioned digital art. Every project begins with an idea and its own atmosphere.</p>
@@ -2746,7 +2752,7 @@ body.art-open{overflow:hidden}
   </section>
 
   <!-- Crawlable links to real original video and image portfolio pages -->
-  <section class="screen seo-services-screen" id="media-discovery">
+  <section class="screen seo-services-screen" id="media-discovery" aria-label="Авторские работы OMBEREG" data-aria-label-ru="Авторские работы OMBEREG" data-aria-label-en="OMBEREG original artwork">
     <div class="top"><div class="wordmark" aria-label="OMBEREG"><span class="om"><span class="mini-o" aria-hidden="true"></span><span class="m-letter">M</span></span><span class="bereg">BEREG</span></div><span class="screen-index" aria-hidden="true"></span></div>
     <div class="inner">
       <div class="section-kicker" data-lang="ru">ПОРТФОЛИО / ВИДЕО И ИСКУССТВО</div>
