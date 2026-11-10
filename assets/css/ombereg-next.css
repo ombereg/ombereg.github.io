@@ -133,3 +133,47 @@ body.omb-next::before{content:"";position:fixed;inset:0;z-index:-1;pointer-event
 .omb-next .section .section-link-group>.btn{min-width:230px}
 .omb-next .hero-art img{max-width:100%;height:auto}
 @media(max-width:540px){.omb-next.omb-services .actions--portfolio{gap:9px}.omb-next.omb-services .actions--portfolio .btn{font-size:10px;letter-spacing:.015em;padding:10px 9px}}
+
+
+/* OMBEREG / REFINEMENT 2026-11-10
+   Typography and rhythms are taken from the existing homepage:
+   original Inter Variable, h1/h2 weight 200, .section-title tracking .035em
+   and line-height 1.02, .hero-copy line-height 1.64. */
+body.omb-next{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-weight:400;color:#f5f7ff;line-height:1.64;letter-spacing:normal}
+.omb-next h1,.omb-next h2,.omb-next h3{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-optical-sizing:auto;font-weight:200;letter-spacing:.035em;line-height:1.02}
+.omb-next h1{font-size:clamp(36px,9.1vw,66px);font-weight:200;letter-spacing:.035em;line-height:1.02;margin:0 0 20px}
+.omb-next .h1-on-order{font-weight:200;letter-spacing:.035em;line-height:1.02;margin-top:.3em;font-size:.56em}
+.omb-next .kicker,.omb-next .eyebrow{font-size:10px;font-weight:400;letter-spacing:.20em;line-height:1.5;margin-bottom:20px}
+.omb-next p,.omb-next .lead,.omb-next .tile,.omb-next .faq summary,.omb-next .faq details>p,.omb-next .work-body p{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-weight:400;letter-spacing:normal;line-height:1.64}
+.omb-next .lead{font-size:clamp(15px,4.05vw,19px);line-height:1.64;color:rgba(231,237,255,.72)}
+.omb-next .section{padding-top:clamp(43px,6.5vw,66px);margin:0;border:0}
+.omb-next .section h2,.omb-next .section h3,.omb-next .section .section-heading,
+.omb-next .cta h2{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:clamp(29px,5.2vw,47px);font-weight:200;letter-spacing:.035em;line-height:1.02;text-transform:uppercase;color:#f5f7ff;margin:0 0 24px}
+.omb-next .section h3{margin-top:clamp(38px,6vw,56px)}
+.omb-next .section>p{margin:0 0 17px;line-height:1.64}
+.omb-next .section .text-accent,.omb-next .section>.text-accent{padding-left:0!important;max-width:840px}
+.omb-next .text-accent::before,.omb-next .section .text-accent::before{content:none!important;display:none!important}
+.omb-next .tiles{gap:clamp(22px,3.4vw,39px) clamp(19px,4.4vw,56px);margin-top:26px}
+.omb-next .tile{font-size:clamp(15px,2.1vw,19px);font-weight:400;line-height:1.64}
+/* Only real enumerations receive the narrow gradient bar. */
+.omb-next .tile::before{display:block}
+.omb-next .faq details>p{line-height:1.64;font-size:clamp(15px,2.1vw,18px)}
+.omb-next .faq summary{line-height:1.5;font-size:clamp(15px,2.1vw,19px);font-weight:400}
+/* Calm, equal-height project buttons, a little smaller than previous iteration. */
+.omb-next .btn,.omb-next .button,.omb-next .link-button{min-height:46px;padding:10px 17px;font-size:clamp(10px,1.15vw,12px);font-weight:500;letter-spacing:.035em;line-height:1.36}
+.omb-next .hero .actions{width:min(100%,480px);gap:10px;margin-top:28px}
+.omb-next .hero .actions .btn{min-height:46px;padding:10px 12px;font-size:clamp(10px,1.12vw,12px);letter-spacing:.025em}
+.omb-next.omb-services .actions--portfolio{gap:10px;width:min(100%,560px);margin-top:25px}
+.omb-next.omb-services .actions--portfolio .btn{min-height:48px;font-size:clamp(10px,1.15vw,12px);padding:10px 12px}
+.omb-next .section .section-link-group{margin-top:22px}
+.omb-next .siblings a{font-weight:400;letter-spacing:.025em;line-height:1.38}
+/* Make captions as visually light as the main portfolio's descriptions. */
+.omb-next .hero-art figcaption,.omb-next figcaption,.omb-next .work-body p{font-weight:400;font-size:clamp(11px,1.2vw,13px);line-height:1.64}
+.omb-next .work-body b,.omb-next .work-body strong{font-weight:400;letter-spacing:.035em}
+/* Consistent open space below links and above the next section. */
+.omb-next .section>.button,.omb-next .section>a.btn{margin:15px 0 32px}
+@media(max-width:480px){
+.omb-next .hero .actions .btn{min-height:48px;font-size:10px;padding:10px 7px}
+.omb-next.omb-services .actions--portfolio .btn{min-height:48px;font-size:10px}
+.omb-next .section h2,.omb-next .section h3{font-size:clamp(27px,7.5vw,36px)}
+}
