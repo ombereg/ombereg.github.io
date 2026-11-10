@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://ombereg.art/</loc><lastmod>2026-11-10</lastmod></url>
-  <url><loc>https://ombereg.art/privacy.html</loc><lastmod>2026-10-10</lastmod></url>
+  <url><loc>https://ombereg.art/privacy.html</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://ombereg.art/services/ai-video/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://ombereg.art/services/ai-art/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://ombereg.art/services/ai-advertising/</loc><lastmod>2026-11-10</lastmod></url>
@@ -12,4 +12,16 @@
   <url><loc>https://ombereg.art/en/services/ai-advertising/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://ombereg.art/en/services/graphic-design/</loc><lastmod>2026-11-10</lastmod></url>
   <url><loc>https://ombereg.art/en/services/custom-art/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/portfolio/video/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/portfolio/art/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/portfolio/video/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/portfolio/art/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/portfolio/video/painting-reality/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/portfolio/video/painting-reality/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/portfolio/video/digital-avatar/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/portfolio/video/digital-avatar/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/portfolio/video/cosmos-within/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/portfolio/video/cosmos-within/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/portfolio/video/biolumina/</loc><lastmod>2026-11-10</lastmod></url>
+  <url><loc>https://ombereg.art/en/portfolio/video/biolumina/</loc><lastmod>2026-11-10</lastmod></url>
 </urlset>
