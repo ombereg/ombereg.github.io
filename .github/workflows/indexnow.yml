@@ -1,0 +1,28 @@
+name: Notify IndexNow about updated pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "services/**"
+      - "en/**"
+      - "portfolio/**"
+      - "sitemap.xml"
+      - ".github/workflows/indexnow.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Submit live changed URLs to IndexNow
+        shell: bash
+        run: python3 .github/scripts/indexnow.py
