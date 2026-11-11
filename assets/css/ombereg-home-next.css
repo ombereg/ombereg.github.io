@@ -164,3 +164,28 @@ cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s ea
     transition:none!important;
   }
 }
+
+
+/* 2026-11-11 — preserve one-line desktop service label, circular symbols, responsive alignment. */
+@media(min-width:901px){
+  #services .seo-service-links a .label-line{display:inline!important;margin-top:0!important}
+  #services .seo-service-links a .label-line::before{content:" ";white-space:pre}
+  #services .seo-service-links a{font-size:clamp(13px,1.18vw,16px);letter-spacing:.005em;gap:8px}
+  #services .seo-service-links a > span{white-space:nowrap;min-width:0}
+}
+@media(min-width:701px) and (max-width:900px){
+  #services .seo-service-links a{font-size:clamp(12px,1.7vw,15px);padding-inline:clamp(12px,1.6vw,19px)}
+  #services .seo-service-links a .label-line{display:block}
+}
+@media(max-width:700px){
+  #services .seo-service-links a .label-line{display:block}
+}
+/* Constrain actual circular symbols, not their parent flex boxes. */
+.wordmark .mini-o,.mini-o{width:.92em!important;height:.92em!important;min-width:.92em!important;min-height:.92em!important;
+  flex:0 0 .92em!important;aspect-ratio:1 / 1!important;border-radius:50%!important;
+  padding:0!important;box-sizing:border-box!important;transform:none!important}
+.screen-index{width:7px!important;height:7px!important;flex:0 0 7px!important;aspect-ratio:1 / 1!important;border-radius:50%!important}
+@media(max-width:1100px) and (min-width:701px){
+  #services .seo-service-links,#media-discovery .seo-service-links{gap:clamp(10px,1.4vw,16px)}
+  #services .inner,#media-discovery .inner{max-width:min(100%,910px)}
+}
