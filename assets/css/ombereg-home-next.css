@@ -98,16 +98,22 @@ cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s ea
   pointer-events:none;
   z-index:2;
   border-radius:50%;
+  /* Reset generic service-arrow padding/margin inherited by ::after. */
+  padding:0!important;
+  margin:0!important;
+  box-sizing:border-box;
+  flex:none;
+  aspect-ratio:1 / 1;
   opacity:.75;
   background:#a5e9ff;
   box-shadow:0 0 5px 1px rgba(169,226,255,.8),0 0 18px 5px rgba(131,197,255,.32);
   animation:omb-star-pulse 3.1s ease-in-out infinite;
 }
 #media-discovery .seo-service-links.omb-media-icons .omb-media-icon::before {
-  width:5px;height:5px;top:17%;right:18%;
+  width:5px;height:5px;min-width:5px;min-height:5px;top:17%;right:18%;
 }
 #media-discovery .seo-service-links.omb-media-icons .omb-media-icon::after {
-  width:3px;height:3px;bottom:15%;left:11%;
+  width:3px;height:3px;min-width:3px;min-height:3px;bottom:15%;left:11%;
   background:#d1baff;
   box-shadow:0 0 6px 1px rgba(213,186,255,.84),0 0 19px 5px rgba(180,144,255,.28);
   animation-delay:-1.55s;
@@ -188,4 +194,41 @@ cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s ea
 @media(max-width:1100px) and (min-width:701px){
   #services .seo-service-links,#media-discovery .seo-service-links{gap:clamp(10px,1.4vw,16px)}
   #services .inner,#media-discovery .inner{max-width:min(100%,910px)}
+}
+
+
+
+/* OMBEREG — consistent vertical rhythm, main-page sections.
+   Each section uses the same measured distance below the tiny wordmark.
+   Keep all original typography, imagery, cosmic backgrounds and spacing within content. */
+:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery){
+  justify-content:flex-start;
+  gap:0;
+}
+:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .top{
+  flex:0 0 auto;
+}
+:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
+  margin-top:clamp(52px,7svh,80px)!important;
+  flex:0 1 auto;
+}
+:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > div:last-child:empty{
+  display:none;
+}
+/* Tablet: equal top spacing even with flexbox's auto-height overrides. */
+@media (min-width:760px) and (max-width:1099px){
+  :is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
+    margin-top:clamp(46px,6svh,65px)!important;
+  }
+}
+@media (max-width:759px){
+  :is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
+    margin-top:clamp(39px,6svh,54px)!important;
+  }
+}
+/* Low desktop viewports: headings still have separation without needless empty space. */
+@media (min-width:760px) and (max-height:680px){
+  :is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
+    margin-top:44px!important;
+  }
 }
