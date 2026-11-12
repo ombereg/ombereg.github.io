@@ -20,3 +20,56 @@
  .contact-socials .social-link{height:48px;min-height:48px}}
 
 .omb-about-link{color:inherit;text-decoration:none;border:0;white-space:nowrap}.omb-about-link:hover{color:#fff;text-decoration:none}
+
+
+/* 2026-11-12 — contacts aligned by a shared two-column grid.
+   Desktop: email icon starts at the same x as Telegram; labels share a baseline,
+   while the address sits centered after a fine decorative point. */
+.contact-socials .social-link{
+  box-sizing:border-box;min-height:50px;height:50px;
+  padding:9px clamp(18px,3.8vw,48px);
+  display:flex;align-items:center;justify-content:flex-start;
+  gap:10px;background:transparent!important;box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  font-family:var(--body-font);font-size:12px;font-weight:400;letter-spacing:.035em;
+}
+.contact-socials .social-link--email{
+  grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;align-items:center;justify-content:stretch;
+  padding:0;min-height:50px;height:50px;
+}
+.contact-socials .social-email-main{
+  display:flex;min-width:0;align-items:center;justify-content:flex-start;
+  gap:10px;padding-inline:clamp(18px,3.8vw,48px);
+}
+.contact-socials .social-email-label{
+  color:rgba(244,248,255,.86);font-size:12px;font-weight:400;
+  letter-spacing:.035em;white-space:nowrap;line-height:1.4;
+}
+.contact-socials .social-email-address{
+  display:flex;min-width:0;align-items:center;justify-content:center;gap:10px;
+  font-size:12px;font-weight:400;letter-spacing:.025em;white-space:nowrap;
+}
+.contact-socials .social-email-dot{
+  display:inline-block;flex:0 0 4px;width:4px;height:4px;
+  padding:0;margin:0;box-sizing:border-box;aspect-ratio:1 / 1;
+  background:#a7dff3;border-radius:50%;box-shadow:0 0 9px rgba(129,223,239,.5);
+}
+.contact-socials .social-icon{flex:0 0 27px!important}
+@media(min-width:701px) and (max-width:1100px){
+  .contact-socials .social-link{padding-inline:clamp(20px,3vw,34px)}
+  .contact-socials .social-link--email{padding-inline:0}
+  .contact-socials .social-email-main{padding-inline:clamp(20px,3vw,34px)}
+}
+@media(max-width:700px){
+  .contact-socials .social-link{min-height:48px;height:48px;padding-inline:clamp(10px,2.5vw,18px);gap:8px;font-size:clamp(10px,2.9vw,12px)}
+  .contact-socials .social-link--email{display:flex;justify-content:center;flex-wrap:wrap;
+    min-height:48px;height:auto;padding:10px 8px;gap:5px 12px}
+  .contact-socials .social-email-main{justify-content:center;gap:7px;padding:0}
+  .contact-socials .social-email-label{font-size:clamp(10px,2.7vw,12px)}
+  .contact-socials .social-email-address{font-size:clamp(10px,2.7vw,12px);gap:7px}
+}
+@media(max-width:360px){
+  .contact-socials .social-email-main{gap:5px}
+  .contact-socials .social-email-address{gap:5px}
+}
