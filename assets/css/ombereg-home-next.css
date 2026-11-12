@@ -198,42 +198,6 @@ cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s ea
 
 
 
-/* OMBEREG — consistent vertical rhythm, main-page sections.
-   Each section uses the same measured distance below the tiny wordmark.
-   Keep all original typography, imagery, cosmic backgrounds and spacing within content. */
-:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery){
-  justify-content:flex-start;
-  gap:0;
-}
-:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .top{
-  flex:0 0 auto;
-}
-:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
-  margin-top:clamp(52px,7svh,80px)!important;
-  flex:0 1 auto;
-}
-:is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > div:last-child:empty{
-  display:none;
-}
-/* Tablet: equal top spacing even with flexbox's auto-height overrides. */
-@media (min-width:760px) and (max-width:1099px){
-  :is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
-    margin-top:clamp(46px,6svh,65px)!important;
-  }
-}
-@media (max-width:759px){
-  :is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
-    margin-top:clamp(39px,6svh,54px)!important;
-  }
-}
-/* Low desktop viewports: headings still have separation without needless empty space. */
-@media (min-width:760px) and (max-height:680px){
-  :is(.omb-about-screen,.omb-contact-screen,#services,#media-discovery) > .inner{
-    margin-top:44px!important;
-  }
-}
-
-
 /* OMBEREG / 2026-11-12 / grid, quote and border-only links.
    Do not override the original hero, planet, quote typography or animations. */
 /* Match the small wordmark's left edge, rather than an arbitrary 930px inner. */
@@ -251,15 +215,6 @@ cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s ea
 #services .seo-service-links{width:min(100%,930px);max-width:930px}
 #services .section-title,#media-discovery .section-title{max-width:100%;margin-inline:0;text-align:left}
 #services .section-title .title-line,#media-discovery .section-title .title-line{display:block}
-/* Equal screen rhythm at native zoom and when browser zoom makes content taller. */
-#services,#media-discovery{min-height:100svh!important;box-sizing:border-box}
-#services>.inner,#media-discovery>.inner{margin-top:clamp(52px,7svh,80px)!important}
-@media(min-width:760px) and (max-width:1099px){
-  #services>.inner,#media-discovery>.inner{margin-top:clamp(46px,6svh,65px)!important}
-}
-@media(max-width:759px){
-  #services>.inner,#media-discovery>.inner{margin-top:clamp(39px,6svh,54px)!important}
-}
 /* Existing scrolling prompt should sit on the shared center axis, not the left edge. */
 .hero-screen .scroll{
   width:100%;max-width:var(--maxw);margin-inline:auto;
@@ -288,15 +243,62 @@ cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s ea
 #services .seo-service-links a:hover{background:transparent!important;box-shadow:none!important}
 /* Do not touch the icon-only gallery link surfaces. */
 @media(min-width:900px){
-  #services,#media-discovery{padding-bottom:clamp(48px,7vh,90px)}
   #services .seo-service-links a{font-size:clamp(12px,1.12vw,16px)}
-}
-@media(min-width:760px) and (max-width:1099px){
-  #services,#media-discovery{padding-bottom:clamp(44px,6vh,72px)}
-}
-@media(max-width:759px){
-  #services,#media-discovery{min-height:auto!important;padding-bottom:clamp(68px,11svh,105px)}
 }
 @media(prefers-reduced-motion:reduce){
   #services .seo-service-links a{transition:none}
+}
+
+
+/* OMBEREG / 2026-11-12: content-driven section spacing.
+   Why: 100svh with justify-content:space-between generates vast blank
+   regions at reduced browser zoom because text shrinks while each section
+   still consumes a full viewport. The hero alone remains full-screen.
+   Content sections have one rhythm independent of viewport height. */
+main > .screen:not(.hero-screen){
+  min-height:0!important;
+  height:auto!important;
+  justify-content:flex-start!important;
+  gap:0!important;
+  padding-top:clamp(34px,3.5vw,60px);
+  padding-bottom:clamp(48px,5vw,78px);
+}
+main > .screen:not(.hero-screen) > .top{
+  flex:0 0 auto;
+  margin:0 auto;
+}
+main > .screen:not(.hero-screen) > .inner{
+  flex:0 1 auto;
+  margin-top:clamp(36px,3.8vw,62px)!important;
+}
+main > .screen:not(.hero-screen) > .portfolio-head,
+main > .screen:not(.hero-screen) > .art-gallery-head{
+  margin-top:clamp(36px,3.8vw,62px)!important;
+}
+/* Empty layout spacers must not expand or align to section bottoms. */
+main > .screen:not(.hero-screen) > div:last-child:empty{
+  display:none!important;
+}
+/* Content width and left-alignment remain tied to the wordmark grid. */
+#services > .inner,#media-discovery > .inner{align-self:auto;text-align:left}
+/* Keep the final legal details close to the contact content at reduced zoom. */
+.contact .legal-note{margin-top:clamp(26px,3.4vw,48px)}
+.contact .foot{margin-top:clamp(22px,3vw,36px)}
+@media(max-width:759px){
+  main > .screen:not(.hero-screen){
+    padding-top:clamp(27px,5vw,42px);
+    padding-bottom:clamp(42px,7vw,66px);
+  }
+  main > .screen:not(.hero-screen) > .inner,
+  main > .screen:not(.hero-screen) > .portfolio-head,
+  main > .screen:not(.hero-screen) > .art-gallery-head{
+    margin-top:clamp(30px,6vw,44px)!important;
+  }
+}
+@media(min-width:760px) and (max-width:1099px){
+  main > .screen:not(.hero-screen) > .inner,
+  main > .screen:not(.hero-screen) > .portfolio-head,
+  main > .screen:not(.hero-screen) > .art-gallery-head{
+    margin-top:clamp(34px,4vw,56px)!important;
+  }
 }
