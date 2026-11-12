@@ -302,3 +302,29 @@ main > .screen:not(.hero-screen) > div:last-child:empty{
     margin-top:clamp(34px,4vw,56px)!important;
   }
 }
+
+
+/* Native touch scrolling fallback — iOS Safari and VPN/slow-network reliability.
+   Do not trap the entire page inside a viewport-height scroll container. */
+@media (hover:none) and (pointer:coarse) {
+  html,body {
+    min-height:100%;
+    overflow-y:auto;
+    overscroll-behavior-y:auto;
+  }
+  main {
+    height:auto!important;
+    min-height:100svh;
+    overflow:visible!important;
+    scroll-snap-type:none!important;
+    scrollbar-width:auto;
+  }
+  main > .screen {
+    scroll-snap-align:none!important;
+  }
+  /* Keep fixed decorative effects out of touch hit testing. */
+  .cosmic-bg,.edge-stars,.accent-stars,.fluid-ribbon,.fluid-ribbon-2,
+  .motion-light,.stars,.shooting-stars,.noise {
+    pointer-events:none!important;
+  }
+}
