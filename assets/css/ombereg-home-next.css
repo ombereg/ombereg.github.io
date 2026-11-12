@@ -266,17 +266,6 @@ cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s ea
   display:flex;justify-content:center;align-items:center;text-align:center;
   letter-spacing:.17em;
 }
-/* Keep closing quote with its final word at every width. */
-.creative-quote .quote-tail{display:inline-block;white-space:nowrap;vertical-align:baseline}
-.creative-quote .quote-tail .quote-mark--end,
-.quote-wrap--about .creative-quote .quote-tail .quote-mark--end{
-  display:inline-block!important;position:relative!important;
-  top:6px!important;left:auto!important;right:auto!important;bottom:auto!important;
-  margin-left:5px!important;margin-right:0!important;
-  padding:0!important;width:24px;height:24px;
-  vertical-align:baseline;
-  transform:rotate(180deg)!important;
-}
 /* Gradient outlines drawn independently from the transparent button interior. */
 #services .seo-service-links a{
   position:relative;isolation:isolate;
