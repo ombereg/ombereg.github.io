@@ -240,3 +240,47 @@ body.omb-next{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Helvetica Ne
   .omb-next .section h2,.omb-next .section h3,.omb-next .section .section-heading,.omb-next .cta h2 { font-size:29px; }
   .omb-next .section h2,.omb-next .cta h2 { letter-spacing:.025em; }
 }
+
+
+/* 2026-11-12 — no dark backing under gradient-outline buttons.
+   Solid gradient primary CTAs remain unchanged. */
+.omb-next .btn-outline,
+.omb-next .button:not(.button-primary),
+.omb-next .siblings a,
+.omb-next .link-button,
+.omb-next .section .related a,
+.omb-next .section .links a{
+  position:relative;isolation:isolate;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:1px solid rgba(164,213,240,.43)!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+.omb-next .btn-outline::before,
+.omb-next .button:not(.button-primary)::before,
+.omb-next .siblings a::before,
+.omb-next .link-button::before,
+.omb-next .section .related a::before,
+.omb-next .section .links a::before{
+  content:"";position:absolute;inset:-1px;z-index:0;pointer-events:none;
+  padding:1px;border-radius:inherit;
+  background:linear-gradient(115deg,rgba(200,180,255,.91),rgba(138,208,246,.85),rgba(97,227,211,.9));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask-composite:exclude;
+}
+.omb-next .btn-outline:hover,.omb-next .button:not(.button-primary):hover,
+.omb-next .siblings a:hover,.omb-next .link-button:hover{
+  background:transparent!important;box-shadow:none!important;
+}
+/* Three-line video service title: same existing "on commission" scale. */
+.omb-next .hero h1 .h1-second-line{display:block;font-size:1em;line-height:1.08;margin-top:.08em}
+.omb-next .siblings a .sibling-label{display:flex;flex-direction:column;gap:1px;min-width:0}
+.omb-next .siblings a .sibling-label span{display:block;line-height:1.32}
+.omb-next .siblings a .sibling-label .sibling-order{font-size:.72em;font-weight:320;letter-spacing:.15em;margin-top:6px;color:rgba(222,238,255,.7)}
+.omb-next .siblings a{min-height:112px;align-items:center}
+@media(max-width:700px){
+  .omb-next .siblings a{min-height:108px}
+  .omb-next .siblings a .sibling-label .sibling-order{letter-spacing:.08em;margin-top:4px}
+}

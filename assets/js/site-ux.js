@@ -77,8 +77,45 @@
     setTimeout(restore, 220);
     setTimeout(restore, 780);
   }
+  // All OMBEREG service, portfolio and about pages share the homepage's
+  // explicit RU/EN choice. Do not redirect direct search-engine visits.
+  const LANG_KEY = 'ombereg_lang';
+  const isLocalizedPage = /^\/(?:en\/)?(?:services|portfolio|about)\//.test(location.pathname);
+  const pageLanguage = () => document.documentElement.lang === 'en' ? 'en' : 'ru';
+  function rememberLanguage(lang) {
+    try { localStorage.setItem(LANG_KEY, lang === 'en' ? 'en' : 'ru'); } catch (_) {}
+  }
+  function pathForLanguage(path,lang) {
+    const normalized = path.replace(/^\/en(?=\/(?:services|portfolio|about)\/)/,'');
+    if (!/^\/(?:services|portfolio|about)\//.test(normalized)) return path;
+    return lang === 'en' ? '/en' + normalized : normalized;
+  }
+  function routeLanguage(event) {
+    if (event.defaultPrevented || event.button !== 0 ||
+        event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const anchor = event.target.closest?.('a[href]');
+    if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return;
+    let target;
+    try { target = new URL(anchor.href,location.href); } catch (_) { return; }
+    if (target.origin !== location.origin) return;
+    const label = anchor.textContent.trim().toLocaleLowerCase();
+    // A deliberately chosen alternate-language link always wins and persists.
+    if (label === 'русский' || label === 'english') {
+      const selected = label === 'english' ? 'en' : 'ru';
+      rememberLanguage(selected);
+      const path = pathForLanguage(target.pathname,selected);
+      if (path !== target.pathname) anchor.href = path + target.search + target.hash;
+      return;
+    }
+    const lang = pageLanguage();
+    const path = pathForLanguage(target.pathname,lang);
+    if (path !== target.pathname) anchor.href = path + target.search + target.hash;
+    rememberLanguage(lang);
+  }
   function init() {
     adjustTree(document.body);
+    if (isLocalizedPage) rememberLanguage(pageLanguage());
+    document.addEventListener('click', routeLanguage, true);
     document.addEventListener('click', handleClick, true);
     window.addEventListener('pagehide', saveScroll);
     window.addEventListener('pageshow', restorePosition);
