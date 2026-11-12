@@ -30,7 +30,7 @@ html[lang="en"] #media-discovery .seo-service-links[data-lang="en"]{display:grid
 #services .section-title,#media-discovery .section-title{font-family:var(--display-font);font-size:clamp(36px,9.1vw,66px);line-height:1.02;letter-spacing:.035em;font-weight:200}
 #services .seo-services-intro,#media-discovery .seo-services-intro{font-family:var(--body-font);font-size:clamp(15px,4.05vw,19px);font-weight:400;letter-spacing:normal;line-height:1.64;color:var(--muted)}
 #services .seo-service-links a{font-family:var(--body-font);font-weight:400;letter-spacing:.015em;line-height:1.45}
-#services .seo-service-links a .label-line{display:block;margin-top:4px}
+#services .seo-service-links a .label-line{display:block;margin-top:0;line-height:inherit}
 #media-discovery .seo-services-intro{max-width:720px}
 /* Video / art navigation is intentionally icon-only: no outlined card, fill or text. */
 #media-discovery .seo-service-links.omb-media-icons{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(25px,4vw,55px);row-gap:0;max-width:340px;width:min(100%,340px);margin-top:clamp(16px,3vw,26px);justify-items:center;align-items:center}
